@@ -1,50 +1,52 @@
+
 doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title #{title}
+    link(rel="stylesheet", href="/styles/custom_homepage.css")
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     link(rel="stylesheet", href="styles/custom_homepage.css")
-    link(rel="stylesheet" href="styles/style.css")
+    link(rel="stylesheet", href="/styles/custom_create.css")
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
     script(src="/scripts/bootstrap.min.js")
-    script(src="/scripts/bootstrap.bundle.min.js")
-    script(src="/scripts/jquery-3.7.1.min.js")
     
 
   body
     nav.navbar.navbar-dark
       a.navbar-brand(href="#")= t('navbar.brand')
       div.navbar-right
-        a.btn.btn-login(href="/login") #{t('navbar.login')}
+        a.btn.btn-login(href="/logout")= t('action.logout')
         span.language-selector
         a.text-decoration-none.text-light.pe-2(href='?lng=en') #{t('navbar.language.english')} 
-        a.text-decoration-none.text-light | 
+        a.text-decoration-none.text-light |
         a.text-decoration-none.text-light.ps-2(href='?lng=vi') #{t('navbar.language.vietnamese')}
 
     .main-content
       .sidebar
         ul.nav.flex-column
           li.nav-item.active
-            a.nav-link(href="#")
-              = t('sidebar.home')
-              span.sr-only (current)
+            a.nav-link(href="/admin/genres")
+              = t('sidebar.genre')
           li.nav-item
             a.nav-link(href="#")
-              = t('sidebar.search')
+              = t('sidebar.author')
           li.nav-item
             a.nav-link(href="#")
-              = t('sidebar.library')
+              = t('sidebar.user')
+          li.nav-item
+            a.nav-link(href="#")
+              = t('sidebar.song')
+          li.nav-item
+            a.nav-link(href="/admin/albums/create")
+              = t('sidebar.album')
           li.nav-item.divider
             hr
           li.nav-item
             a.nav-link(href="#")
               = t('sidebar.create_playlist')
-          li.nav-item
-            a.nav-link(href="#")
-              = t('sidebar.liked_song')
 
       .content
         block content

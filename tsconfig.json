@@ -6,13 +6,14 @@
     "strict": true,
     "baseUrl": "./",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@src/*": ["src/*"]
     },
     "useUnknownInCatchVariables": false,
-    "experimentalDecorators": true, 
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false
   },

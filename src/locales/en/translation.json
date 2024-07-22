@@ -3,6 +3,7 @@
   "navbar": {
     "brand": "Music Online",
     "login": "Login",
+    "logout": "Logout",
     "language": {
       "english": "English",
       "vietnamese": "Vietnamese"
@@ -13,14 +14,89 @@
     "search": "Search",
     "library": "Library",
     "create_playlist": "Create Playlist",
-    "liked_song": "Liked Song"
+    "liked_song": "Liked Song",
+    "author": "Author",
+    "genre": "Genre",
+    "song": "Song",
+    "user": "User",
+    "album": "Album"
   },
   "content": {
     "discover_new_music": "Discover New Music",
     "artist": "Artist: {{artist}}",
     "play": "Play"
   },
+  "title_Logo": "Music Online",
+  "title_register": "Register to listen to music",
+  "title_login": "Log in to listen to music",
+  "form": {
+    "username": "User Name",
+    "email": "Email Address",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "author": "Author",
+    "fullname": "Full Name",
+    "avatar": "Avatar",
+    "dateOfBirth": "Date Of Birth",
+    "releaseDate": "Release Date",
+    "title_album": "Name Album"
+  },
+  "action": {
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout",
+    "loginByGoogle": "Login by Google",
+    "create": "Create "
+  },
+  "option": {
+    "english": "English",
+    "vietnamese": "Vietnamese",
+    "album": "Album"
+  },
   "error": {
-    "title": "Error"
+    "invalidCredentials": "Invalid Credentials",
+    "deleteFail": "Delete Fail",
+    "updateFail": "Update Fail",
+    "createFail": "Creare Fail",
+    "logoutFail": "Logout Fail",
+    "registerFail": "No page Register",
+    "noPageLogin": "No Page Login",
+    "loginFail": "An error occurred during login",
+    "passwordIncorrect": "Password incorrect!",
+    "hashPassword": "Error hashing password: {{error}}",
+    "comparePassword": "Error comparing passwords: {{error}}",
+    "missingPassword": "Both plainPassword and hashedPassword are required",
+    "title": "Error",
+    "system": "Error from system",
+    "usernameAlreadyTaken": "Username already taken",
+    "checkingUsername": "Error checking username",
+    "failedToFetchGenres": "Failed to fetch genres.",
+    "noPageCreate": "No Page Create",
+    "usernameNotFound": "Username not found!"
+  },
+  "success": {
+    "createSuccess": "Create Succsess"
+  },
+  "message": {
+    "notAccount": "Do not have an account?",
+    "registerHere": "Register here.",
+    "loginHere": "Login here.",
+    "haveAccount": "Do you already have an account?",
+    "or": "Or",
+    "emailIsNotValid": "This email is not valid. Make sure the email is entered as example@example.com",
+    "welcom": "Welcome, ",
+    "homepage": "This is the home page. You are logged in as ",
+    "usernameAvailable": "Username is available"
+  },
+  "genres": {
+    "title": "Genre List",
+    "titleDetailGenre": "Genre Details",
+    "createNewGenre": "Create New Genre",
+    "genreName": "Name's Genre: {{name}}"
+  },
+  "common": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create"
   }
 }
