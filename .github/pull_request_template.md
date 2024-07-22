@@ -4,7 +4,7 @@
 - [ ] Sử dụng thụt lề 2 spaces/4 spaces đồng nhất ở tất cả các files (setting lại vscode /sublime text nếu chưa cài đặt)
 - [ ] Cuối mỗi file kiểm tra có end line (khi đẩy lên git xem file change không bị lỗi tròn đỏ ở cuối file)
 - [ ] Mỗi dòng nếu quá dài, cần xuống dòng (maximum: 80 kí tự mỗi dòng, setting trong IDE hoặc dùng Prettier để config format code)
-- [ ] Tham khảo Typescript coding convention [https://github.com/framgia/coding-standards/blob/master/vn/README.md](https://google.github.io/styleguide/tsguide.html)
+- [ ] Tham khảo Typescript coding convention https://google.github.io/styleguide/tsguide.html
 
 ## Related Tickets
 - ticket redmine
