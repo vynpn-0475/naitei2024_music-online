@@ -20,7 +20,52 @@
     "artist": "Artist: {{artist}}",
     "play": "Play"
   },
+  "title_Logo": "Music Online",
+  "title_register": "Register to listen to music",
+  "title_login": "Log in to listen to music",
+  "form": {
+    "username": "User Name",
+    "email": "Email Address",
+    "password": "Password",
+    "confirm_password": "Confirm Password"
+  },
+  "action": {
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout",
+    "loginByGoogle": "Login by Google"
+  },
+  "option": {
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
   "error": {
-    "title": "Error"
+    "invalidCredentials": "Invalid Credentials",
+    "deleteFail": "Delete Fail",
+    "updateFail": "Update Fail",
+    "createFail": "Creare Fail",
+    "logoutFail": "Logout Fail",
+    "registerFail": "No page Register",
+    "noPageLogin": "No Page Login",
+    "loginFail": "An error occurred during login",
+    "passwordIncorrect": "Password incorrect!",
+    "hashPassword": "Error hashing password: {{error}}",
+    "comparePassword": "Error comparing passwords: {{error}}",
+    "missingPassword": "Both plainPassword and hashedPassword are required",
+    "title": "Error",
+    "system": "Error from system",
+    "usernameAlreadyTaken": "Username already taken",
+    "checkingUsername": "Error checking username"
+  },
+  "message": {
+    "notAccount": "Do not have an account?",
+    "registerHere": "Register here.",
+    "loginHere": "Login here.",
+    "haveAccount": "Do you already have an account?",
+    "or": "Or",
+    "emailIsNotValid": "This email is not valid. Make sure the email is entered as example@example.com",
+    "welcom": "Welcome, ",
+    "homepage": "This is the home page. You are logged in as ",
+    "usernameAvailable": "Username is available"
   }
 }
