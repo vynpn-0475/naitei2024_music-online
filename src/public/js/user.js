@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  $('form').on('submit', function (event) {
+  $('#registerUserform').on('submit', function (event) {
     const passwordInput = $('#password').val();
     const confirmPasswordInput = $('#confirmPassword').val();
 
@@ -57,4 +57,20 @@ $(document).ready(function () {
       messageDiv.css('color', 'red');
     }
   });
+});
+$(document).ready(function () {
+  const $errorAlert = $('#errorAlert');
+  const $successAlert = $('#successAlert');
+  if ($errorAlert.length) {
+    $errorAlert.show();
+    setTimeout(() => {
+      $errorAlert.hide();
+    }, 3000);
+  }
+  if ($successAlert.length) {
+    $successAlert.show();
+    setTimeout(() => {
+      $successAlert.hide();
+    }, 3000);
+  }
 });

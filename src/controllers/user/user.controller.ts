@@ -20,7 +20,7 @@ export class UserController {
     try {
       res.render('pages/user/login', { pageTitle: t('action.login') });
     } catch (error) {
-      req.flash('error_msg', t('noPageLogin'));
+      req.flash('error_msg', t('error.noPageLogin'));
       return res.render('error', {
         message: t('error.loginFail'),
         error: { status: 500, stack: error.stack },
@@ -66,34 +66,31 @@ export class UserController {
   };
 
   public static postLogin = async (req: Request, res: Response) => {
-    const { username, password } = req.body;
+    const { usernameLogin, password } = req.body;
     try {
-      const user = await UserService.findByUsername(username);
+      const user = await UserService.findByUsername(usernameLogin);
       if (!user) {
-        req.flash('error_msg', t('error.invalidCredentials'));
-        // return res.redirect('/login');
-        return res.render('pages/user/login', {
-          message: t('error.loginFail'),
-          error: { status: 500 },
-        });
+        req.flash('error_msg', t('error.usernameNotFound'));
+        return res.redirect('/login');
       }
 
       const isMatch = await comparePassword(password, user.password);
 
       if (!isMatch) {
-        req.flash('error_msg', t('error.invalidCredentials'));
-        return res.render('pages/user/login', {
-          message: t('error.loginFail'),
-          error: { status: 500 },
-        });
+        req.flash('error_msg', t('error.passwordIncorrect'));
+        return res.redirect('/login');
       }
 
       // Xử lý đăng nhập thành công
       (req.session as any).user = user;
-      return res.render('pages/home', {
-        pageTitle: t('page.home'),
-        user: user,
-      });
+      if (user.role === UserRoles.User) {
+        return res.render('pages/home', {
+          pageTitle: t('page.home'),
+          user: user,
+        });
+      } else {
+        return res.redirect('/admin');
+      }
     } catch (error) {
       req.flash('error_msg', t('error.loginFail'));
       return res.render('error', {

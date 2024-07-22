@@ -1,0 +1,144 @@
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #121212;
+  color: #e1e1e1;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #1db954;
+}
+
+a {
+  color: #1db954;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 25px;
+  margin-right: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+a.btn-primary {
+  background-color: #1db954;
+  color: #ffffff;
+}
+
+a.btn-primary:hover {
+  background-color: #1ed760;
+}
+
+a.btn-danger {
+  background-color: #e60023;
+  color: #ffffff;
+}
+
+a.btn-danger:hover {
+  background-color: #ff2b49;
+}
+
+a.btn-success {
+  background-color: #191414;
+  color: #1db954;
+}
+
+a.btn-success:hover {
+  background-color: #121212;
+}
+
+.card-songs-detail {
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: none;
+  background-color: #1e1e1e;
+  color: #e1e1e1;
+}
+
+.card-img-top {
+  height: 250px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.card-body {
+  background-color: #121212;
+  color: #e5e5e5;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 16px;
+}
+
+button.btn {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+button.btn-primary {
+  background-color: #1db954;
+  border: none;
+}
+
+button.btn-success {
+  background-color: #1db954;
+  border: none;
+}
+
+pre.card-text {
+  white-space: pre-wrap;
+  font-family: 'Roboto', sans-serif;
+  color: #e5e5e5;
+}
+
+.row {
+  margin-bottom: 1.5rem;
+}
+
+.col-md-6 {
+  margin-bottom: 1.5rem;
+}
+
+h2.card-title {
+  font-size: 22px;
+  margin-bottom: 1rem;
+}
+
+p.card-text {
+  margin-bottom: 1rem;
+}
+
+button.btn-primary:hover {
+  background-color: #1ed760;
+}
+
+button.btn-success:hover {
+  background-color: #121212;
+}
