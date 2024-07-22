@@ -5,6 +5,7 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title #{title}
     link(rel="stylesheet", href="/styles/custom_homepage.css")
+    link(rel="stylesheet", href="/styles/custom_create.css")
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
@@ -13,7 +14,7 @@ html(lang="en")
     nav.navbar.navbar-dark
       a.navbar-brand(href="#")= t('navbar.brand')
       div.navbar-right
-        button.btn.btn-login(type="button")= t('navbar.login')
+        a.btn.btn-login(href="/logout")= t('action.logout')
         span.language-selector
         a.text-decoration-none.text-light.pe-2(href='?lng=en') #{t('navbar.language.english')} 
         a.text-decoration-none.text-light |
@@ -29,7 +30,7 @@ html(lang="en")
             a.nav-link(href="#")
               = t('sidebar.author')
           li.nav-item
-            a.nav-link(href="#")
+            a.nav-link(href="/admin/users")
               = t('sidebar.user')
           li.nav-item
             a.nav-link(href="#")

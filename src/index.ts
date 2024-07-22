@@ -1,3 +1,9 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable comma-dangle */
+/* eslint-disable no-console */
+/* eslint-disable node/no-process-env */
+
 import express, { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import i18next from 'i18next';

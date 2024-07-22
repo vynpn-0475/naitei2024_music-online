@@ -9,8 +9,9 @@ block content
             h2= t('title_login')
           .card-body
             form#loginUserform(action="/login" method="POST") 
-              if error && error.status === 500
-                p#errorAlert.alert.alert-danger= message
+              if error_msg.length
+                #errorAlert.alert.alert-danger
+                  | #{error_msg}
               .mb-3
                 label.form-label(for="username")= t('form.username')
                 input.form-control(type="text" name="username" id="username" placeholder="username123" required)

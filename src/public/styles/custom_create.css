@@ -1,0 +1,74 @@
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+button.btn {
+  background-color: #1db954;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+button.btn:focus {
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.4);
+  outline: none;
+}
+
+button.btn:hover {
+  background-color: #1ed760;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  background-color: #282828;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #1db954;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+input.form-control {
+  background-color: #3e3e3e;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  padding: 10px;
+  width: 100%;
+}
+
+input.form-control:focus {
+  border: 1px solid #1db954;
+  outline: none;
+}
+
+form#createUserform {
+  width: 600px;
+}

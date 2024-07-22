@@ -1,3 +1,7 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 import {
   Entity,
   PrimaryGeneratedColumn,

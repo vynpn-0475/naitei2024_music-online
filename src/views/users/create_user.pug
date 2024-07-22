@@ -1,0 +1,32 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1 #{t('title_create')} #{t('option.user')}
+    form#createUserform(action="/admin/users/create" method="POST")
+      if error_msg.length
+        #errorAlert.alert.alert-danger
+          | #{error_msg}
+      if success_msg.length
+        #successAlert.alert.alert-success
+          | #{success_msg}
+      .mb-3
+        label.form-label(for="username")= t('form.username')
+        input.form-control(type="text" name="username" id="username" placeholder="username123" required)
+        #responseMessage
+      .mb-3
+        label.form-label(for="email")= t('form.email')
+        input.form-control(type="email" name="email" id="email" aria-describedby="emailHelp" placeholder="name@domain.com" required)
+        #emailHelp.form-text(style="display: none;")
+          | #{t('message.emailIsNotValid')}
+      .mb-3
+        label.form-label(for="dateOfBirth")= t('form.dateOfBirth')
+        input.form-control(type="date" name="dateOfBirth" id="dateOfBirth" placeholder="26/02/2003" required)
+      .mb-3
+        label.form-label(for="role")= t('form.role')
+        select.form-control(name="role" id="role" required)
+          each role in roles
+            option(value=role)= role
+      button.btn.btn-success.fw-bold(type="submit")= t('action.create')
+  block scripts
+    script(src="/js/user.js")

@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable node/no-process-env */
+
 import { DataSource } from 'typeorm';
 import { join } from 'path';
 import * as dotenv from 'dotenv';

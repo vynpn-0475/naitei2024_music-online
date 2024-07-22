@@ -28,19 +28,28 @@
   "title_Logo": "Music Online",
   "title_register": "Register to listen to music",
   "title_login": "Log in to listen to music",
+  "title_list": "List",
+  "title_create": "Create New",
   "form": {
     "username": "User Name",
     "email": "Email Address",
     "password": "Password",
-    "confirm_password": "Confirm Password"
+    "confirm_password": "Confirm Password",
+    "dateOfBirth": "Date Of Birth",
+    "role": "Role"
   },
   "action": {
     "register": "Register",
     "login": "Login",
     "logout": "Logout",
-    "loginByGoogle": "Login by Google"
+    "loginByGoogle": "Login by Google",
+    "create": "Create",
+    "new": "New",
+    "submit": "Submit",
+    "list": "List "
   },
   "option": {
+    "user": "User",
     "english": "English",
     "vietnamese": "Vietnamese"
   },
@@ -63,6 +72,9 @@
     "checkingUsername": "Error checking username",
     "failedToFetchGenres": "Failed to fetch genres."
   },
+  "success": {
+    "createSuccess": "Create Success"
+  },
   "message": {
     "notAccount": "Do not have an account?",
     "registerHere": "Register here.",
@@ -72,7 +84,8 @@
     "emailIsNotValid": "This email is not valid. Make sure the email is entered as example@example.com",
     "welcom": "Welcome, ",
     "homepage": "This is the home page. You are logged in as ",
-    "usernameAvailable": "Username is available"
+    "usernameAvailable": "Username is available",
+    "userNotFound": "User Not Found"
   },
   "genres": {
     "title": "Genre List",

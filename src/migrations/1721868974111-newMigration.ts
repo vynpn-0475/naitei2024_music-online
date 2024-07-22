@@ -1,3 +1,9 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
+/* eslint-disable max-len */
+/* eslint-disable indent */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class NewMigration1721868974111 implements MigrationInterface {

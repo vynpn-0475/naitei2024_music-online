@@ -26,5 +26,17 @@ router.get('/logout', UserController.logout);
 router.get('/error', (req, res) => {
   res.render('error', { title: req.t('error.title') });
 });
+router.get('/register', UserController.getRegister);
+router.post(
+  '/register',
+  validateRequest(RegisterDto),
+  UserController.postRegister
+);
+router.get('/login', UserController.getLogin);
+router.post('/login', UserController.postLogin);
+router.get('/logout', UserController.logout);
 
+router.get('/error', (req, res) => {
+  res.render('error', { title: req.t('error.title') });
+});
 export default router;
