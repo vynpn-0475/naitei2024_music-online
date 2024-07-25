@@ -1,0 +1,59 @@
+{
+  "title": "Music Online",
+  "navbar": {
+    "brand": "Music Online",
+    "login": "Login",
+    "logout": "Logout",
+    "language": {
+      "english": "English",
+      "vietnamese": "Vietnamese"
+    }
+  },
+  "sidebar": {
+    "home": "Home",
+    "search": "Search",
+    "library": "Library",
+    "create_playlist": "Create Playlist",
+    "liked_song": "Liked Song",
+    "author": "Author",
+    "genre": "Genre",
+    "song": "Song",
+    "user": "User"
+  },
+  "content": {
+    "discover_new_music": "Discover New Music",
+    "genreName": "Name's Genre: {{name}}",
+    "play": "Play"
+  },
+  "error": {
+    "title": "Error",
+    "invalidGenreId": "Invalid genre ID",
+    "genreNotFound": "Genre not found",
+    "failedToFetchGenres": "Failed to fetch genres.",
+    "failedToCreateGenre": "Failed to create genre",
+    "failedToUpdateGenre": "Failed to update genre",
+    "failedToDeleteGenre": "Failed to delete genre"
+  },
+  "genres": {
+    "title": "Genre List",
+    "titleDetailGenre": "Genre Details",
+    "createNewGenre": "Create New Genre",
+    "nameGenre": "Name Genre",
+    "updateGenre": "Update Genre",
+    "updateButton": "Update Genre",
+    "confirmDeleteGenre": "Are you sure you want to delete the genre: {{name}}",
+    "deleteGenre": "Delete Genre"
+  },
+  "authors": {
+    "createAuthor": "Create Author",
+    "fullName": "Full Name",
+    "avatar": "Avatar",
+    "dateOfBirth": "Date of Birth"
+  },
+  "common": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create",
+    "cancel": "Cancel"
+  }
+}
