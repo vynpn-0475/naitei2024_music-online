@@ -1,0 +1,26 @@
+{
+  "title": "Music Online",
+  "navbar": {
+    "brand": "Music Online",
+    "login": "Login",
+    "language": {
+      "english": "English",
+      "vietnamese": "Vietnamese"
+    }
+  },
+  "sidebar": {
+    "home": "Home",
+    "search": "Search",
+    "library": "Library",
+    "create_playlist": "Create Playlist",
+    "liked_song": "Liked Song"
+  },
+  "content": {
+    "discover_new_music": "Discover New Music",
+    "artist": "Artist: {{artist}}",
+    "play": "Play"
+  },
+  "error": {
+    "title": "Error"
+  }
+}
