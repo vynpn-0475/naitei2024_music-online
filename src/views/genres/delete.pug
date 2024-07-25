@@ -1,0 +1,9 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1= t('genres.deleteGenre')
+    p= t('genres.confirmDeleteGenre', { name: genre.name })
+    form(action=`/admin/genres/delete/${genre.id}`, method='post')
+      button.btn.btn-danger(type='submit')= t('common.delete')
+      a.btn.btn-secondary(href='/admin/genres')= t('common.cancel')

@@ -1,0 +1,76 @@
+{
+  "title": "Âm Nhạc Trực Tuyến",
+  "navbar": {
+    "brand": "Âm Nhạc Trực Tuyến",
+    "login": "Đăng Nhập",
+    "logout": "Đăng Xuất",
+    "language": {
+      "english": "Tiếng Anh",
+      "vietnamese": "Tiếng Việt"
+    }
+  },
+  "sidebar": {
+    "home": "Trang Chủ",
+    "search": "Tìm Kiếm",
+    "library": "Thư Viện",
+    "create_playlist": "Tạo Playlist",
+    "liked_song": "Bài Hát Yêu Thích",
+    "author": "Tác Giả",
+    "genre": "Thể Loại",
+    "song": "Bài Hát",
+    "user": "Người Dùng"
+  },
+  "content": {
+    "discover_new_music": "Khám Phá Nhạc Mới",
+    "genreName": "Tên Thể Loại: {{name}}",
+    "play": "Phát"
+  },
+  "error": {
+    "title": "Lỗi",
+    "invalidGenreId": "ID thể loại không hợp lệ",
+    "genreNotFound": "Không tìm thấy thể loại",
+    "failedToFetchGenres": "Không thể tải thể loại.",
+    "failedToCreateGenre": "Không thể tạo thể loại",
+    "failedToUpdateGenre": "Không thể cập nhật thể loại",
+    "failedToDeleteGenre": "Không thể xóa thể loại",
+    "invalidAuthorId": "ID tác giả không hợp lệ",
+    "authorNotFound": "Không tìm thấy tác giả",
+    "failedToFetchAuthors": "Không thể tải tác giả.",
+    "failedToCreateAuthor": "Không thể tạo tác giả",
+    "failedToUpdateAuthor": "Không thể cập nhật tác giả",
+    "failedToDeleteAuthor": "Không thể xóa tác giả",
+    "authorAlreadyExists": "Tác giả với tên này đã tồn tại"
+  },
+  "genres": {
+    "title": "Danh Sách Thể Loại",
+    "titleDetailGenre": "Chi Tiết Thể Loại",
+    "createNewGenre": "Tạo Thể Loại Mới",
+    "nameGenre": "Tên Thể Loại",
+    "updateGenre": "Cập Nhật Thể Loại",
+    "updateButton": "Cập Nhật Thể Loại",
+    "confirmDeleteGenre": "Bạn có chắc chắn muốn xóa thể loại: {{name}}",
+    "deleteGenre": "Xóa Thể Loại"
+  },
+  "authors": {
+    "createAuthor": "Tạo Tác Giả/ Ca Sĩ Mới",
+    "fullName": "Họ và Tên",
+    "avatar": "Ảnh Đại Diện",
+    "dateOfBirth": "Ngày Sinh",
+    "biography": "Tiểu Sử",
+    "authorListTitle": "Danh Sách Tác Giả/ Ca Sĩ",
+    "noImage": "Không Có Hình Ảnh",
+    "updateAuthor": "Cập Nhật Tác Giả",
+    "currentAvatar": "Ảnh Đại Diện Hiện Tại",
+    "deleteAuthor": "Xóa Tác Giả",
+    "confirmDeleteAuthor": "Bạn Có Chắc Chắn Muốn Xóa Tác Giả: {{fullname}}",
+    "songs": "Danh Sách Bài Hát",
+    "noSongs": "Không Có Bài Hát Nào",
+    "lyrics": "Lời Bài Hát"
+  },
+  "common": {
+    "edit": "Chỉnh Sửa",
+    "delete": "Xóa",
+    "create": "Tạo Mới",
+    "cancel": "Hủy"
+  }
+}

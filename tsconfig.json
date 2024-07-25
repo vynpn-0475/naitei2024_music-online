@@ -11,6 +11,7 @@
     "paths": {
       "@src/*": ["src/*"]
     },
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "useUnknownInCatchVariables": false,
     "experimentalDecorators": true, 
     "emitDecoratorMetadata": true,
