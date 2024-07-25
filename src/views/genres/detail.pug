@@ -1,0 +1,10 @@
+extends ../layout_admin
+
+block content
+  .container
+    div.container
+      h1.my-4 #{t('genres.titleDetailGenre')}: #{genre.name}
+      div.mt-4
+        a.btn.btn-primary(href=`/admin/genres/update/${genre.id}`) #{t('common.edit')}
+        a.btn.btn-danger(href=`/admin/genres/delete/${genre.id}`) #{t('common.delete')}
+        a.btn.btn-success(href='/admin/genres') #{t('genres.title')}
