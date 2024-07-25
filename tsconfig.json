@@ -11,7 +11,10 @@
     "paths": {
       "@src/*": ["src/*"]
     },
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false
   },
   "include": ["src/**/*.ts", "spec/**/*.ts", "build.ts"],
   "exclude": ["src/public/"]
