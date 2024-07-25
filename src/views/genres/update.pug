@@ -1,0 +1,11 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1= t('genres.updateGenre')
+    form(action=`/admin/genres/update/${genre.id}`, method='post')
+      div.form-group
+        label(for='name')= t('genres.nameGenre')
+        input.form-control(id='name', type='text', name='name', value=genre.name, required)
+      div
+        button.btn.btn-primary(type='submit')= t('genres.updateButton')

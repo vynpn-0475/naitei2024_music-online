@@ -1,0 +1,61 @@
+{
+  "title": "Âm Nhạc Trực Tuyến",
+  "navbar": {
+    "brand": "Âm Nhạc Trực Tuyến",
+    "login": "Đăng Nhập",
+    "logout": "Đăng Xuất",
+    "language": {
+      "english": "Tiếng Anh",
+      "vietnamese": "Tiếng Việt"
+    }
+  },
+  "sidebar": {
+    "home": "Trang Chủ",
+    "search": "Tìm Kiếm",
+    "library": "Thư Viện",
+    "create_playlist": "Tạo Playlist",
+    "liked_song": "Bài Hát Yêu Thích",
+    "author": "Tác Giả",
+    "genre": "Thể Loại",
+    "song": "Bài Hát",
+    "user": "Người Dùng"
+  },
+  "content": {
+    "discover_new_music": "Khám Phá Nhạc Mới",
+    "genreName": "Tên Thể Loại: {{name}}",
+    "play": "Phát"
+  },
+  "error": {
+    "title": "Lỗi",
+    "invalidGenreId": "ID thể loại không hợp lệ",
+    "genreNotFound": "Không tìm thấy thể loại",
+    "failedToFetchGenres": "Không thể tải thể loại.",
+    "failedToCreateGenre": "Không thể tạo thể loại",
+    "failedToUpdateGenre": "Không thể cập nhật thể loại",
+    "failedToDeleteGenre": "Không thể xóa thể loại"
+  },
+  "genres": {
+    "title": "Danh Sách Thể Loại",
+    "titleDetailGenre": "Chi Tiết Thể Loại",
+    "createNewGenre": "Tạo Thể Loại Mới",
+    "nameGenre": "Tên Thể Loại",
+    "updateGenre": "Cập Nhật Thể Loại",
+    "updateButton": "Cập Nhật Thể Loại",
+    "confirmDeleteGenre": "Bạn có chắc chắn muốn xóa thể loại: {{name}}",
+    "deleteGenre": "Xóa Thể Loại"
+  },
+  "authors": {
+    "createAuthor": "Tạo tác giả/ ca sĩ mới",
+    "fullName": "Họ và tên",
+    "avatar": "Ảnh đại diện",
+    "dateOfBirth": "Ngày sinh",
+    "authorListTitle": "Danh sách tác giả/ ca sĩ",
+    "noImage": "Không có hình ảnh"
+  },
+  "common": {
+    "edit": "Chỉnh Sửa",
+    "delete": "Xóa",
+    "create": "Tạo Mới",
+    "cancel": "Hủy"
+  }
+}
