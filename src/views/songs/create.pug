@@ -1,0 +1,36 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1= t('songs.createSong.title')
+    form(action="/admin/musics/create" method="POST" enctype="multipart/form-data")
+      .form-group
+        label(for="title")= t('songs.createSong.label.title')
+        input#title.form-control(type="text" name="title" required)
+
+      .form-group
+        label(for="artist")= t('songs.createSong.label.artist')
+        select#artist.form-control(name="artist" required)
+          each author in authors
+            option(value=author.fullname)= author.fullname
+
+      .form-group
+        label(for="lyrics")= t('songs.createSong.label.lyrics')
+        textarea#lyrics.form-control(name="lyrics" rows="7" style="overflow-y: auto;" required)
+
+      .form-group
+        label(for="image")= t('songs.createSong.label.image')
+        input#image.form-control(type="file" name="image" accept="image/*")
+
+      .form-group
+        label(for="song")= t('songs.createSong.label.song')
+        input#song.form-control(type="file" name="song" accept=".mp3" required)
+
+      .form-group
+        label(for="status")= t('songs.createSong.label.status')
+        select#status.form-control(name="status")
+          option(value="Suggesting")= t('songs.createSong.status.suggesting')
+          option(value="Publish" selected)= t('songs.createSong.status.publish')
+          option(value="Reject")= t('songs.createSong.status.reject')
+
+      button.btn.btn-primary(type="submit")= t('songs.createSong.button.submit')
