@@ -1,16 +1,13 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title= title
-    link(rel="stylesheet", href="/stylesheets/style.css")
-  body
-    header
-      h1= title
+extends layout
 
-    main
-      p Welcome to the #{title} page!
-
-    footer
-      p &copy; Naitei2024 Music Online
+block content
+  h1.text-center.mb-4= t('content.discover_new_music')
+  .row
+    each track in tracks
+      .col-md-3.mb-4
+        .card
+          img.card-img-top(src=track.image, alt=track.title)
+          .card-body
+            h5.card-title= track.title
+            p.card-text= t('content.artist', { artist: track.artist })
+            a.btn.btn-primary(href="#")= t('content.play')

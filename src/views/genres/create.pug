@@ -1,0 +1,11 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1 #{t('genres.createNewGenre')}
+    form(action='/admin/genres/create', method='post')
+      div.form-group
+        label(for='name') #{t('genres.nameGenre')}
+        input.form-control(id='name', type='text', name='name', required)
+      div
+        button.btn.btn-success(type='submit') #{t('common.create')}
