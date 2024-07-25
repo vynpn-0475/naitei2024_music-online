@@ -1,0 +1,49 @@
+{
+  "title": "Nhạc Online",
+  "navbar": {
+    "brand": "Nhạc Online",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "language": {
+      "english": "Tiếng Anh",
+      "vietnamese": "Tiếng Việt"
+    }
+  },
+  "sidebar": {
+    "home": "Trang chủ",
+    "search": "Tìm kiếm",
+    "library": "Thư viện",
+    "create_playlist": "Tạo danh sách phát",
+    "liked_song": "Bài hát yêu thích",
+    "author": "Tác giả",
+    "genre": "Thể loại",
+    "song": "Bài hát",
+    "user": "Người dùng"
+  },
+  "content": {
+    "discover_new_music": "Khám phá nhạc mới",
+    "genreName": "Tên thể loại: {{name}}",
+    "play": "Phát"
+  },
+  "error": {
+    "title": "Lỗi",
+    "invalidGenreId": "ID thể loại không hợp lệ",
+    "genreNotFound": "Không tìm thấy thể loại",
+    "failedToFetchGenres": "Lỗi khi lấy danh sách thể loại.",
+    "failedToCreateGenre": "Lỗi khi tạo thể loại",
+    "failedToUpdateGenre": "Lỗi khi cập nhật thể loại"
+  },
+  "genres": {
+    "title": "Danh sách thể loại",
+    "titleDetailGenre": "Chi tiết thể loại",
+    "createNewGenre": "Tạo thể loại mới",
+    "nameGenre": "Tên thể loại",
+    "updateGenre": "Cập nhật thể loại",
+    "updateButton": "Cập nhật thể loại"
+  },
+  "common": {
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "create": "Tạo"
+  }
+}
