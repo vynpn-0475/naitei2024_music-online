@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
@@ -23,7 +23,7 @@ i18next
     },
   });
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(middleware.handle(i18next));
@@ -53,8 +53,11 @@ AppDataSource.initialize()
     app.use('/', router);
 
     app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-      console.error('Error:', err);
-      res.status(500).send('Internal Server Error');
+      res.locals.message = err.message;
+      res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+      res.status(500);
+      res.render('error');
     });
 
     const PORT = process.env.PORT;
