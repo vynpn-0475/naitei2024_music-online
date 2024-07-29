@@ -49,7 +49,7 @@ AppDataSource.initialize()
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-
+    app.use(express.static(path.join(__dirname, 'public')));
     app.use('/', router);
 
     app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -58,6 +58,7 @@ AppDataSource.initialize()
 
       res.status(500);
       res.render('error');
+      next();
     });
 
     const PORT = process.env.PORT;

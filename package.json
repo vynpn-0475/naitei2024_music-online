@@ -15,7 +15,8 @@
     "migration:generate": "npm run typeorm -- -d ./src/config/data-source.ts migration:generate ./src/migrations/newMigration",
     "migration:run": "npm run typeorm migration:run -- -d ./src/config/data-source.ts",
     "migration:revert": "npm run typeorm migration:revert -- -d ./src/config/data-source.ts",
-    "migration:auto": "npm run migration:generate -- -n InitDatabase && npm run migration:run"
+    "migration:auto": "npm run migration:generate -- -n InitDatabase && npm run migration:run",
+    "format": "prettier --write \"src/**/*.{ts,js}\""
   },
   "nodemonConfig": {
     "watch": [

@@ -1,0 +1,33 @@
+{
+  "title_Logo": "Music Online",
+  "title_detail": "Detail",
+  "title_list": "List",
+  "form": {
+    "username": "User Name",
+    "email": "Email Address",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "dateOfBirth": "Date Of Birth",
+    "role": "Role",
+    "commentCount": "Number of Comments",
+    "favoriteSongCount": "Number of Favorite Songs",
+    "suggestedSongCount": "Number of Suggested Songs",
+    "playlistCount": "Number of Playlists"
+  },
+  "action": {
+    "login": "Login",
+    "create": "Create",
+    "new": "New",
+    "list": "List",
+    "update": "Update",
+    "delete": "Delete"
+  },
+  "option": {
+    "user": "User",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "message": {
+    "userNotFound": "User Not Found"
+  }
+}
