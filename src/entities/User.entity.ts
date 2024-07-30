@@ -53,10 +53,12 @@ export class User extends BaseEntity {
   @JoinTable()
   favoriteSongs: Song[];
 
-  @OneToMany(() => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.user, { onDelete: 'CASCADE' })
   comments: Comment[];
 
-  @OneToMany(() => SuggestedSong, (suggestedSong) => suggestedSong.user)
+  @OneToMany(() => SuggestedSong, (suggestedSong) => suggestedSong.user, {
+    onDelete: 'CASCADE',
+  })
   suggestedSongs: SuggestedSong[];
 
   constructor(data?: Partial<User>) {
