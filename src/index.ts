@@ -6,6 +6,8 @@ import middleware from 'i18next-http-middleware';
 import session from 'express-session';
 import flash from 'connect-flash';
 import router from './routes/index';
+import methodOverride from 'method-override';
+
 import { AppDataSource } from './config/data-source';
 
 const app = express();
@@ -49,6 +51,8 @@ AppDataSource.initialize()
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(methodOverride('_method'));
 
     app.use('/', router);
 
@@ -58,6 +62,7 @@ AppDataSource.initialize()
 
       res.status(500);
       res.render('error');
+      next();
     });
 
     const PORT = process.env.PORT;

@@ -1,0 +1,34 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      .col-md-10.mx-auto
+        .card
+          .card-header.text-center
+            h2 #{t('action.update')} #{t('option.user')}
+          .card-body
+            form#updateUserform(action=`/users/update/${user.user_id}?_method=PUT` method="POST") 
+              input(type="hidden" name="_method" value="PUT")
+              .mb-3
+                label.form-label(for="username")= t('form.username')
+                input.form-control(type="text" name="username" id="username" value=user.user_username)
+              .mb-3
+                label.form-label(for="email")= t('form.email')
+                input.form-control(type="email" name="email" id="email" aria-describedby="emailHelp" value=user.user_email )
+                #emailHelp.form-text(style="display: none;")
+                  | #{t('message.emailIsNotValid')}
+              .mb-3
+                label.form-label(for="dateOfBirth")= t('form.dateOfBirth')
+                input.form-control(type="date" name="dateOfBirth" id="dateOfBirth" value=dateOfBirth)
+              .mb-3
+                label.form-label(for="role")= t('form.role')
+                select.form-select(name="role" id="role")
+                  each role in roles
+                    if role === user.user_role
+                      option(value=role selected)= role
+                    else  
+                      option(value=role)= role
+              button.btn.btn-success.fw-bold.w-100(type="submit")= t('action.update')
+  block scripts
+    script(src="/js/user.js")

@@ -1,0 +1,37 @@
+{
+  "title_Logo": "Âm nhạc trực tuyến",
+  "title_detail": "Chi tiết",
+  "title_list": "Danh sách",
+  "form": {
+    "username": "Tên người dùng",
+    "email": "Địa chỉ Email",
+    "password": "Mật khẩu",
+    "confirm_password": "Xác nhận mật khẩu",
+    "dateOfBirth": "Ngày sinh",
+    "role": "Vai trò",
+    "commentCount": "Số lượng bình luận",
+    "favoriteSongCount": "Số lượng bài hát yêu thích",
+    "suggestedSongCount": "Số lượng bài hát gợi ý",
+    "playlistCount": "Số lượng playlist"
+  },
+  "action": {
+    "login": "Đăng nhập",
+    "create": "Tạo",
+    "new": "Mới",
+    "list": "Danh sách",
+    "update": "Chỉnh sửa",
+    "delete": "Xóa"
+  },
+  "option": {
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    "user": "Người dùng"
+  },
+  "message": {
+    "userNotFound": "Không tìm thấy người dùng",
+    "emailIsNotValid": "Email này không hợp lệ. Hãy đảm bảo rằng email được nhập dưới dạng example@example.com"
+  },
+  "error": {
+    "updateFail": "Cập nhật thất bại"
+  }
+}
