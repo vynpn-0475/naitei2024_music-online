@@ -1,0 +1,46 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{title}
+    link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
+    script(src="/scripts/jquery.min.js")
+    script(src="/scripts/popper.min.js")
+    script(src="/scripts/bootstrap.min.js")
+    link(rel="stylesheet", href="styles/custom_homepage.css")
+
+  body
+    nav.navbar.navbar-dark
+      a.navbar-brand(href="#")= t('navbar.brand')
+      div.navbar-right
+        button.btn.btn-login(type="button")= t('navbar.login')
+        span.language-selector
+        a.text-decoration-none.text-light.pe-2(href='?lng=en') #{t('navbar.language.english')} 
+        a.text-decoration-none.text-light |
+        a.text-decoration-none.text-light.ps-2(href='?lng=vi') #{t('navbar.language.vietnamese')}
+
+    .main-content
+      .sidebar
+        ul.nav.flex-column
+          li.nav-item.active
+            a.nav-link(href="#")
+              = t('sidebar.home')
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link(href="#")
+              = t('sidebar.search')
+          li.nav-item
+            a.nav-link(href="#")
+              = t('sidebar.library')
+          li.nav-item.divider
+            hr
+          li.nav-item
+            a.nav-link(href="#")
+              = t('sidebar.create_playlist')
+          li.nav-item
+            a.nav-link(href="#")
+              = t('sidebar.liked_song')
+
+      .content
+        block content

@@ -1,0 +1,26 @@
+{
+  "title": "Âm Nhạc Trực Tuyến",
+  "navbar": {
+    "brand": "Âm Nhạc Trực Tuyến",
+    "login": "Đăng Nhập",
+    "language": {
+      "english": "Tiếng Anh",
+      "vietnamese": "Tiếng Việt"
+    }
+  },
+  "sidebar": {
+    "home": "Trang Chủ",
+    "search": "Tìm Kiếm",
+    "library": "Thư Viện",
+    "create_playlist": "Tạo Playlist",
+    "liked_song": "Bài Hát Yêu Thích"
+  },
+  "content": {
+    "discover_new_music": "Khám Phá Âm Nhạc Mới",
+    "artist": "Nghệ Sĩ: {{artist}}",
+    "play": "Phát"
+  },
+  "error": {
+    "title": "Lỗi"
+  }
+}

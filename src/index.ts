@@ -7,8 +7,11 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import router from './routes/index';
 import { AppDataSource } from './config/data-source';
+import cookieParser from 'cookie-parser';
 
 const app = express();
+
+app.use(cookieParser());
 
 i18next
   .use(Backend)
@@ -21,10 +24,16 @@ i18next
     interpolation: {
       escapeValue: false,
     },
+    detection: {
+      order: ['cookie', 'querystring', 'header', 'session'],
+      caches: ['cookie'],
+    },
   });
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(middleware.handle(i18next));
 
@@ -35,12 +44,30 @@ app.use(
     saveUninitialized: true,
   })
 );
+
 app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   next();
+});
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const lng = req.query.lng as string;
+  if (lng && lng !== i18next.language) {
+    i18next.changeLanguage(lng)
+      .then(() => {
+        res.cookie('i18next', lng);
+        res.redirect(req.originalUrl.split('?')[0]);
+      })
+      .catch(err => {
+        console.error('Error changing language:', err);
+        next();
+      });
+  } else {
+    next();
+  }
 });
 
 AppDataSource.initialize()
@@ -60,7 +87,7 @@ AppDataSource.initialize()
       res.render('error');
     });
 
-    const PORT = process.env.PORT;
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
