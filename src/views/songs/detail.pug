@@ -1,0 +1,25 @@
+extends ../layout_admin
+
+block content
+  .container
+    .row
+      .col-12
+        h1.card-title= song.title
+
+    .row
+      .col-md-6
+        .card
+          img.card-img-top(src=song.imageUrl alt="Song Image")
+          .card-body
+            h2.card-title= song.title
+            p.card-text
+              | Artist: 
+              b= song.artist
+            p.card-text
+              | Lyrics:
+              pre.card-text(style="color: #e5e5e5")= song.lyrics
+      .col-md-6
+        .card
+          .card-body
+            h3= "Listen to the Song"
+            button.btn.btn-primary(type="button" onclick=`updateAudioPlayer("${song.url}")`) Play

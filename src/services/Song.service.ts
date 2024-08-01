@@ -11,6 +11,14 @@ export const getAllSongs = async () => {
   }
 };
 
+export const getSongById = async (songId: number) => {
+  try {
+    return await songRepository.findOne({where: { id: songId }, relations: ['author', 'album', 'genres']});
+  } catch (error) {
+    throw new Error('Error fetching song');
+  }
+};
+
 export const createSong = async (data: Partial<Song>) => {
   try {
     const song = new Song(data);
