@@ -67,8 +67,8 @@ a.btn-success:hover {
   background-color: #121212;
 }
 
-.card {
-  border-radius: 10px;
+.card-songs-detail {
+  border-radius: 20px;
   overflow: hidden;
   margin-bottom: 20px;
   border: none;
@@ -78,7 +78,7 @@ a.btn-success:hover {
 
 .card-img-top {
   height: 250px;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 

@@ -1,7 +1,7 @@
 extends ../layout_admin 
 
 block content
-  .container
+  .container(style='color: #1db954; padding: 2rem;')
     h1 #{t('authors.createAuthor')}
     form(action='/admin/authors/create', method='post', enctype='multipart/form-data')
       div.form-group

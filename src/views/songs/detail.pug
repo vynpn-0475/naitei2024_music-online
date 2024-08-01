@@ -2,13 +2,11 @@ extends ../layout_admin
 
 block content
   .container
-    .row
-      .col-12
-        h1.card-title= song.title
+    h1.my-4 #{t('songs.titleDetailSong')}: #{song.title}
 
     .row
       .col-md-6
-        .card
+        .card-songs-detail
           img.card-img-top(src=song.imageUrl alt="Song Image")
           .card-body
             h2.card-title= song.title
@@ -19,7 +17,11 @@ block content
               | Lyrics:
               pre.card-text(style="color: #e5e5e5")= song.lyrics
       .col-md-6
-        .card
+        .card-songs-detail
           .card-body
             h3= "Listen to the Song"
             button.btn.btn-primary(type="button" onclick=`updateAudioPlayer("${song.url}")`) Play
+            div.mt-4
+                a.btn.btn-primary(href=`/admin/musics/update/${song.id}`) Edit
+                a.btn.btn-danger(href=`/admin/musics/delete/${song.id}`) Delete
+                a.btn.btn-success(href='/admin/musics') Song List

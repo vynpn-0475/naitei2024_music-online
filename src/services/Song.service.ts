@@ -28,3 +28,17 @@ export const createSong = async (data: Partial<Song>) => {
     throw new Error('Error creating song');
   }
 }
+
+export const updateSong = async (songId: number, data: Partial<Song>) => {
+  try {
+    const song = await songRepository.findOne({ where: { id: songId } });
+    if (!song) {
+      throw new Error('Song not found');
+    }
+    Object.assign(song, data);
+    await song.save();
+    return song;
+  } catch (error) {
+    throw new Error('Error updating song');
+  }
+};

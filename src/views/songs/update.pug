@@ -1,0 +1,41 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1= title
+    form(action=`/admin/musics/update/${song.id}` method='POST' enctype='multipart/form-data')
+      .form-group
+        label(for='title') Title
+        input(type='text' id='title' name='title' class='form-control' value=song.title required)
+      
+      .form-group
+        label(for="artist") Artist
+        select#artist.form-control(name="artist" required)
+          each author in authors
+            option(value=author.fullname selected=author.fullname === song.artist)= author.fullname
+
+      .form-group
+        label(for='lyrics') Lyrics
+        textarea(id='lyrics' name='lyrics' class='form-control' required)= song.lyrics
+      
+      .form-group
+        label(for="status") Status
+        select#status.form-control(name="status" required)
+          option(value="Suggesting" selected=song.status === 'Suggesting') Suggesting
+          option(value="Publish" selected=song.status === 'Publish') Publish
+          option(value="Reject" selected=song.status === 'Reject') Reject
+
+      .form-group
+        label(for="image") Image
+        input#image.form-control(type="file" name="image" accept="image/*")
+        if song.imageUrl
+          img(src=song.imageUrl, alt='Current Avatar', width='100')
+
+      .form-group
+        label(for="song") Song File
+        input#song.form-control(type="file" name="song" accept=".mp3" required)
+        if song.url
+          img(src=song.url, alt='Current Avatar', width='100')
+
+      button(type='submit' class='btn btn-primary')  Update Song
+      a(href=`/admin/musics/${song.id}` class='btn btn-secondary') Cancel
