@@ -8,19 +8,17 @@ html(lang="en")
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
     script(src="/scripts/bootstrap.min.js")
-    script(src="/scripts/bootstrap.bundle.min.js")
-    script(src="/scripts/jquery-3.7.1.min.js")
     link(rel="stylesheet", href="styles/custom_homepage.css")
-    link(rel="stylesheet" href="styles/style.css")
+    link(rel="stylesheet", href="/stylesheets/all.min.css")
 
   body
     nav.navbar.navbar-dark
       a.navbar-brand(href="#")= t('navbar.brand')
       div.navbar-right
-        a.btn.btn-login(href="/login") #{t('navbar.login')}
+        button.btn.btn-login(type="button")= t('navbar.login')
         span.language-selector
         a.text-decoration-none.text-light.pe-2(href='?lng=en') #{t('navbar.language.english')} 
-        a.text-decoration-none.text-light | 
+        a.text-decoration-none.text-light |
         a.text-decoration-none.text-light.ps-2(href='?lng=vi') #{t('navbar.language.vietnamese')}
 
     .main-content
@@ -28,21 +26,26 @@ html(lang="en")
         ul.nav.flex-column
           li.nav-item.active
             a.nav-link(href="#")
+              i.fas.fa-home
               = t('sidebar.home')
               span.sr-only (current)
           li.nav-item
             a.nav-link(href="#")
+              i.fas.fa-search
               = t('sidebar.search')
           li.nav-item
             a.nav-link(href="#")
+              i.fas.fa-book
               = t('sidebar.library')
           li.nav-item.divider
             hr
           li.nav-item
             a.nav-link(href="#")
+              i.fas.fa-plus
               = t('sidebar.create_playlist')
           li.nav-item
             a.nav-link(href="#")
+              i.fas.fa-heart
               = t('sidebar.liked_song')
 
       .content

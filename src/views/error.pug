@@ -1,19 +1,6 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title= title
-    link(rel="stylesheet", href="/stylesheets/style.css")
-  body
-    header
-      if typeof message !== 'undefined'
-        h1= message
+extends layout
 
-    main
-      if typeof error !== 'undefined'
-        h2= error.status
-        pre= error.stack
-
-    footer
-      p &copy; Naitei2024 Music Online
+block content
+  h1= message
+  h2= error.status
+  pre #{error.stack}

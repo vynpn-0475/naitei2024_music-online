@@ -1,0 +1,7 @@
+extends ../layout
+
+block content 
+  .container.mt-2
+  h2 #{t('message.welcom')} #{user.username}!
+  p #{t('message.homepage')} #{user.username}.
+  a(href="/logout") #{t('action.logout')}

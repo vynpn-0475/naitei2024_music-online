@@ -3,6 +3,7 @@
   "navbar": {
     "brand": "Âm Nhạc Trực Tuyến",
     "login": "Đăng Nhập",
+    "logout": "Đăng xuất",
     "language": {
       "english": "Tiếng Anh",
       "vietnamese": "Tiếng Việt"
@@ -13,14 +14,75 @@
     "search": "Tìm Kiếm",
     "library": "Thư Viện",
     "create_playlist": "Tạo Playlist",
-    "liked_song": "Bài Hát Yêu Thích"
+    "liked_song": "Bài Hát Yêu Thích",
+    "author": "Tác Giả",
+    "genre": "Thể Loại",
+    "song": "Bài Hát",
+    "user": "Người Dùng"
   },
   "content": {
     "discover_new_music": "Khám Phá Âm Nhạc Mới",
     "artist": "Nghệ Sĩ: {{artist}}",
     "play": "Phát"
   },
+  "title_Logo": "Âm nhạc trực tuyến",
+  "title_register": "Đăng ký để nghe nhạc",
+  "title_login": "Đăng nhập để nghe nhạc",
+  "form": {
+    "username": "Tên tài khoản",
+    "email": "Địa chỉ email",
+    "password": "Mật khẩu",
+    "confirm_password": "Xác nhận mật khẩu"
+  },
+  "action": {
+    "register": "Đăng ký",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "loginByGoogle": "Đăng nhập bằng Google"
+  },
+  "option": {
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
   "error": {
-    "title": "Lỗi"
+    "invalidCredentials": "Thông tin không hợp lệ",
+    "deleteFail": "Xóa thất bại",
+    "updateFail": "Cập nhật thất bại",
+    "createFail": "Tạo thất bại",
+    "logoutFail": "Đăng xuất thất bại",
+    "registerFail": "Đăng ký thất bại",
+    "noPageLogin": "Không có trang đăng nhập",
+    "loginFail": "Đã xảy ra lỗi trong quá trình đăng nhập",
+    "passwordIncorrect": "Mật khẩu không khớp",
+    "hashPassword": "Lỗi băm mật khẩu: {{error}}",
+    "comparePassword": "Lỗi so sánh mật khẩu: {{error}}",
+    "missingPassword": "Cần có cả Mật khẩu đơn giản và Mật khẩu băm",
+    "title": "Lỗi",
+    "system": "Lỗi từ hệ thống",
+    "usernameAlreadyTaken": "Tên người dùng đã được sử dụng",
+    "checkingUsername": "Lỗi kiểm tra tên người dùng",
+    "failedToFetchGenres": "Không thể lấy thể loại."
+  },
+  "message": {
+    "notAccount": "Bạn chưa có tài khoản?",
+    "registerHere": "Đăng ký tại đây.",
+    "loginHere": "Đăng nhập tại đây.",
+    "haveAccount": "Bạn đã có tài khoản?",
+    "or": "Hoặc",
+    "emailIsNotValid": "Email này không hợp lệ. Hãy đảm bảo rằng email được nhập dưới dạng example@example.com",
+    "welcom": "Chào mừng, ",
+    "homepage": "Đây là trang chủ. Bạn đang đăng nhập với tên ",
+    "usernameAvailable": "Tên người dùng có thể sử dụng"
+  },
+  "genres": {
+    "title": "Danh sách thể loại",
+    "titleDetailGenre": "Chi tiết thể loại",
+    "createNewGenre": "Tạo thể loại mới",
+    "genreName": "Tên thể loại: {{name}}"
+  },
+  "common": {
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "create": "Tạo mới"
   }
 }
