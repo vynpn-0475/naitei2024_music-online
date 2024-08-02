@@ -1,12 +1,17 @@
-import { UserController } from '@src/controllers/user.controller';
+import { homepage } from '../controllers/guess/index.controller';
 import { Router } from 'express';
+import index from './admin/index';
 import validateRequest from '@src/middleware/validate-request.middleware';
+import { UserController } from '@src/controllers/user/user.controller';
 import { RegisterDto } from '@src/DTO/user/register';
-import { index } from '@src/controllers/index.controller';
+import { LoginDto } from '@src/DTO/user/login';
 
 const router = Router();
 
-router.get('/', index);
+router.get('/', homepage);
+
+router.use('/admin', index);
+
 router.get('/register', UserController.getRegister);
 router.post('/check-username', UserController.checkUsername);
 router.post(
@@ -15,10 +20,11 @@ router.post(
   UserController.postRegister
 );
 router.get('/login', UserController.getLogin);
-router.post('/login', UserController.postLogin);
+router.post('/login', validateRequest(LoginDto), UserController.postLogin);
 router.get('/logout', UserController.logout);
 
 router.get('/error', (req, res) => {
   res.render('error', { title: req.t('error.title') });
 });
+
 export default router;

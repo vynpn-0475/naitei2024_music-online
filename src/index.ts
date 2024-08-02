@@ -8,7 +8,11 @@ import flash from 'connect-flash';
 import router from './routes/index';
 import { AppDataSource } from './config/data-source';
 import { sessionMiddleware } from './middleware/sessionMiddleware';
+import cookieParser from 'cookie-parser';
+
 const app = express();
+
+app.use(cookieParser());
 
 void i18next
   .use(Backend)
@@ -87,7 +91,7 @@ AppDataSource.initialize()
       next();
     });
 
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
