@@ -1,4 +1,4 @@
-import { homepage } from '@src/controller/index.controller';
+import { homepage } from '@src/controllers/index.controller';
 import { Router } from 'express';
 import index from './admin/index';
 

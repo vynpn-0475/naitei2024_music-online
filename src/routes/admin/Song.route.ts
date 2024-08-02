@@ -1,4 +1,4 @@
-import { createGet, createPost, deleteGet, deletePost, detail, list, updateGet, updatePost, validateAndFetchSong } from '@src/controller/Song.controller';
+import { createGet, createPost, deleteGet, deletePost, detail, list, updateGet, updatePost, validateAndFetchSong } from '@src/controllers/Song.controller';
 import { uploadMedia } from '../middleware/multer.config';
 import { Router } from 'express';
 

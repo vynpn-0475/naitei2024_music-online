@@ -1,0 +1,43 @@
+/* Ẩn điều khiển mặc định của trình duyệt */
+audio::-webkit-media-controls {
+    display: none !important;
+  }
+  audio::-moz-media-controls {
+    display: none !important;
+  }
+  
+  /* Style cho footer và các điều khiển tùy chỉnh */
+  footer.audio-player {
+    background-color: #000000;
+    padding: 10px;
+    text-align: center;
+    color: #1db954;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .controls button {
+    background-color: #1db954;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .controls button:hover {
+    background-color: #17a15e;
+  }
+  
+  .time span {
+    margin: 0 5px;
+  }
+  
+  #progress, #volume {
+    margin: 0 5px;
+  }
+  

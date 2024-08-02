@@ -1,3 +1,4 @@
+import { In } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import { Song } from '../entities/Song.entity';
 
@@ -16,6 +17,14 @@ export const getSongById = async (songId: number) => {
     return await songRepository.findOne({where: { id: songId }, relations: ['author', 'album', 'genres']});
   } catch (error) {
     throw new Error('Error fetching song');
+  }
+};
+
+export const getSongsByIds = async (songIds: number[]) => {
+  try {
+    return await songRepository.find({where: { id: In(songIds) }, relations: ['author', 'album', 'genres']});
+  } catch (error) {
+    throw new Error('Error fetching songs by IDs');
   }
 };
 

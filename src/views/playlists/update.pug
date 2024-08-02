@@ -1,0 +1,31 @@
+extends ../layout_admin
+
+block content
+  .container(style='background-color: #f8f9fa; color: #1db954; padding: 2rem;')
+    h1 Update Playlist
+    form(action=`/admin/playlists/update/${playlist.id}`, method='post', enctype='multipart/form-data')
+      div.form-group
+        label(for='title') Title
+        input.form-control(id='title', type='text', name='title', value=playlist.title, required)
+      
+      div.form-group
+        label(for='avatar') Avatar
+        input.form-control-file(id='avatar', type='file', name='avatar')
+        if playlist.avatar
+          img(src=playlist.avatar, alt='Current Avatar', width='100')
+
+      div.form-group
+        label(for='type') Type
+        select.form-control(id='type', name='type', required)
+          option(value='') Select Type
+          each type in playlistTypes
+            option(value=type, selected=playlist.type === type)= type
+
+      div.form-group
+        label(for='songs') Songs
+        select.form-control(id='songs', name='songIds', multiple, required)
+          each song in songs
+            option(value=song.id selected=playlist.songs.some(s => s.id === song.id)) #{song.title}
+
+      div
+        button.btn.btn-primary(type='submit') Update Playlist

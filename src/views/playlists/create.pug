@@ -1,0 +1,31 @@
+extends ../layout_admin
+
+block content
+  .container(style='background-color: #f8f9fa; color: #1db954; padding: 2rem;')
+    h1 Create Playlist
+    form(action='/admin/playlists/create', method='post', enctype='multipart/form-data')
+      div.form-group
+        label(for='title') Title
+        input.form-control(id='title', type='text', name='title', required)
+
+      div.form-group
+        label(for='avatar') Avatar
+        input.form-control-file(id='avatar', type='file', name='avatar')
+
+      div.form-group
+        label(for='type') Type
+        select.form-control(id='type', name='type', required)
+          option(value='') Select Type
+          each type, key in playlistTypes
+            option(value=type)= type
+
+      div.form-group
+        label(for='songs') Songs
+        div#songCheckboxes
+          each song in songs
+            div.form-check
+              input.form-check-input(type='checkbox', id=`song-${song.id}`, name='songIds', value=song.id)
+              label.form-check-label(for=`song-${song.id}`) #{song.title}
+
+      div
+        button.btn.btn-primary(type='submit') Create Playlist
