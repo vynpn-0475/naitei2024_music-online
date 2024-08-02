@@ -3,6 +3,7 @@
   "navbar": {
     "brand": "Music Online",
     "login": "Login",
+    "logout": "Logout",
     "language": {
       "english": "English",
       "vietnamese": "Vietnamese"
@@ -13,7 +14,11 @@
     "search": "Search",
     "library": "Library",
     "create_playlist": "Create Playlist",
-    "liked_song": "Liked Song"
+    "liked_song": "Liked Song",
+    "author": "Author",
+    "genre": "Genre",
+    "song": "Song",
+    "user": "User"
   },
   "content": {
     "discover_new_music": "Discover New Music",
@@ -55,7 +60,8 @@
     "title": "Error",
     "system": "Error from system",
     "usernameAlreadyTaken": "Username already taken",
-    "checkingUsername": "Error checking username"
+    "checkingUsername": "Error checking username",
+    "failedToFetchGenres": "Failed to fetch genres."
   },
   "message": {
     "notAccount": "Do not have an account?",
@@ -67,5 +73,16 @@
     "welcom": "Welcome, ",
     "homepage": "This is the home page. You are logged in as ",
     "usernameAvailable": "Username is available"
+  },
+  "genres": {
+    "title": "Genre List",
+    "titleDetailGenre": "Genre Details",
+    "createNewGenre": "Create New Genre",
+    "genreName": "Name's Genre: {{name}}"
+  },
+  "common": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create"
   }
 }
