@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createGet, createPost, deleteGet, deletePost, detail, list, updateGet, updatePost, validateAndFetchAuthor } from '@src/controller/Author.controller';
+import { createGet, createPost, deleteGet, deletePost, detail, list, updateGet, updatePost, validateAndFetchAuthor } from '@src/controllers/Author.controller';
 import { uploadAvatar } from '../middleware/multer.config';
 
 const router = Router();

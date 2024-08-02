@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { createGet, createPost, deleteGet, deletePost, list, updateGet, updatePost } from '@src/controller/Genre.controller';
+import { createGet, createPost, deleteGet, deletePost, list, updateGet, updatePost } from '@src/controllers/Genre.controller';
 import {
   detail,
   validateAndFetchGenre,
-} from '@src/controller/Genre.controller';
+} from '@src/controllers/Genre.controller';
 
 const router = Router();
 
