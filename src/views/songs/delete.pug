@@ -1,0 +1,32 @@
+extends ../layout_admin
+
+block content
+  .container
+    .row
+      .col-12
+        h1.card-title
+          = title 
+          | &nbsp;
+          b(style="color: #1db954")= song.title
+
+    .row
+      .col-md-6
+        .card-songs-detail
+          img.card-img-top(src=song.imageUrl alt="Song Image")
+          .card-body
+            h2.card-title= song.title
+            p.card-text
+              | Artist: 
+              b= song.artist
+            p.card-text
+              | Lyrics:
+              pre.card-text(style="color: #e5e5e5")= song.lyrics
+      .col-md-6
+        .card-songs-detail
+          .card-body
+            h3= "Listen to the Song"
+            button.btn.btn-primary(type="button" data-toggle="modal" data-target="#audioPlayerModal" onclick=`updateAudioPlayer("${song.url}")`) Play
+            p Bạn có chắc chắn muốn xóa nhạc "#{song.title}" không?
+            form(action=`/admin/musics/delete/${song.id}` method='POST')
+              button(type='submit' class='btn btn-danger') Xóa
+              a(href='/admin/musics' class='btn btn-secondary') Quay lại danh sách

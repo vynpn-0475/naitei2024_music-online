@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import asyncHandler from 'express-async-handler';
-import { createSong, getAllSongs, getSongById, updateSong } from '@src/services/Song.service';
+import { createSong, deleteSong, getAllSongs, getSongById, updateSong } from '@src/services/Song.service';
 import { getAuthors } from '@src/services/Author.service';
 import { uploadFileToFirebase } from '@src/utils/fileUpload.utils';
 import { Song } from '@src/entities/Song.entity';
@@ -137,3 +137,27 @@ export const updatePost = async (req: Request, res: Response) => {
         res.status(500).send(`Error updating song: ${error.message}`);
     }
 };
+
+export const deleteGet = asyncHandler(async (req: Request, res: Response) => {
+    try {
+        const song = (req as any).song;
+        res.render('songs/delete', {
+            title: 'Delete Song',
+            song,
+        });
+    } catch (error) {
+        req.flash('error_msg', 'Failed to fetch song');
+        res.status(500).send('Error fetching song');
+    }
+});
+
+export const deletePost = asyncHandler(async (req: Request, res: Response) => {
+    try {
+        const songId = parseInt(req.params.id, 10);
+        await deleteSong(songId);
+        res.redirect('/admin/musics');
+    } catch (error) {
+        req.flash('error_msg', 'Failed to delete song');
+        res.status(500).send(`Error deleting song: ${error.message}`);
+    }
+});

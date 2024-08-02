@@ -42,3 +42,15 @@ export const updateSong = async (songId: number, data: Partial<Song>) => {
     throw new Error('Error updating song');
   }
 };
+
+export const deleteSong = async (songId: number) => {
+  try {
+      const song = await songRepository.findOne({ where: { id: songId } });
+      if (!song) {
+        throw new Error('Song not found');
+      }
+      await song.remove();
+    } catch (error) {
+      throw new Error('Error deleting song');
+    }
+};
