@@ -28,19 +28,26 @@
   "title_Logo": "Music Online",
   "title_register": "Register to listen to music",
   "title_login": "Log in to listen to music",
+  "title_list": "List",
+
   "form": {
     "username": "User Name",
     "email": "Email Address",
     "password": "Password",
-    "confirm_password": "Confirm Password"
+    "confirm_password": "Confirm Password",
+    "dateOfBirth": "Date Of Birth"
   },
   "action": {
     "register": "Register",
     "login": "Login",
     "logout": "Logout",
+    "create": "Create",
+    "new": "New",
+    "list": "List",
     "loginByGoogle": "Login by Google"
   },
   "option": {
+    "user": "User",
     "english": "English",
     "vietnamese": "Vietnamese"
   },
@@ -72,7 +79,9 @@
     "emailIsNotValid": "This email is not valid. Make sure the email is entered as example@example.com",
     "welcom": "Welcome, ",
     "homepage": "This is the home page. You are logged in as ",
-    "usernameAvailable": "Username is available"
+    "usernameAvailable": "Username is available",
+    "userNotFound": "User Not Found",
+    "loginByGoogle": "Login by Google"
   },
   "genres": {
     "title": "Genre List",

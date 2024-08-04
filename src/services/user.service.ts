@@ -19,6 +19,9 @@ class UserService {
         return false;
       });
   }
+  public async findUsers() {
+    return await this.userRepository.find();
+  }
 }
 
 export default new UserService();

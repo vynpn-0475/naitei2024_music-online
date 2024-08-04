@@ -1,7 +1,10 @@
-extends ../layout
+extends ../layout_user
 
 block content 
   .container.mt-2
   h2 #{t('message.welcom')} #{user.username}!
   p #{t('message.homepage')} #{user.username}.
+  ul 
+    li 
+      a(href="/admin/users") #{t('action.list')} #{t('option.user')} 
   a(href="/logout") #{t('action.logout')}

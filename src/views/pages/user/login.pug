@@ -9,15 +9,16 @@ block content
             h2= t('title_login')
           .card-body
             form#loginUserform(action="/login" method="POST") 
-              if error && error.status === 500
-                p#errorAlert.alert.alert-danger= message
+              if error_msg.length
+                #errorAlert.alert.alert-danger
+                  | #{error_msg}
               .mb-3
-                label.form-label(for="username")= t('form.username')
-                input.form-control(type="text" name="username" id="username" placeholder="username123" required)
+                label.form-label(for="usernameLogin")= t('form.username')
+                input.form-control(type="text" name="usernameLogin" id="usernameLogin" placeholder="username123" required)
               .mb-3
                 label.form-label(for="password")= t('form.password')
                 input.form-control(type="password" name="password" id="password" placeholder="Abcd@1234" required)
-              button.btn.btn-success.fw-bold.w-100(type="submit")= t('action.login')
+              button.btn.btn-success.fw-bold.w-100(type="submit" )= t('action.login')
           .card-footer
             p #{t('message.or')}
             .d-flex.justify-content-between

@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  $('form').on('submit', function (event) {
+  $('#registerUserform').on('submit', function (event) {
     const passwordInput = $('#password').val();
     const confirmPasswordInput = $('#confirmPassword').val();
 
@@ -57,4 +57,15 @@ $(document).ready(function () {
       messageDiv.css('color', 'red');
     }
   });
+});
+$(document).ready(function () {
+  const $errorAlert = $('#errorAlert');
+  if ($errorAlert.length) {
+    // Hiển thị thông báo lỗi
+    $errorAlert.show();
+    // Ẩn thông báo lỗi sau 3 giây (3000ms)
+    setTimeout(() => {
+      $errorAlert.hide();
+    }, 3000);
+  }
 });
