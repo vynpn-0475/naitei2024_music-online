@@ -61,7 +61,10 @@
     "system": "Error from system",
     "usernameAlreadyTaken": "Username already taken",
     "checkingUsername": "Error checking username",
-    "failedToFetchGenres": "Failed to fetch genres."
+    "failedToFetchGenres": "Failed to fetch genres.",
+    "invalidGenreId": "Invalid genre ID",
+    "genreNotFound": "Genre not found",
+    "usernameNotFound": "Username not found!"
   },
   "message": {
     "notAccount": "Do not have an account?",

@@ -78,7 +78,8 @@ small {
 }
 
 #emailHelp,
-#passwordError {
+#passwordError,
+#errorAlert {
     display: none;
     color: red;
 }
