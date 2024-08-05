@@ -75,3 +75,7 @@ $(document).ready(function () {
     }, 3000);
   }
 });
+function confirmDeletion(message) {
+  var message = $('#confirmation-message').text();
+  return confirm(message);
+}

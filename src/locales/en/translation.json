@@ -28,21 +28,32 @@
   "title_Logo": "Music Online",
   "title_register": "Register to listen to music",
   "title_login": "Log in to listen to music",
+  "title_user_detail": "User Details",
   "form": {
     "username": "User Name",
     "email": "Email Address",
     "password": "Password",
-    "confirm_password": "Confirm Password"
+    "confirm_password": "Confirm Password",
+    "dateOfBirth": "Date Of Birth",
+    "role": "Role",
+    "commentCount": "Number of Comments",
+    "favoriteSongCount": "Number of Favorite Songs",
+    "suggestedSongCount": "Number of Suggested Songs",
+    "playlistCount": "Number of Playlists"
   },
   "action": {
     "register": "Register",
     "login": "Login",
     "logout": "Logout",
-    "loginByGoogle": "Login by Google"
+    "loginByGoogle": "Login by Google",
+    "create": "Create",
+    "new": "New",
+    "list": "List"
   },
   "option": {
     "english": "English",
-    "vietnamese": "Vietnamese"
+    "vietnamese": "Vietnamese",
+    "user": "User"
   },
   "error": {
     "invalidCredentials": "Invalid Credentials",
@@ -67,7 +78,13 @@
     "usernameNotFound": "Username not found!",
     "failedToCreateGenre": "Failed to create genre.",
     "genreAlreadyExists": "Genre name already taken",
-    "countSongsByGenre": "Lỗi khi đếm số lượng bài hát theo thể loại"
+    "countSongsByGenre": "Error counting songs by genre",
+    "userNotFound": "User Not Found!"
+  },
+  "success": {
+    "createSuccess": "Create Success",
+    "updateSuccess": "Update Success",
+    "deleteSuccess": "Delete Success"
   },
   "message": {
     "notAccount": "Do not have an account?",
@@ -81,7 +98,8 @@
     "usernameAvailable": "Username is available",
     "successfullyCreated": "Successfully created.",
     "successfullyUpdated": "Successfully updated.",
-    "successfullyDeleted": "Successfully deleted."
+    "successfullyDeleted": "Successfully deleted.",
+    "confirmation_delete": "Are you sure you want to delete?"
   },
   "genres": {
     "title": "Genre List",
