@@ -62,7 +62,10 @@
     "usernameAlreadyTaken": "Tên người dùng đã được sử dụng",
     "checkingUsername": "Lỗi kiểm tra tên người dùng",
     "failedToFetchGenres": "Không thể lấy thể loại.",
-    "usernameNotFound": "Tên người dùng không tồn tại!"
+    "usernameNotFound": "Tên người dùng không tồn tại!",
+    "failedToCreateGenre": "Không thể tạo thể loại",
+    "genreAlreadyExists": "Tên thể loại đã tồn tại",
+    "countSongsByGenre": "Error counting songs by genre"
   },
   "message": {
     "notAccount": "Bạn chưa có tài khoản?",
@@ -75,17 +78,26 @@
     "homepage": "Đây là trang chủ. Bạn đang đăng nhập với tên ",
     "usernameAvailable": "Tên người dùng có thể sử dụng",
     "invalidGenreId": "ID thể loại không hợp lệ",
-    "genreNotFound": "Không tìm thấy thể loại"
+    "genreNotFound": "Không tìm thấy thể loại",
+    "successfullyCreated": "Tạo mới thành công.",
+    "successfullyUpdated": "Cập nhật thành công.",
+    "successfullyDeleted": "Xóa thành công."
   },
   "genres": {
     "title": "Danh sách thể loại",
     "titleDetailGenre": "Chi tiết thể loại",
     "createNewGenre": "Tạo thể loại mới",
-    "genreName": "Tên thể loại: {{name}}"
+    "genreName": "Tên thể loại: {{name}}",
+    "name": "Tên thể loại",
+    "updateGenre": "Cập Nhật Thể Loại",
+    "confirmDeleteGenre": "Bạn có chắc chắn muốn xóa thể loại: {{name}}?",
+    "deleteGenre": "Xóa thể loại",
+    "songCount": "Số lượng bài hát"
   },
   "common": {
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
-    "create": "Tạo mới"
+    "create": "Tạo mới",
+    "cancel": "Hủy"
   }
 }

@@ -48,7 +48,7 @@
     "invalidCredentials": "Invalid Credentials",
     "deleteFail": "Delete Fail",
     "updateFail": "Update Fail",
-    "createFail": "Creare Fail",
+    "createFail": "Create Fail",
     "logoutFail": "Logout Fail",
     "registerFail": "No page Register",
     "noPageLogin": "No Page Login",
@@ -64,7 +64,10 @@
     "failedToFetchGenres": "Failed to fetch genres.",
     "invalidGenreId": "Invalid genre ID",
     "genreNotFound": "Genre not found",
-    "usernameNotFound": "Username not found!"
+    "usernameNotFound": "Username not found!",
+    "failedToCreateGenre": "Failed to create genre.",
+    "genreAlreadyExists": "Genre name already taken",
+    "countSongsByGenre": "Lỗi khi đếm số lượng bài hát theo thể loại"
   },
   "message": {
     "notAccount": "Do not have an account?",
@@ -75,17 +78,26 @@
     "emailIsNotValid": "This email is not valid. Make sure the email is entered as example@example.com",
     "welcom": "Welcome, ",
     "homepage": "This is the home page. You are logged in as ",
-    "usernameAvailable": "Username is available"
+    "usernameAvailable": "Username is available",
+    "successfullyCreated": "Successfully created.",
+    "successfullyUpdated": "Successfully updated.",
+    "successfullyDeleted": "Successfully deleted."
   },
   "genres": {
     "title": "Genre List",
     "titleDetailGenre": "Genre Details",
     "createNewGenre": "Create New Genre",
-    "genreName": "Name's Genre: {{name}}"
+    "genreName": "Name's Genre: {{name}}",
+    "name": "Name's Genre",
+    "updateGenre": "Update Genre",
+    "confirmDeleteGenre": "Are you sure you want to delete the genre: {{name}}",
+    "deleteGenre": "Delete Genre",
+    "songCount": "Number of Songs"
   },
   "common": {
     "edit": "Edit",
     "delete": "Delete",
-    "create": "Create"
+    "create": "Create",
+    "cancel": "Cancel"
   }
 }

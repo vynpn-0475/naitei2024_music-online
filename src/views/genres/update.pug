@@ -1,0 +1,21 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1= t('genres.updateGenre')
+
+    if flash
+      if flash.success
+        .alert.alert-success
+          | #{flash.success}
+
+      if flash.error
+        .alert.alert-danger
+          | #{flash.error}
+
+    form(action=`/admin/genres/update/${genre.id}`, method='post')
+      div.form-group
+        label(for='name')= t('genres.name')
+        input.form-control(id='name', type='text', name='name', value=genre.name, required)
+      div
+        button.btn.btn-primary(type='submit')= t('common.edit')

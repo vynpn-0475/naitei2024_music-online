@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { AppDataSource } from '../config/data-source';
 import { Genre } from '../entities/Genre.entity';
 
@@ -19,4 +20,53 @@ export const getGenreById = async (genreId: number) => {
     where: { id: genreId },
     relations: ['songs'],
   });
+};
+
+export const createGenre = async (data: Partial<Genre>, t: TFunction) => {
+  try {
+    const existingGenre = await genreRepository.findOne({
+      where: { name: data.name },
+    });
+
+    if (existingGenre) {
+      throw new Error(t('error.genreAlreadyExists'));
+    }
+
+    const genre = new Genre();
+    Object.assign(genre, data);
+    await genre.save();
+    return genre;
+  } catch (error) {
+    throw new Error(t('error.failedToCreateGenre'));
+  }
+};
+
+export const updateGenre = async (
+  genreId: number,
+  data: Partial<Genre>,
+  t: TFunction
+) => {
+  try {
+    const genre = await genreRepository.findOne({ where: { id: genreId } });
+    if (!genre) {
+      throw new Error(t('error.genreNotFound'));
+    }
+    Object.assign(genre, data);
+    await genre.save();
+    return genre;
+  } catch (error) {
+    throw new Error(t('error.failedToUpdateGenre'));
+  }
+};
+
+export const deleteGenre = async (genreId: number, t: TFunction) => {
+  try {
+    const genre = await genreRepository.findOne({ where: { id: genreId } });
+    if (!genre) {
+      throw new Error(t('error.genreNotFound'));
+    }
+    await genre.remove();
+  } catch (error) {
+    throw new Error(t('error.failedToDeleteGenre'));
+  }
 };

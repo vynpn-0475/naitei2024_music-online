@@ -1,0 +1,20 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1= t('genres.createNewGenre')
+    
+    if flash && flash.success
+      .alert.alert-success
+        | #{flash.success}
+    
+    if flash && flash.error
+      .alert.alert-danger
+        | #{flash.error}
+    
+    form(action='/admin/genres/create', method='post')
+      div.form-group
+        label(for='name')= t('genres.name')
+        input.form-control(id='name', type='text', name='name', required)
+      div
+        button.btn.btn-success(type='submit')= t('common.create')
