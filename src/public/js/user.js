@@ -9,9 +9,7 @@ $(document).ready(function () {
       $('#emailHelp').hide();
     }
   });
-});
 
-$(document).ready(function () {
   $('#registerUserform').on('submit', function (event) {
     const passwordInput = $('#password').val();
     const confirmPasswordInput = $('#confirmPassword').val();
@@ -23,9 +21,7 @@ $(document).ready(function () {
       $('#passwordError').hide(); // Ẩn thông báo lỗi
     }
   });
-});
 
-$(document).ready(function () {
   $('#username').on('input', async function () {
     const username = $(this).val();
     const messageDiv = $('#responseMessage');
@@ -33,7 +29,6 @@ $(document).ready(function () {
       messageDiv.text('');
       return;
     }
-
     try {
       const response = await fetch('/check-username', {
         method: 'POST',
@@ -57,9 +52,8 @@ $(document).ready(function () {
       messageDiv.css('color', 'red');
     }
   });
-});
 
-$(document).ready(function () {
+  // an thong bao
   const $errorAlert = $('#errorAlert');
   const $successAlert = $('#successAlert');
   if ($errorAlert.length) {
@@ -74,7 +68,21 @@ $(document).ready(function () {
       $successAlert.hide();
     }, 3000);
   }
+
+  // Show image
+  $('#avatar').on('change', function (event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#previewImage').attr('src', e.target.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  });
 });
+
 function confirmDeletion(message) {
   var message = $('#confirmation-message').text();
   return confirm(message);

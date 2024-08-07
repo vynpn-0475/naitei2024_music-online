@@ -18,7 +18,8 @@
     "author": "Author",
     "genre": "Genre",
     "song": "Song",
-    "user": "User"
+    "user": "User",
+    "album": "Album"
   },
   "content": {
     "discover_new_music": "Discover New Music",
@@ -41,7 +42,11 @@
     "commentCount": "Number of Comments",
     "favoriteSongCount": "Number of Favorite Songs",
     "suggestedSongCount": "Number of Suggested Songs",
-    "playlistCount": "Number of Playlists"
+    "playlistCount": "Number of Playlists",
+    "releaseDate": "Release Date",
+    "title_album": "Name Album",
+    "avatar": "Avatar",
+    "author": "Author"
   },
   "action": {
     "register": "Register",
@@ -50,12 +55,17 @@
     "loginByGoogle": "Login by Google",
     "create": "Create",
     "new": "New",
-    "list": "List"
+    "list": "List",
+    "account": "Account",
+    "profile": "Profile",
+    "changePassword": "Change Password"
   },
   "option": {
     "english": "English",
     "vietnamese": "Vietnamese",
-    "user": "User"
+    "user": "User",
+    "album": "Album",
+    "author": "Author"
   },
   "error": {
     "invalidCredentials": "Invalid Credentials",
@@ -109,7 +119,11 @@
     "errorCreatingPlaylist": "Error creating Playlist: {{errorMessage}}",
     "errorUpdatingPlaylist": "Error update Playlist: {{errorMessage}}",
     "errorDeletingPlaylist": "Error delete Playlist: {{errorMessage}}",
-    "errorLoadingPage": "Error loading page."
+    "errorLoadingPage": "Error loading page.",
+    "sortSongsByUpdatedAt": "An error occurred while sorting songs by update date.",
+    "albumNotFound": "Album Not Found",
+    "noPageCreate": "No Page Create",
+    "noAlbums": "Album not found"
   },
   "success": {
     "createSuccess": "Create Success",
@@ -133,7 +147,8 @@
     "successfullyUpdated": "Successfully updated.",
     "successfullyDeleted": "Successfully deleted.",
     "confirmation_delete": "Are you sure you want to delete?",
-    "errorOccurred": "An error occurred: {{error}}"
+    "errorOccurred": "An error occurred: {{error}}",
+    "numberSong": "Number of songs"
   },
   "genres": {
     "title": "Genre List",
@@ -238,7 +253,7 @@
     "createNewPlaylist": "Create new playlist",
     "updatePlaylist": "Update playlist",
     "createTitle": "Create Playlist",
-    "title_name": "Title", 
+    "title_name": "Title",
     "avatar": "Avatar",
     "selectType": "Select Type",
     "songs": "Songs",
@@ -288,5 +303,15 @@
     "create": "Create",
     "cancel": "Cancel",
     "detail": "Detail"
+  },
+  "guess_page": {
+    "popularArtist": "Popular artists",
+    "popularAlbum": "Popular albums",
+    "popularRadio": "Popular radio",
+    "featuredCharts": "Fearture Charts",
+    "musicPlaylist": "Music Online Playlists",
+    "newSongs": "New Songs",
+    "showAll": "Show all",
+    "artist": "Artist"
   }
 }

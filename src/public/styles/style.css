@@ -10,6 +10,8 @@ body {
     margin: 0 auto;
     padding: 20px;
     width: 1200px;
+    overflow: auto;
+    scrollbar-width: none;
 }
 
 .card {
