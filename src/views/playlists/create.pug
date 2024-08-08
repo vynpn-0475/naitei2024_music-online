@@ -1,0 +1,34 @@
+extends ../layout_admin
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_create.css")
+
+block content
+  .container
+    h1= t('playlist.createTitle')
+    form(action='/admin/playlists/create', method='post', enctype='multipart/form-data')
+      div.form-group
+        label(for='title')= t('playlist.title_name')
+        input.form-control(id='title', type='text', name='title', required)
+
+      div.form-group
+        label(for='avatar')= t('playlist.avatar')
+        input.form-control-file(id='avatar', type='file', name='avatar')
+
+      div.form-group
+        label(for='type')= t('playlist.type')
+        select.form-control(id='type', name='type', required)
+          option(value='')= t('playlist.selectType')
+          each type, key in playlistTypes
+            option(value=type)= type
+
+      div.form-group
+        label(for='songs')= t('playlist.songs')
+        div#songCheckboxes
+          each song in songs
+            div.form-check
+              input.form-check-input(type='checkbox', id=`song-${song.id}`, name='songIds', value=song.id)
+              label.form-check-label(for=`song-${song.id}`) #{song.title}
+
+      div
+        button.btn.btn-primary(type='submit')= t('playlist.createButton')

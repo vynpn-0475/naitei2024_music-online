@@ -23,7 +23,7 @@ block content
       .col-md-6
         .card-songs-detail
           .card-body
-            button.btn.btn-primary(type="button" onclick=`updateAudioPlayer("${song.url}")`) #{t('content.play')}
+            button.btn.btn-primary(type="button" data-toggle="modal" data-target="#audioPlayerModal" onclick=`updateAudioPlayer("${song.url}"), ${-1}`) #{t('content.play')}
             div.mt-4
               a.btn.btn-primary(href=`/admin/musics/update/${song.id}`) #{t('common.edit')}
               a.btn.btn-danger(href=`/admin/musics/delete/${song.id}`) #{t('common.delete')}

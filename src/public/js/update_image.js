@@ -17,7 +17,6 @@ $('#image').on('change', function(event) {
       $img.insertAfter($(input).next());
     }
   }
-
   if (file) {
     reader.readAsDataURL(file);
   }

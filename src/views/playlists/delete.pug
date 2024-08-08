@@ -1,0 +1,54 @@
+extends ../layout_admin
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_delete_playlist.css")
+
+block content
+  .container
+    h1.text-center= t('playlist.deleteTitle')
+    .row
+      .col-md-4
+        if playlist.avatar
+          img(src=playlist.avatar, alt=playlist.title, class='img-fluid rounded')
+        else
+          .bg-secondary.text-white.text-center.d-flex.align-items-center.justify-content-center
+            = t('playlist.noImage')
+      .col-md-8
+        p
+          strong= t('playlist.typeLabel')
+          | #{playlist.title}
+        p
+          strong= t('playlist.typeLabel')
+          | #{playlist.type}
+        p
+          strong= t('playlist.createdAtLabel')
+          | #{new Date(playlist.createdAt).toDateString()}
+        p
+          strong= t('playlist.numOfSongsLabel')
+          | #{length}
+
+    h2= t('playlist.confirmDelete', { title: playlist.title })
+    form(action=`/admin/playlists/delete/${playlist.id}?_method=delete`, method='post').d-flex
+      button.btn.btn-danger(type='submit').mr-2= t('playlist.deleteButton')
+      a.btn.btn-secondary(href='/admin/playlists')= t('playlist.cancelButton')
+    
+    h1.text-center.mb-4= t('playlist.listOfSongsTitle')
+    ul.list-group
+      each song in playlist.songs
+        li.list-group-item.d-flex.justify-content-between.align-items-center
+          .d-flex.align-items-center
+            if song.imageUrl
+              img(src=song.imageUrl, alt=song.title, class='rounded-circle')
+            else
+              .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center
+                = t('playlist.noImage')
+            .ml-2
+              a(href=`/admin/musics/${song.id}`, class='text-decoration-none')
+                h5.mb-1= song.title
+              small= song.artist  
+              | &nbsp;
+              small= new Date(song.createdAt).toDateString()
+          .mt-4
+            form(action=`/admin/playlists/remove-song/${playlist.id}`, method='post', class='inline-form')
+              input(type='hidden', name='songId', value=song.id)
+              button.btn.btn-danger(type='submit')= t('playlist.removeButton')

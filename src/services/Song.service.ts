@@ -2,6 +2,7 @@ import { AppDataSource } from '@src/config/data-source';
 import { Genre } from '@src/entities/Genre.entity';
 import { Song } from '@src/entities/Song.entity';
 import { Request } from 'express';
+import { In } from 'typeorm';
 
 const songRepository = AppDataSource.getRepository(Song);
 
@@ -25,6 +26,17 @@ export const getSongById = async (req: Request, songId: number) => {
   try {
     return await songRepository.findOne({
       where: { id: songId },
+      relations: ['author', 'album', 'genres'],
+    });
+  } catch (error) {
+    throw new Error(req.t('error.failedToFetchSongs'));
+  }
+};
+
+export const getSongsByIds = async (req: Request, songIds: number[]) => {
+  try {
+    return await songRepository.find({
+      where: { id: In(songIds) },
       relations: ['author', 'album', 'genres'],
     });
   } catch (error) {
@@ -90,8 +102,15 @@ export const updateSong = async (
   }
 };
 
-export const updateSongGenres = async (req: Request, songId: number, genres: Genre[]) => {
-  const song = await Song.findOne({ where: { id: songId }, relations: ['genres'] });
+export const updateSongGenres = async (
+  req: Request,
+  songId: number,
+  genres: Genre[]
+) => {
+  const song = await Song.findOne({
+    where: { id: songId },
+    relations: ['genres'],
+  });
   if (!song) {
     throw new Error(req.t('error.songNotFound'));
   }

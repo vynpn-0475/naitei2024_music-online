@@ -65,8 +65,8 @@ export const detail = asyncHandler(async (req: GenreRequest, res: Response) => {
       return res.redirect('/error');
     }
 
-    const songs = await getSongsByGenreId(genre.id, req.t);
-    const countSong = await countSongsByGenreId(genre.id, req.t);
+    const songs = await getSongsByGenreId(req, genre.id);
+    const countSong = await countSongsByGenreId(req, genre.id);
 
     res.render('genres/detail', {
       genre,
@@ -128,7 +128,7 @@ export const updatePost = async (req: GenreRequest, res: Response) => {
 export const deleteGet = async (req: GenreRequest, res: Response) => {
   try {
     const genre = (req as any).genre;
-    const songs = await getSongsByGenreId(genre.id, req.t);
+    const songs = await getSongsByGenreId(req, genre.id);
     res.render('genres/delete', {
       title: req.t('genres.deleteGenre'),
       genre,

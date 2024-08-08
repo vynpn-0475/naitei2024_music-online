@@ -67,8 +67,8 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
       req.flash('error_msg', t('error.authorNotFound'));
       return res.redirect('/error');
     }
-    const count = await countSongsByAuthorId(author.id, req.t);
-    const songs = await getSongsByAuthorId(author.id, req.t);
+    const count = await countSongsByAuthorId(req, author.id);
+    const songs = await getSongsByAuthorId(req, author.id);
     res.render('authors/detail', {
       author,
       songs,

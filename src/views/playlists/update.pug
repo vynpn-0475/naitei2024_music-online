@@ -1,0 +1,38 @@
+extends ../layout_admin
+
+block stylesheets
+  link(rel="stylesheet" href="/styles/custom_create.css")
+
+block content
+  .container
+    h1= t('playlistUpdate.updatePlaylist')
+    form(action=`/admin/playlists/update/${playlist.id}?_method=put`, method='POST', enctype='multipart/form-data')
+      div.form-group
+        label(for='title')= t('playlistUpdate.title')
+        input.form-control(id='title', type='text', name='title', value=playlist.title, required)
+      
+      div.form-group
+        label(for='avatar')= t('playlistUpdate.avatar')
+        input#image.form-control-file(type='file', name='avatar')
+        if playlist.avatar
+          img#current-image(src=playlist.avatar, alt=t('playlistUpdate.currentAvatar'), width='100')
+
+      div.form-group
+        label(for='type')= t('playlistUpdate.type')
+        select.form-control(id='type', name='type', required)
+          option(value='')= t('playlistUpdate.selectType')
+          each type in playlistTypes
+            option(value=type, selected=playlist.type === type)= type
+
+      div.form-group
+        label(for='songs')= t('playlistUpdate.songs')
+        div#songCheckboxes
+          each song in songs
+            div.form-check
+              input.form-check-input(type='checkbox', id=`song-${song.id}`, name='songIds', value=song.id, checked=playlist.songs.some(s => s.id === song.id))
+              label.form-check-label(for=`song-${song.id}`) #{song.title}
+
+      div
+        button.btn.btn-primary(type='submit')= t('playlistUpdate.updatePlaylist')
+  block scripts
+    script(src="/js/update_image.js")

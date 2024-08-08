@@ -1,0 +1,41 @@
+audio::-moz-media-controls {
+  display: none !important;
+}
+
+audio::-webkit-media-controls {
+  display: none !important;
+}
+
+footer.audio-player {
+  background-color: #000000;
+  color: #1db954;
+  padding: 10px;
+  text-align: center;
+}
+
+.controls {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.controls button {
+  background-color: #1db954;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  margin: 0 5px;
+  padding: 5px 10px;
+}
+
+.controls button:hover {
+  background-color: #17a15e;
+}
+
+.time span {
+  margin: 0 5px;
+}
+
+#progress, #volume {
+  margin: 0 5px;
+}
