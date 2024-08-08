@@ -1,9 +1,23 @@
 extends ../layout_admin
 
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_delete.css")
+
 block content
   .container
     h1= t('genres.deleteGenre')
-    
+    .mt-4
+      h3 #{t('genres.songs')}
+      if songs && songs.length > 0
+        ul.list-group
+          each song in songs
+            li.list-group-item
+              a(href=`/admin/musics/${song.id}`) #{song.title} - #{song.artist}
+              br
+              small #{song.updatedAt.toDateString()}
+      else
+        p #{t('genres.noSongs')}
+
     if flash
       if flash.success
         .alert.alert-success
@@ -14,6 +28,6 @@ block content
           | #{flash.error}
     
     p= t('genres.confirmDeleteGenre', { name: genre.name })
-    form(action=`/admin/genres/delete/${genre.id}`, method='post')
+    form(action=`/admin/genres/delete/${genre.id}?_method=delete`, method='post')
       button.btn.btn-danger(type='submit')= t('common.delete')
       a.btn.btn-secondary(href='/admin/genres')= t('common.cancel')

@@ -6,7 +6,10 @@ import {
   getGenres,
   updateGenre,
 } from '@src/services/Genre.service';
-import { countSongsByGenreId } from '@src/services/Song.service';
+import {
+  countSongsByGenreId,
+  getSongsByGenreId,
+} from '@src/services/Song.service';
 import { NextFunction, Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { TFunction } from 'i18next';
@@ -56,16 +59,18 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
 
 export const detail = asyncHandler(async (req: GenreRequest, res: Response) => {
   try {
-    const genre = req.genre;
+    const genre = (req as any).genre;
     if (!genre) {
       req.flash('error_msg', req.t('error.genreNotFound'));
       return res.redirect('/error');
     }
 
+    const songs = await getSongsByGenreId(genre.id, req.t);
     const countSong = await countSongsByGenreId(genre.id, req.t);
 
     res.render('genres/detail', {
       genre,
+      songs,
       countSong,
       title: req.t('genres.titleDetailGenre'),
     });
@@ -95,7 +100,7 @@ export const createPost = async (req: GenreRequest, res: Response) => {
 
 export const updateGet = (req: GenreRequest, res: Response) => {
   try {
-    const genre = req.genre;
+    const genre = (req as any).genre;
     res.render('genres/update', {
       title: req.t('genres.updateGenre'),
       genre,
@@ -109,24 +114,25 @@ export const updateGet = (req: GenreRequest, res: Response) => {
 
 export const updatePost = async (req: GenreRequest, res: Response) => {
   try {
-    const genreId = parseInt(req.params.id, 10);
     const { name } = req.body;
-
-    const genre = await updateGenre(genreId, { name }, req.t);
+    const gen = (req as any).genre;
+    const genre = await updateGenre(gen.id, { name }, req.t);
     req.flash('success_msg', req.t('genre.successfullyUpdated'));
     res.redirect(`/admin/genres/${genre.id}`);
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToUpdateGenre'));
-    res.redirect(`/admin/genres/${req.params.id}/edit`);
+    res.redirect(`/admin/genres/update/${req.params.id}`);
   }
 };
 
-export const deleteGet = (req: GenreRequest, res: Response) => {
+export const deleteGet = async (req: GenreRequest, res: Response) => {
   try {
-    const genre = req.genre;
+    const genre = (req as any).genre;
+    const songs = await getSongsByGenreId(genre.id, req.t);
     res.render('genres/delete', {
       title: req.t('genres.deleteGenre'),
       genre,
+      songs,
       t: req.t,
       flash: req.flash(),
     });
@@ -138,8 +144,8 @@ export const deleteGet = (req: GenreRequest, res: Response) => {
 
 export const deletePost = async (req: GenreRequest, res: Response) => {
   try {
-    const genreId = parseInt(req.params.id, 10);
-    await deleteGenre(genreId, req.t);
+    const genre = (req as any).genre;
+    await deleteGenre(genre.id, req.t);
     req.flash('success_msg', req.t('genre.successfullyDeleted'));
     res.redirect('/admin/genres');
   } catch (error) {

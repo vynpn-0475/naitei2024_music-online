@@ -13,12 +13,15 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/', getList);
 router.get('/create', getCreate);
 router.post('/create', validateRequest(CreateUserDto), postCreate);
-router.get('/:id', getDetail);
+
 router.get('/update/:id', getUpdatePage);
 router.put('/update/:id', validateRequest(CreateUserDto), postUpdate);
+
 router.delete('/delete/:id', postDelete);
+
+router.get('/', getList);
+router.get('/:id', getDetail);
 
 export default router;

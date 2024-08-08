@@ -9,6 +9,10 @@ import {
 } from '../../services/Author.service';
 import { Author } from '@src/entities/Author.entity';
 import { uploadFileToFirebase } from '@src/utils/fileUpload.utils';
+import {
+  countSongsByAuthorId,
+  getSongsByAuthorId,
+} from '@src/services/Song.service';
 
 export async function validateAndFetchAuthor(
   req: Request,
@@ -63,9 +67,12 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
       req.flash('error_msg', t('error.authorNotFound'));
       return res.redirect('/error');
     }
+    const count = await countSongsByAuthorId(author.id, req.t);
+    const songs = await getSongsByAuthorId(author.id, req.t);
     res.render('authors/detail', {
       author,
-      songs: author.songs,
+      songs,
+      count,
       title: t('authors.authorDetailTitle'),
       flashMessages: {
         error_msg: req.flash('error_msg') || null,
@@ -138,7 +145,14 @@ export const updatePost = async (req: Request, res: Response) => {
   try {
     const authorId = parseInt(req.params.id, 10);
     const { fullname, dateOfBirth } = req.body;
-    let avatarUrl = '';
+
+    const author = await getAuthorById(authorId, t);
+    if (!author) {
+      req.flash('error_msg', t('authors.authorNotFound'));
+      return res.redirect(`/admin/authors/update/${authorId}`);
+    }
+
+    let avatarUrl = author.avatar;
 
     if (req.file) {
       avatarUrl = await uploadFileToFirebase(
@@ -151,9 +165,14 @@ export const updatePost = async (req: Request, res: Response) => {
 
     await updateAuthor(
       authorId,
-      { fullname, avatar: avatarUrl, dateOfBirth: new Date(dateOfBirth) },
+      {
+        fullname: fullname || author.fullname,
+        avatar: avatarUrl,
+        dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : author.dateOfBirth,
+      },
       t
     );
+
     req.flash('success_msg', t('authors.authorUpdated'));
     res.redirect(`/admin/authors/${authorId}`);
   } catch (error) {
