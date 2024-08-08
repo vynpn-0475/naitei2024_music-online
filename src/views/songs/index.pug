@@ -1,0 +1,24 @@
+extends ../layout_admin
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_list_song.css")
+
+block content
+  .container
+    h1.text-center.my-4= t('content.discover_new_music')
+    .row
+      each song in songs
+        .col-md-4.mb-4
+          .card
+            if song.imageUrl
+              img.card-img-top(src=song.imageUrl, alt=song.title)
+            else
+              .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
+                | #{t('authors.noImage')}
+            .card-body
+              h5.card-title= song.title
+              p.card-text #{t('songs.list.artist')}: #{song.artist}
+              p.card-text #{t('content.play')}: #{song.updatedAt.toDateString()}
+              a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('common.detail')
+    .mt-4
+      a.btn.btn-success(href='/admin/musics/create')= t('songs.list.addNewSong')

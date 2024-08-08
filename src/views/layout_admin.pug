@@ -6,13 +6,13 @@ html(lang="en")
     title #{title}
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     link(rel="stylesheet", href="/styles/custom_homepage.css")
-    link(rel="stylesheet", href="/styles/custom_detail.css")
-    link(rel="stylesheet", href="/styles/custom_list.css")
-    link(rel="stylesheet", href="/styles/custom_create.css")
     link(rel="stylesheet" href="/styles/style.css")
+    link(rel="stylesheet", href="/styles/custom_footer.css")
+    block stylesheets
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
     script(src="/scripts/bootstrap.min.js")
+    script(src="/js/layout_admin.js")
   body
     nav.navbar.navbar-dark
       a.navbar-brand(href="#")= t('navbar.brand')
@@ -36,7 +36,7 @@ html(lang="en")
             a.nav-link(href="/admin/users")
               = t('sidebar.user')
           li.nav-item
-            a.nav-link(href="#")
+            a.nav-link(href="/admin/musics")
               = t('sidebar.song')
           li.nav-item.divider
             hr
@@ -46,3 +46,16 @@ html(lang="en")
 
       .content
         block content
+
+    footer.audio-player
+      audio#main-audio-player
+        | Your browser does not support the audio element.
+      .controls
+        button#prev-btn(type="button") &lt;&lt;
+        button#play-pause-btn(type="button") Play
+        button#next-btn(type="button") &gt;&gt;
+        .time
+          span#current-time 00:00
+          span#duration / 00:00
+        input#progress(type="range" min="0" value="0")
+        input#volume(type="range" min="0" max="1" step="0.01" value="1")

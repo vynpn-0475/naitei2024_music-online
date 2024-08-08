@@ -6,19 +6,20 @@ body {
 }
 
 .btn-success {
-  background-color: #1db954;
   border: none;
   border-radius: 5px;
-  color: #fff;
   padding: 10px 20px;
   text-decoration: none;
+  background-color: #191414;
+  color: #1db954;
 }
 
 .btn-success:hover {
-  background-color: #1ed760;
+  background-color: #121212;
 }
 
 .container {
+  background-color: #191414;
   margin: 0 auto;
   max-width: 800px;
   padding: 20px;
