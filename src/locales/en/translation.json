@@ -22,8 +22,10 @@
   },
   "content": {
     "discover_new_music": "Discover New Music",
-    "artist": "Artist: {{artist}}",
-    "play": "Play"
+    "artist": "Artist: ",
+    "play": "Play",
+    "genres": "Genres: ",
+    "lyrics": "Lyrics:"
   },
   "title_Logo": "Music Online",
   "title_register": "Register to listen to music",
@@ -86,12 +88,23 @@
     "failedToCreateAuthor": "Failed to create author.",
     "failedToUpdateAuthor": "Failed to update author.",
     "failedToDeleteAuthor": "Failed to delete author.",
-    "authorAlreadyExists": "An author with this name already exists"
+    "authorAlreadyExists": "An author with this name already exists",
+    "failedToFetchSongs": "Failed to fetch songs.",
+    "invalidSongId": "Invalid song ID",
+    "songNotFound": "Song not found",
+    "failedToCreateSong": "Failed to create song.",
+    "failedToUpdateSong": "Failed to update song.",
+    "failedToDeleteSong": "Failed to delete song.",
+    "songAlreadyExists": "A song with this title already exists",
+    "countSongsByAuthor": "Failed to count songs by author."
   },
   "success": {
     "createSuccess": "Create Success",
     "updateSuccess": "Update Success",
     "deleteSuccess": "Delete Success"
+  },
+  "warning": {
+    "authorHasSongs": "Tác giả không thể bị xóa vì có bài hát thuộc về họ."
   },
   "message": {
     "notAccount": "Do not have an account?",
@@ -109,9 +122,6 @@
     "confirmation_delete": "Are you sure you want to delete?",
     "errorOccurred": "An error occurred: {{error}}"
   },
-  "warning": {
-    "authorHasSongs": "Tác giả không thể bị xóa vì có bài hát thuộc về họ."
-  },
   "genres": {
     "title": "Genre List",
     "titleDetailGenre": "Genre Details",
@@ -121,7 +131,9 @@
     "updateGenre": "Update Genre",
     "confirmDeleteGenre": "Are you sure you want to delete the genre: {{name}}",
     "deleteGenre": "Delete Genre",
-    "songCount": "Number of Songs"
+    "songCount": "Number of Songs",
+    "songs": "List Song",
+    "noSongs": "Don't have Song"
   },
   "authors": {
     "createAuthor": "Create Author",
@@ -146,10 +158,72 @@
     "failedToUpdateAuthor": "Failed to update author.",
     "failedToDeleteAuthor": "Failed to delete author."
   },
+  "songs": {
+    "createSong": {
+      "title": "Create New Song",
+      "label": {
+        "title": "Title",
+        "artist": "Artist",
+        "lyrics": "Lyrics",
+        "image": "Image",
+        "song": "Song File",
+        "status": "Status"
+      },
+      "button": {
+        "submit": "Create Song"
+      }
+    },
+    "list": {
+      "title": "List of Songs",
+      "noImage": "No Image",
+      "artist": "Artist",
+      "updatedAt": "Updated At",
+      "viewDetails": "View Details",
+      "addNewSong": "Create New Song"
+    },
+    "detail": {
+      "title": "Song Detail",
+      "listenToSong": "Listen to music"
+    },
+    "updateSong": {
+      "title": "Update Song",
+      "label": {
+        "title": "Title",
+        "artist": "Artist",
+        "lyrics": "Lyrics",
+        "image": "Image",
+        "song": "Song File",
+        "status": "Status"
+      },
+      "button": {
+        "submit": "Update Song"
+      }
+    },
+    "deleteSong": {
+      "title": "Delete Song",
+      "confirmDelete": "Are you sure you want to delete the song: {{title}}",
+      "button": {
+        "delete": "Delete"
+      }
+    },
+    "form": {
+      "title": "Title",
+      "artist": "Artist",
+      "lyrics": "Lyrics",
+      "status": "Status",
+      "image": "Image",
+      "song": "Song File"
+    },
+    "message": {
+      "songUrl": "Song URL",
+      "currentAvatar": "Current Avatar"
+    }
+  },
   "common": {
     "edit": "Edit",
     "delete": "Delete",
     "create": "Create",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "detail": "Detail"
   }
 }

@@ -73,3 +73,7 @@ input.form-control:focus {
 form#createUserform {
   width: 600px;
 }
+
+.textarea-scroll {
+  overflow-y: auto;
+}

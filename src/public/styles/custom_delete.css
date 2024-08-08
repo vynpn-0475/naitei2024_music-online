@@ -91,6 +91,10 @@ form#formDelete button.btn:hover {
   display: none;
 }
 
+.song-title-color {
+  color: #1db954;
+}
+
 .lyrics-text-color {
   color: #e5e5e5;
 }

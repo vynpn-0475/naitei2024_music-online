@@ -1,19 +1,28 @@
 extends ../layout_admin
 
+block stylesheets
+  link(rel="stylesheet" href="/styles/custom_create.css")
+
 block content
   .container
     h1= t('authors.updateAuthor')
     form(action=`/admin/authors/update/${author.id}?_method=put`, method='post', enctype='multipart/form-data')
-      div.form-group
+      .form-group
         label(for='fullname')= t('authors.fullName')
         input.form-control(id='fullname', type='text', name='fullname', value=author.fullname, required)
-      div.form-group
+
+      .form-group
         label(for='avatar')= t('authors.avatar')
-        input.form-control-file(id='avatar', type='file', name='avatar')
+        input#image.form-control-file(type='file', name='avatar')
         if author.avatar
-          img(src=author.avatar, alt=t('authors.currentAvatar'), width='100')
-      div.form-group
+          img#current-image(src=author.avatar, alt=t('authors.currentAvatar'), width='100')
+
+      .form-group
         label(for='dateOfBirth')= t('authors.dateOfBirth')
         input.form-control(id='dateOfBirth', type='date', name='dateOfBirth', value=author.dateOfBirth.toISOString().split('T')[0], required)
+
       div
         button.btn.btn-primary(type='submit')= t('authors.updateAuthor')
+
+  block scripts
+    script(src="/js/update_image.js")

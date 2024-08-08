@@ -22,8 +22,10 @@
   },
   "content": {
     "discover_new_music": "Khám Phá Âm Nhạc Mới",
-    "artist": "Nghệ Sĩ: {{artist}}",
-    "play": "Phát"
+    "artist": "Nghệ Sĩ: ",
+    "play": "Phát",
+    "genres": "Thể loại: ",
+    "lyrics": "Lời bài hát:"
   },
   "title_Logo": "Âm Nhạc Trực Tuyến",
   "title_register": "Đăng ký để nghe nhạc",
@@ -86,7 +88,15 @@
     "failedToCreateAuthor": "Không Thể Tạo Tác Giả.",
     "failedToUpdateAuthor": "Không Thể Cập Nhật Tác Giả.",
     "failedToDeleteAuthor": "Không Thể Xóa Tác Giả.",
-    "authorAlreadyExists": "Tác Giả Với Tên Này Đã Tồn Tại"
+    "authorAlreadyExists": "Tác Giả Với Tên Này Đã Tồn Tại",
+    "failedToFetchSongs": "Không thể lấy danh sách bài hát.",
+    "invalidSongId": "ID bài hát không hợp lệ",
+    "songNotFound": "Không tìm thấy bài hát",
+    "failedToCreateSong": "Không thể tạo bài hát.",
+    "failedToUpdateSong": "Không thể cập nhật bài hát.",
+    "failedToDeleteSong": "Không thể xóa bài hát.",
+    "songAlreadyExists": "Bài hát với tiêu đề này đã tồn tại",
+    "countSongsByAuthor": "Không thể đếm số lượng bài hát theo tác giả."
   },
   "success": {
     "createSuccess": "Tạo Thành Công",
@@ -121,7 +131,9 @@
     "updateGenre": "Cập Nhật Thể Loại",
     "confirmDeleteGenre": "Bạn Có Chắc Chắn Muốn Xóa Thể Loại: {{name}}",
     "deleteGenre": "Xóa Thể Loại",
-    "songCount": "Số Lượng Bài Hát"
+    "songCount": "Số Lượng Bài Hát",
+    "songs": "Danh sách bài hát",
+    "noSongs": "Không có bài hát nào!!!"
   },
   "authors": {
     "createAuthor": "Tạo Tác Giả",
@@ -146,10 +158,72 @@
     "failedToUpdateAuthor": "Không Thể Cập Nhật Tác Giả.",
     "failedToDeleteAuthor": "Không Thể Xóa Tác Giả."
   },
+  "songs": {
+    "createSong": {
+      "title": "Tạo Bài Hát Mới",
+      "label": {
+        "title": "Tiêu đề",
+        "artist": "Ca sĩ",
+        "lyrics": "Lời bài hát",
+        "image": "Hình ảnh",
+        "song": "Tệp bài hát",
+        "status": "Trạng thái"
+      },
+      "button": {
+        "submit": "Tạo Bài Hát"
+      }
+    },
+    "list": {
+      "title": "Danh Sách Bài Hát",
+      "noImage": "Không Có Hình Ảnh",
+      "artist": "Nghệ Sĩ",
+      "updatedAt": "Cập Nhật Lúc",
+      "viewDetails": "Xem Chi Tiết",
+      "addNewSong": "Thêm Bài Hát Mới"
+    },
+    "detail": {
+      "title": "Chi tiết bài hát",
+      "listenToSong": "Nghe nhạc"
+    },
+    "updateSong": {
+      "title": "Cập Nhật Bài Hát",
+      "label": {
+        "title": "Tiêu Đề",
+        "artist": "Nghệ Sĩ",
+        "lyrics": "Lời Bài Hát",
+        "image": "Hình Ảnh",
+        "song": "Tệp Bài Hát",
+        "status": "Trạng Thái"
+      },
+      "button": {
+        "submit": "Cập Nhật Bài Hát"
+      }
+    },
+    "deleteSong": {
+      "title": "Xóa Bài Hát",
+      "confirmDelete": "Bạn Có Chắc Chắn Muốn Xóa Bài Hát: {{title}}",
+      "button": {
+        "delete": "Xóa"
+      }
+    },
+    "form": {
+      "title": "Tiêu đề",
+      "artist": "Nghệ sĩ",
+      "lyrics": "Lời bài hát",
+      "status": "Trạng thái",
+      "image": "Hình ảnh",
+      "song": "Tệp nhạc"
+    },
+    "message": {
+      "songUrl": "URL bài hát",
+      "currentAvatar": "Ảnh hiện tại"
+    }
+  },
   "common": {
     "edit": "Chỉnh Sửa",
     "delete": "Xóa",
     "create": "Tạo Mới",
-    "cancel": "Hủy"
+    "cancel": "Hủy",
+    "detail": "Chi tiết"
   }
 }

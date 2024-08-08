@@ -1,5 +1,8 @@
 extends ../layout_admin
 
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_detail.css")
+
 block content
   .container
     h1.my-4= author.fullname
@@ -23,10 +26,9 @@ block content
             ul.list-group
               each song in author.songs
                 li.list-group-item
-                  | #{song.title} - #{song.artist}
-                  if song.lyrics
-                    p.mt-2.text-muted
-                      | #{t('authors.lyrics')}: #{song.lyrics.substring(0, 100)}
+                  a(href=`/admin/musics/${song.id}`) #{song.title} - #{song.artist}
+                  br
+                  small #{song.updatedAt.toDateString()}
           else
             p #{t('authors.noSongs')}
 

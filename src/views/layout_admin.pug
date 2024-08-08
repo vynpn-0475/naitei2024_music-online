@@ -6,10 +6,8 @@ html(lang="en")
     title #{title}
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     link(rel="stylesheet", href="/styles/custom_homepage.css")
-    link(rel="stylesheet", href="/styles/custom_detail.css")
-    link(rel="stylesheet", href="/styles/custom_list.css")
-    link(rel="stylesheet", href="/styles/custom_create.css")
     link(rel="stylesheet" href="/styles/style.css")
+    block stylesheets
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
     script(src="/scripts/bootstrap.min.js")
@@ -36,7 +34,7 @@ html(lang="en")
             a.nav-link(href="/admin/users")
               = t('sidebar.user')
           li.nav-item
-            a.nav-link(href="#")
+            a.nav-link(href="/admin/musics")
               = t('sidebar.song')
           li.nav-item.divider
             hr

@@ -1,11 +1,26 @@
 extends ../layout_admin
 
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_detail.css")
+
 block content
   .container
     div.container
       h1.my-4 #{t('genres.titleDetailGenre')}: #{genre.name}
-      h1.my-4 #{t('genres.songCount')}: #{countSong}
+      h4.my-4 #{t('genres.songCount')}: #{countSong}
       div.mt-4
         a.btn.btn-primary(href=`/admin/genres/update/${genre.id}`) #{t('common.edit')}
         a.btn.btn-danger(href=`/admin/genres/delete/${genre.id}`) #{t('common.delete')}
         a.btn.btn-success(href='/admin/genres') #{t('genres.title')}
+
+      .mt-4
+        h3 #{t('genres.songs')}
+        if songs && songs.length > 0
+          ul.list-group
+            each song in songs
+              li.list-group-item
+                a(href=`/admin/musics/${song.id}`) #{song.title} - #{song.artist}
+                br
+                small #{song.updatedAt.toDateString()}
+        else
+          p #{t('genres.noSongs')}

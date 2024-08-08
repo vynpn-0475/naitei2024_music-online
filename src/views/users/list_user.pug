@@ -1,5 +1,8 @@
 extends ../layout_admin
 
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_list.css")
+
 block content 
   .container.mx-auto
     h1.my-4.text-light.text-center #{t('action.list')} #{t('option.user')}
