@@ -1,0 +1,31 @@
+extends ../layout_admin
+
+block content
+  .container
+    h1.text-center #{t('common.edit')} #{t('option.user')}
+    form#updateUserform(action=`/admin/users/update/${user.user_id}?_method=PUT` method="POST") 
+      input(type="hidden" name="_method" value="PUT")
+      .mb-3
+        label.form-label(for="username")= t('form.username')
+        input.form-control.text-dark(type="text" name="username" id="username" value=user.user_username readonly)
+        #responseMessage
+      .mb-3
+        label.form-label(for="email")= t('form.email')
+        input.form-control(type="email" name="email" id="email" aria-describedby="emailHelp" value=user.user_email )
+        #emailHelp.form-text(style="display: none;")
+          | #{t('message.emailIsNotValid')}
+      .mb-3
+        label.form-label(for="dateOfBirth")= t('form.dateOfBirth')
+        input.form-control(type="date" name="dateOfBirth" id="dateOfBirth" value=dateOfBirth)
+      .mb-3
+        label.form-label(for="role")= t('form.role')
+        select.form-control(name="role" id="role")
+          each role in roles
+            if role === user.user_role
+              option(value=role selected)= role
+            else  
+              option(value=role)= role
+      button.btn.fw-bold.w-25(type="submit")= t('common.edit')
+
+  block scripts
+    script(src="/js/user.js")

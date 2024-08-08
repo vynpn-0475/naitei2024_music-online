@@ -65,3 +65,28 @@ a.btn-success {
 a.btn-success:hover {
   background-color: #121212;
 }
+
+form#formDelete {
+  padding: 0px;
+  background-color: #343a40;
+}
+
+form#formDelete button.btn {
+  background-color: transparent;
+  border: 1px solid #ff2b49;
+  color: #ff2b49;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+form#formDelete button.btn:hover {
+  background-color: #ff2b49;
+  color: white;
+}
+
+#confirmation-message {
+  display: none;
+}

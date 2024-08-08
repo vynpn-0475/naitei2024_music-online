@@ -10,10 +10,7 @@ export class UserController {
       res.render('pages/user/register', { pageTitle: t('action.register') });
     } catch (error) {
       req.flash('error_msg', t('error.registerFail'));
-      return res.render('error', {
-        message: t('error.loginFail'),
-        error: { status: 500, stack: error.stack },
-      });
+      res.redirect('/error');
     }
   };
   public static getLogin = (req: Request, res: Response) => {
@@ -21,10 +18,7 @@ export class UserController {
       res.render('pages/user/login', { pageTitle: t('action.login') });
     } catch (error) {
       req.flash('error_msg', t('noPageLogin'));
-      return res.render('error', {
-        message: t('error.loginFail'),
-        error: { status: 500, stack: error.stack },
-      });
+      res.redirect('/error');
     }
   };
   public static checkUsername = async (req: Request, res: Response) => {
@@ -63,10 +57,7 @@ export class UserController {
       return res.redirect('/login');
     } catch (error) {
       req.flash('error_msg', t('error.createFail'));
-      return res.render('error', {
-        message: t('error.loginFail'),
-        error: { status: 500, stack: error.stack },
-      });
+      res.redirect('/error');
     }
   };
 
@@ -98,10 +89,7 @@ export class UserController {
       }
     } catch (error) {
       req.flash('error_msg', t('error.loginFail'));
-      return res.render('error', {
-        message: t('error.loginFail'),
-        error: { status: 500, stack: error.stack },
-      });
+      res.redirect('/error');
     }
   };
 
