@@ -41,7 +41,7 @@ block content
             a(href=song.url, target="_blank", id='song-url')= t('songs.message.songUrl')
 
       .form-group
-        label(for="genres")= t('songs.updateSong.label.genres')
+        label(for="genres")= t('genres.title')
         each genre in genres
           .form-check
             input.form-check-input(type="checkbox" name="genresIds" value=genre.id checked=(song.genres.some(g => g.id === genre.id)))

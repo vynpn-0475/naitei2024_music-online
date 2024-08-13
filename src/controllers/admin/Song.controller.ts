@@ -25,7 +25,7 @@ export const validateAndFetchSong = async (
     return res.redirect('/error');
   }
   try {
-    const song = await getSongById(id, req.t);
+    const song = await getSongById(req, id);
     if (song === null) {
       req.flash('error_msg', req.t('error.songNotFound'));
       return res.redirect('/error');
@@ -40,7 +40,7 @@ export const validateAndFetchSong = async (
 
 export const list = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const songs = await getAllSongs(req.t);
+    const songs = await getAllSongs(req);
     res.render('songs/index', { songs, title: req.t('songs.list.title') });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchSongs'));
@@ -110,19 +110,16 @@ export const createPost = asyncHandler(async (req: Request, res: Response) => {
     }
 
     const genres = await getGenresByIds(genresIds);
-    await createSong(
-      {
-        title,
-        artist: author.fullname,
-        lyrics,
-        imageUrl,
-        url,
-        status,
-        author,
-        genres,
-      },
-      req.t
-    );
+    await createSong(req, {
+      title,
+      artist: author.fullname,
+      lyrics,
+      imageUrl,
+      url,
+      status,
+      author,
+      genres,
+    });
     res.redirect('/admin/musics');
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToCreateSong'));
@@ -157,7 +154,7 @@ export const updatePost = async (req: Request, res: Response) => {
   try {
     const song = (req as any).song;
     const { title, artist, lyrics, status, genresIds } = req.body;
-    const currentSong = await getSongById(parseInt(song.id), req.t);
+    const currentSong = await getSongById(req, parseInt(song.id));
 
     if (!currentSong) {
       req.flash('error_msg', req.t('error.songNotFound'));
@@ -197,11 +194,11 @@ export const updatePost = async (req: Request, res: Response) => {
     if (imageUrl !== currentSong.imageUrl) updatedData.imageUrl = imageUrl;
     if (url !== currentSong.url) updatedData.url = url;
 
-    const updatedSong = await updateSong(song.id, updatedData, req.t);
+    const updatedSong = await updateSong(req, song.id, updatedData);
 
     if (genresIds) {
       const genres = await getGenresByIds(genresIds);
-      await updateSongGenres(song.id, genres);
+      await updateSongGenres(req, song.id, genres);
     }
 
     res.redirect(`/admin/musics/${updatedSong.id}`);
@@ -231,7 +228,7 @@ export const deleteGet = asyncHandler((req: Request, res: Response) => {
 export const deletePost = asyncHandler(async (req: Request, res: Response) => {
   try {
     const song = (req as any).song;
-    await deleteSong(song.id, req.t);
+    await deleteSong(req, song.id);
     res.redirect('/admin/musics');
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToDeleteSong'));
