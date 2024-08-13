@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next';
 import { AppDataSource } from '../config/data-source';
 import { Genre } from '../entities/Genre.entity';
+import { In } from 'typeorm';
 
 const genreRepository = AppDataSource.getRepository(Genre);
 
@@ -19,6 +20,12 @@ export const getGenreById = async (genreId: number) => {
   return await genreRepository.findOne({
     where: { id: genreId },
     relations: ['songs'],
+  });
+};
+
+export const getGenresByIds = async (genreIds: number[]): Promise<Genre[]> => {
+  return await genreRepository.findBy({
+    id: In(genreIds),
   });
 };
 

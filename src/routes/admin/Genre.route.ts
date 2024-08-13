@@ -9,18 +9,21 @@ import {
   updatePost,
   validateAndFetchGenre,
 } from '@src/controllers/admin/Genre.controller';
+import methodOverride from 'method-override';
 import { Router } from 'express';
 
 const router = Router();
+
+router.use(methodOverride('_method'));
 
 router.get('/create', createGet);
 router.post('/create', createPost);
 
 router.get('/delete/:id', validateAndFetchGenre, deleteGet);
-router.post('/delete/:id', deletePost);
+router.delete('/delete/:id', validateAndFetchGenre, deletePost);
 
 router.get('/update/:id', validateAndFetchGenre, updateGet);
-router.post('/update/:id', updatePost);
+router.put('/update/:id', validateAndFetchGenre, updatePost);
 
 router.get('/', list);
 router.get('/:id', validateAndFetchGenre, detail);

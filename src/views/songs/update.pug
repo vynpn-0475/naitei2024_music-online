@@ -1,0 +1,53 @@
+extends ../layout_admin
+
+block stylesheets
+  link(rel="stylesheet" href="/styles/custom_create.css")
+
+block content
+  .container
+    h1= t('songs.updateSong.title')
+    form(action=`/admin/musics/update/${song.id}?_method=put` method='POST' enctype='multipart/form-data')
+      .form-group
+        label(for='title')= t('songs.updateSong.label.title')
+        input(type='text' id='title' name='title' class='form-control' value=song.title required)
+      
+      .form-group
+        label(for="artist")= t('songs.updateSong.label.artist')
+        select#artist.form-control(name="artist" required)
+          each author in authors
+            option(value=author.fullname selected=author.fullname === song.artist)= author.fullname
+
+      .form-group
+        label(for='lyrics')= t('songs.updateSong.label.lyrics')
+        textarea(id='lyrics' name='lyrics' class='form-control' required)= song.lyrics
+
+      .form-group
+        label(for="status")= t('songs.updateSong.label.status')
+        select#status.form-control(name="status" required)
+          each status in songStatus
+            option(value=status, selected=(song.status === status))= status
+
+      .form-group
+        label(for="image")= t('songs.updateSong.label.image')
+        input#image.form-control(type="file" name="image" accept="image/*")
+        if song.imageUrl
+          img#current-image(src=song.imageUrl, alt=t('message.currentAvatar'), width='100')
+
+      .form-group
+        label(for="song")= t('songs.updateSong.label.song')
+        input#song.form-control(type="file" name="song" accept=".mp3")
+        if song.url
+          p
+            a(href=song.url, target="_blank", id='song-url')= t('songs.message.songUrl')
+
+      .form-group
+        label(for="genres")= t('songs.updateSong.label.genres')
+        each genre in genres
+          .form-check
+            input.form-check-input(type="checkbox" name="genresIds" value=genre.id checked=(song.genres.some(g => g.id === genre.id)))
+            label.form-check-label(for="genre")= genre.name
+
+      button(type='submit' class='btn btn-primary')= t('songs.updateSong.button.submit')
+      a(href=`/admin/musics/${song.id}` class='btn btn-secondary')= t('common.cancel')
+  block scripts
+    script(src="/js/update_image.js")

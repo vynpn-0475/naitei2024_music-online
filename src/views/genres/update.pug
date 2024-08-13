@@ -1,5 +1,8 @@
 extends ../layout_admin
 
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_create.css")
+
 block content
   .container
     h1= t('genres.updateGenre')
@@ -13,9 +16,8 @@ block content
         .alert.alert-danger
           | #{flash.error}
 
-    form(action=`/admin/genres/update/${genre.id}`, method='post')
-      div.form-group
-        label(for='name')= t('genres.name')
-        input.form-control(id='name', type='text', name='name', value=genre.name, required)
-      div
-        button.btn.btn-primary(type='submit')= t('common.edit')
+    form(action=`/admin/genres/update/${genre.id}?_method=put` method='post')
+      .form-group
+        label(for='title')= t('genres.name')
+        input(type='text' id='name' name='name' class='form-control' value=genre.name required)
+      button.btn.btn-primary(type='submit')= t('common.edit')

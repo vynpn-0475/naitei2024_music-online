@@ -1,0 +1,45 @@
+extends ../layout_admin
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_create.css")
+
+block content
+  .container
+    h1= t('songs.createSong.title')
+    form(action="/admin/musics/create" method="POST" enctype="multipart/form-data")
+      .form-group
+        label(for="title")= t('songs.createSong.label.title')
+        input#title.form-control(type="text" name="title" required)
+
+      .form-group
+        label(for="artist")= t('songs.createSong.label.artist')
+        select#artist.form-control(name="authorId" required)
+          each author in authors
+            option(value=author.id)= author.fullname
+
+      .form-group
+        label(for="lyrics")= t('songs.createSong.label.lyrics')
+        textarea#lyrics.form-control.textarea-scroll(name="lyrics" rows="7" required)
+
+      .form-group
+        label(for="image")= t('songs.createSong.label.image')
+        input#image.form-control(type="file" name="image" accept="image/*")
+
+      .form-group
+        label(for="song")= t('songs.createSong.label.song')
+        input#song.form-control(type="file" name="song" accept=".mp3" required)
+
+      .form-group
+        label(for="genres")= t('songs.createSong.label.genres')
+        each genre in genres
+          .form-check
+            input.form-check-input#genre(type="checkbox" name="genresIds" value=genre.id)
+            label.form-check-label(for="genre")= genre.name
+
+      .form-group
+        label(for="status")= t('songs.createSong.label.status')
+        select#status.form-control(name="status")
+          each status in songStatus
+            option(value=status, selected=(currentStatus === status))= status
+
+      button.btn.btn-primary(type="submit")= t('songs.createSong.button.submit')
