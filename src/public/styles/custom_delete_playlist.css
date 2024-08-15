@@ -11,6 +11,8 @@ body {
   margin: 0 auto;
   max-width: 800px;
   padding: 2rem;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 a:hover {

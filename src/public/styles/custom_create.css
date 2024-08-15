@@ -37,6 +37,8 @@ button.btn:hover {
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 form {

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   const $audioPlayer = $('#main-audio-player');
   const $playPauseBtn = $('#play-pause-btn');
   const $prevBtn = $('#prev-btn');
@@ -15,7 +15,7 @@ $(document).ready(function() {
   const $playlistSongs = $('.playlist-song');
   const $playlistDataElem = $('#playlist-data');
   let playlistData = null;
-  
+
   if ($playlistDataElem.length) {
     const playlistDataAttr = $playlistDataElem.attr('playlist-datas');
     try {
@@ -24,15 +24,14 @@ $(document).ready(function() {
       console.error('Failed to parse playlist data:', error);
     }
   }
-  
+
   if (playlistData) {
     let idTmp = localStorage.getItem('playlistIdTmp');
-    console.log("currentSongIndex: ", currentSongIndex, "    : playlistData: ", playlistData.id, " ---- ", idTmp);
-    if(idTmp != playlistData.id) {
+    if (idTmp != playlistData.id) {
       idTmp = playlistData.id;
       localStorage.setItem('playlistIdTmp', idTmp);
       firstSong = $('#first-song').attr('data-song-url');
-      if(firstSong){
+      if (firstSong) {
         updateAudioPlayer_a(firstSong);
       }
     }
@@ -89,11 +88,11 @@ $(document).ready(function() {
     localStorage.setItem('audioIsPlaying', isPlaying);
   }
 
-  window.updateAudioPlayer = function(url, index) {
+  window.updateAudioPlayer = function (url, index) {
     updateAudioPlayer_a(url, index);
-  }
+  };
 
-  $playPauseBtn.on('click', function() {
+  $playPauseBtn.on('click', function () {
     if (isPlaying) {
       $audioPlayer[0].pause();
       $playPauseBtn.text('Play');
@@ -105,29 +104,34 @@ $(document).ready(function() {
     savePlayerState();
   });
 
-  $prevBtn.on('click', function() {
+  $prevBtn.on('click', function () {
     if ($playlistSongs.length > 0) {
-      currentSongIndex = (currentSongIndex - 1 + $playlistSongs.length) % $playlistSongs.length;
-      const prevSongUrl = $playlistSongs.eq(currentSongIndex).attr('data-song-url');
+      currentSongIndex =
+        (currentSongIndex - 1 + $playlistSongs.length) % $playlistSongs.length;
+      const prevSongUrl = $playlistSongs
+        .eq(currentSongIndex)
+        .attr('data-song-url');
       updateAudioPlayer(prevSongUrl);
     }
   });
 
-  $nextBtn.on('click', function() {
+  $nextBtn.on('click', function () {
     if ($playlistSongs.length > 0) {
       currentSongIndex = (currentSongIndex + 1) % $playlistSongs.length;
-      const nextSongUrl = $playlistSongs.eq(currentSongIndex).attr('data-song-url');
+      const nextSongUrl = $playlistSongs
+        .eq(currentSongIndex)
+        .attr('data-song-url');
       updateAudioPlayer(nextSongUrl);
     }
   });
 
-  $progress.on('input', function() {
+  $progress.on('input', function () {
     const seekTime = ($progress.val() / 100) * $audioPlayer[0].duration;
     $audioPlayer[0].currentTime = seekTime;
     savePlayerState();
   });
 
-  $volume.on('input', function() {
+  $volume.on('input', function () {
     $audioPlayer[0].volume = $volume.val();
     savePlayerState();
   });
@@ -136,22 +140,24 @@ $(document).ready(function() {
 
   $audioPlayer.on('timeupdate', updateTime);
 
-  $audioPlayer.on('ended', function() {
+  $audioPlayer.on('ended', function () {
     if ($playlistSongs.length > 0) {
       currentSongIndex = (currentSongIndex + 1) % $playlistSongs.length;
-      const nextSongUrl = $playlistSongs.eq(currentSongIndex).attr('data-song-url');
+      const nextSongUrl = $playlistSongs
+        .eq(currentSongIndex)
+        .attr('data-song-url');
       updateAudioPlayer(nextSongUrl);
     }
   });
-  
+
   loadPlayerState();
 
-  $('a[data-page]').on('click', function(e) {
+  $('a[data-page]').on('click', function (e) {
     e.preventDefault();
     const url = $(this).attr('href');
 
     $.get(url)
-      .done(function(html) {
+      .done(function (html) {
         const $newContent = $('<div>').html(html);
         const newMainContent = $newContent.find('.container').html();
         const $currentMainContent = $('.container');
@@ -159,21 +165,21 @@ $(document).ready(function() {
 
         window.history.pushState({ path: url }, '', url);
       })
-      .fail(function() {
+      .fail(function () {
         req.flash('error', req.t('error.errorLoadingPage'));
       });
   });
 
-  $(window).on('popstate', function(e) {
+  $(window).on('popstate', function (e) {
     if (e.originalEvent.state && e.originalEvent.state.path) {
       $.get(e.originalEvent.state.path)
-        .done(function(html) {
+        .done(function (html) {
           const $newContent = $('<div>').html(html);
           const newMainContent = $newContent.find('.container').html();
           const $currentMainContent = $('.container');
           $currentMainContent.html(newMainContent);
         })
-        .fail(function() {
+        .fail(function () {
           req.flash('error', req.t('error.errorLoadingPage'));
         });
     }

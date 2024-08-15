@@ -1,0 +1,33 @@
+extends ../layout_user
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_detail.css")
+
+block content
+  .container
+    h1.my-4= author.fullname
+
+    .row
+      .col-md-4
+        if author.avatar
+          img(src=author.avatar, alt=author.fullname, class='img-fluid rounded')
+        else
+          .bg-secondary.text-white.text-center.d-flex.align-items-center.justify-content-center
+            | #{t('authors.noImage')}
+
+      .col-md-8
+        p
+          strong #{t('authors.dateOfBirth')}:
+          | #{new Date(author.dateOfBirth).toDateString()}
+
+        .mt-4
+          h3 #{t('authors.songs')}
+          if author.songs && author.songs.length > 0
+            ul.list-group
+              each song in author.songs
+                li.list-group-item
+                  a(href=`/admin/musics/${song.id}`) #{song.title} - #{song.artist}
+                  br
+                  small #{song.updatedAt.toDateString()}
+          else
+            p #{t('authors.noSongs')}

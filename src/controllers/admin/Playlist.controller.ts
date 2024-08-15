@@ -200,7 +200,9 @@ export const updatePost = async (req: Request, res: Response) => {
     const updatedData: Partial<Playlist> = {
       title: title || currentPlaylist?.title,
       avatar: avatarUrl,
-      songs: songIds ? await getSongsByIds(req, songIds) : currentPlaylist?.songs,
+      songs: songIds
+        ? await getSongsByIds(req, songIds)
+        : currentPlaylist?.songs,
       type: type || currentPlaylist?.type,
     };
 

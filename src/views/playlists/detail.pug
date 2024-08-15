@@ -27,7 +27,7 @@ block content
         .mt-4
           a.btn.btn-primary(href=`/admin/playlists/update/${playlist.id}`) #{t('common.edit')}
           a.btn.btn-danger(href=`/admin/playlists/delete/${playlist.id}`) #{t('common.delete')}
-          a.btn.btn-success(href='/admin/playlists') #{t('playlist.listOfSongsTitle')}
+          a.btn.btn-success(href='/admin/playlists') #{t('playlist.title')}
 
     h1.text-center.mb-4= t('playlist.listOfSongs')
     ul.list-group
@@ -72,7 +72,7 @@ block content
                       .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-image
                         = t('playlist.noImage')
                     .ml-2
-                      a(href=`/musics/${song.id}`, class='text-decoration-none text-dark')
+                      a(href=`/musics/${song.id}`, class='text-decoration-none')
                         h5.mb-1= song.title
                       small: = song.artist  
                       | &nbsp;

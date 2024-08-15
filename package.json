@@ -68,6 +68,7 @@
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
     "express-session": "^1.18.0",
+    "firebase": "^10.12.5",
     "firebase-admin": "^12.3.0",
     "fs-extra": "^11.2.0",
     "i18next": "^23.12.2",

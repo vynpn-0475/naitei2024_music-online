@@ -129,3 +129,21 @@ export const deleteSong = async (req: Request, songId: number) => {
     throw new Error(req.t('error.failedToDeleteSong'));
   }
 };
+
+export const songsSortByUpdatedAt = async (req: Request) => {
+  try {
+    const songs = await songRepository.find();
+    const sortedSongs = songs.sort((a, b) => {
+      return b.updatedAt.getTime() - a.updatedAt.getTime();
+    });
+
+    return sortedSongs;
+  } catch (error) {
+    throw new Error(req.t('error.sortSongsByUpdatedAt'));
+  }
+};
+export const getSongCountByAlbumId = async (id: number) => {
+  return await songRepository.count({
+    where: { album: { id } },
+  });
+};

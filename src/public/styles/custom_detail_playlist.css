@@ -2,6 +2,7 @@
   background-color: #f8f9fa;
   color: #1db954;
   padding: 2rem;
+  overflow: auto
 }
 
 .bg-secondary {
@@ -46,7 +47,9 @@
   color: #ffffff;
 }
 
-.btn-success, .btn-danger, .btn-info {
+.btn-success,
+.btn-danger,
+.btn-info {
   margin-left: 0.5rem;
 }
 

@@ -1,9 +1,9 @@
-$('#image').on('change', function(event) {
+$('#image').on('change', function (event) {
   var input = event.target;
   var file = input.files[0];
   var reader = new FileReader();
 
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     var $img = $('#current-image');
     if ($img.length) {
       $img.attr('src', e.target.result);
@@ -12,11 +12,11 @@ $('#image').on('change', function(event) {
         id: 'current-image',
         alt: t('songs.message.currentAvatar'),
         width: 100,
-        src: e.target.result
+        src: e.target.result,
       });
       $img.insertAfter($(input).next());
     }
-  }
+  };
   if (file) {
     reader.readAsDataURL(file);
   }

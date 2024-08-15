@@ -18,7 +18,8 @@
     "author": "Tác Giả",
     "genre": "Thể Loại",
     "song": "Bài Hát",
-    "user": "Người Dùng"
+    "user": "Người Dùng",
+    "album": "Album"
   },
   "content": {
     "discover_new_music": "Khám Phá Âm Nhạc Mới",
@@ -41,7 +42,11 @@
     "commentCount": "Số Lượng Bình Luận",
     "favoriteSongCount": "Số Lượng Bài Hát Yêu Thích",
     "suggestedSongCount": "Số Lượng Bài Hát Gợi Ý",
-    "playlistCount": "Số Lượng Playlist"
+    "playlistCount": "Số Lượng Playlist",
+    "releaseDate": "Ngày phát hành",
+    "title_album": "Tên Album",
+    "avatar": "Ảnh đại diện",
+    "author": "Tác giả"
   },
   "action": {
     "register": "Đăng Ký",
@@ -50,12 +55,17 @@
     "loginByGoogle": "Đăng Nhập Bằng Google",
     "create": "Tạo",
     "new": "Mới",
-    "list": "Danh Sách"
+    "list": "Danh Sách",
+    "account": "Tài khoản",
+    "profile": "Hồ sơ",
+    "changePassword": "Đổi mật khẩu"
   },
   "option": {
     "english": "Tiếng Anh",
     "vietnamese": "Tiếng Việt",
-    "user": "Người Dùng"
+    "user": "Người Dùng",
+    "album": "Album",
+    "author": "Tác giả"
   },
   "error": {
     "invalidCredentials": "Thông Tin Không Hợp Lệ",
@@ -109,7 +119,11 @@
     "errorCreatingPlaylist": "Lỗi khi tạo danh sách bài hát: {{errorMessage}}",
     "errorUpdatingPlaylist": "Lỗi khi cập nhật danh sách bài hát: {{errorMessage}}",
     "errorDeletingPlaylist": "Lỗi khi xóa danh sách bài hát: {{errorMessage}}",
-    "errorLoadingPage": "Lỗi khi tải trang."
+    "errorLoadingPage": "Lỗi khi tải trang.",
+    "sortSongsByUpdatedAt": "Đã xảy ra lỗi khi sắp xếp các bài hát theo ngày cập nhật.",
+    "albumNotFound": "Không tìm thấy Album",
+    "noPageCreate": "Không có trang Tạo mới",
+    "noAlbums": "Không có Album"
   },
   "success": {
     "createSuccess": "Tạo Thành Công",
@@ -133,7 +147,8 @@
     "successfullyUpdated": "Cập Nhật Thành Công.",
     "successfullyDeleted": "Xóa Thành Công.",
     "confirmation_delete": "Bạn Có Chắc Chắn Muốn Xóa Không?",
-    "errorOccurred": "Đã Xảy Ra Lỗi: {{error}}"
+    "errorOccurred": "Đã Xảy Ra Lỗi: {{error}}",
+    "numberSong": "Số bài hát"
   },
   "genres": {
     "title": "Danh Sách Thể Loại",
@@ -239,7 +254,7 @@
     "updatePlaylist": "Cập nhật playlist",
     "deletePlaylist": "Cập nhật playlist",
     "createTitle": "Tạo Playlist",
-    "title_name": "Tiêu đề", 
+    "title_name": "Tiêu đề",
     "avatar": "Ảnh đại diện",
     "selectType": "Chọn loại",
     "songs": "Bài hát",
@@ -289,5 +304,15 @@
     "create": "Tạo Mới",
     "cancel": "Hủy",
     "detail": "Chi tiết"
+  },
+  "guess_page": {
+    "popularArtist": "Nghệ sĩ nổi bật",
+    "popularAlbum": "Album phổ biến",
+    "popularRadio": "Radio phổ biến",
+    "featuredCharts": "Bảng xếp hạng nổi bật",
+    "musicPlaylist": "Danh sách phát nhạc trực tuyến",
+    "newSongs": "Bài hát mới",
+    "showAll": "Hiển thị tất cả",
+    "artist": "Nghệ sĩ"
   }
 }
