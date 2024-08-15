@@ -46,7 +46,9 @@
     "releaseDate": "Release Date",
     "title_album": "Name Album",
     "avatar": "Avatar",
-    "author": "Author"
+    "author": "Author",
+    "status": "Status",
+    "reason": "Reason"
   },
   "action": {
     "register": "Register",
@@ -123,7 +125,8 @@
     "sortSongsByUpdatedAt": "An error occurred while sorting songs by update date.",
     "albumNotFound": "Album Not Found",
     "noPageCreate": "No Page Create",
-    "noAlbums": "Album not found"
+    "noAlbums": "Album not found",
+    "accountLocked": "The account has been deactive."
   },
   "success": {
     "createSuccess": "Create Success",
@@ -148,7 +151,8 @@
     "successfullyDeleted": "Successfully deleted.",
     "confirmation_delete": "Are you sure you want to delete?",
     "errorOccurred": "An error occurred: {{error}}",
-    "numberSong": "Number of songs"
+    "numberSong": "Number of songs",
+    "enterReason": "Enter reason"
   },
   "genres": {
     "title": "Genre List",
