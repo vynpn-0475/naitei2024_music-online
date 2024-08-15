@@ -1,4 +1,3 @@
-import { deleteAlbum, updateAlbum } from './../../services/Album.service';
 import { Request, Response } from 'express';
 import { t } from 'i18next';
 import { getAuthors } from '@src/services/Author.service';
@@ -6,12 +5,19 @@ import { uploadImg } from '@src/services/LoadFirebase';
 import {
   createAlbum,
   getAlbumById,
-  getAlbums,
+  deleteAlbum,
+  getAlbumPage,
+  updateAlbum,
+  addSongToAlbum,
+  removeSongFromAlbum,
 } from '@src/services/Album.service';
-import { getSongCountByAlbumId } from '@src/services/Song.service';
+import { getAllSongs, getSongCountByAlbumId } from '@src/services/Song.service';
 import { formatDateYMD } from '@src/utils/formatDate';
 import { Album } from '@src/entities/Album.entity';
 import { Change } from '@src/constants/change';
+import { Author } from '@src/entities/Author.entity';
+import { SongStatus } from '@src/enums/SongStatus.enum';
+import { PAGE_SIZE } from '../../constants/const';
 
 export class AlbumController {
   public static getCreate = async (req: Request, res: Response) => {
@@ -65,14 +71,21 @@ export class AlbumController {
     }
   };
   public static getList = async (req: Request, res: Response) => {
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const pageSize = PAGE_SIZE;
     try {
-      const albums = await getAlbums();
+      const { albums, total } = await getAlbumPage(page, pageSize);
+      const totalPages = Math.ceil(total / pageSize);
+      const currentPage = Math.max(1, Math.min(page, totalPages));
       if (!albums) {
         req.flash('error_msg', t('error.noAlbums'));
         return res.render('albums/list', {});
       }
       return res.render('albums/list', {
         albums,
+        currentPage,
+        totalPages,
+        baseUrl: '/admin/albums',
       });
     } catch (error) {
       req.flash('error_msg', t('error.system'));
@@ -90,9 +103,18 @@ export class AlbumController {
         req.flash('error_msg', t('error.albumNotFound'));
         return res.redirect('/admin/albums');
       }
+      const songList = await getAllSongs(req);
       const songs = album.songs;
       const author = album.author;
       const countSong = await getSongCountByAlbumId(parseInt(id));
+      const availableSongs = songList.filter(
+        (song) =>
+          !song.album &&
+          !songs.some((albumSong) => albumSong.id === song.id) &&
+          song.status !== SongStatus.Deleted
+      );
+      const Deactive = SongStatus.Deleted;
+      const firstSong = album.songs.length > 0 ? album.songs[0] : null;
       if (countSong === 0) {
         req.flash('error_msg', t('error.songNotFound'));
         return res.render('albums/detail', {
@@ -100,6 +122,9 @@ export class AlbumController {
           songs,
           author,
           countSong,
+          availableSongs,
+          firstSong,
+          Deactive,
         });
       }
       return res.render('albums/detail', {
@@ -107,6 +132,9 @@ export class AlbumController {
         songs,
         author,
         countSong,
+        availableSongs,
+        firstSong,
+        Deactive,
       });
     } catch (error) {
       req.flash('error_msg', t('error.system'));
@@ -169,9 +197,10 @@ export class AlbumController {
         updateData.releaseDate = releaseDate;
       if (imageUrl !== albumCurrent.imageUrl) updateData.imageUrl = imageUrl;
       if (authorId !== albumCurrent.author.id) {
-        if (updateData.author) {
-          updateData.author.id = authorId;
+        if (!updateData.author) {
+          updateData.author = {} as Author; // Khởi tạo nếu không tồn tại
         }
+        updateData.author.id = authorId;
       }
 
       const value = await updateAlbum(parseInt(id), updateData);
@@ -220,6 +249,30 @@ export class AlbumController {
       res.redirect(`/admin/albums`);
     } catch (error) {
       res.redirect('/error');
+    }
+  };
+
+  public static addSongPost = async (req: Request, res: Response) => {
+    const albumId = parseInt(req.params.id, 10);
+    try {
+      const { songId } = req.body;
+      await addSongToAlbum(req, albumId, songId);
+    } catch (error) {
+      req.flash('error_msg', req.t('error.failedToAddSongAlbum'));
+    } finally {
+      res.redirect(`/admin/albums/${albumId}`);
+    }
+  };
+
+  public static removeSongPost = async (req: Request, res: Response) => {
+    const albumId = parseInt(req.params.id, 10);
+    try {
+      const { songId } = req.body;
+      await removeSongFromAlbum(req, albumId, Number(songId));
+    } catch (error) {
+      req.flash('error_msg', req.t('error.failedToRemoveSongAlbum'));
+    } finally {
+      res.redirect(`/admin/albums/${albumId}`);
     }
   };
 }

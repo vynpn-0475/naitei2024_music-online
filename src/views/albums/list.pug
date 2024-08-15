@@ -24,5 +24,7 @@ block content
                 h5.mb-1= album.title
               p #{t('form.releaseDate')}: #{album.releaseDate.toDateString()}
 
+    include ../partials/_pagination.pug
+
   block scripts
     script(src="/js/user.js")

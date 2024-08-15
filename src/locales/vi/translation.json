@@ -124,9 +124,12 @@
     "errorLoadingPage": "Lỗi khi tải trang.",
     "sortSongsByUpdatedAt": "Đã xảy ra lỗi khi sắp xếp các bài hát theo ngày cập nhật.",
     "albumNotFound": "Không tìm thấy Album",
+    "failedToRemoveSongAlbum": "Không thể xóa bài hát ra khỏi Album.",
+    "failedToAddSongAlbum": "Không thể thêm bài hát vào Album.",
     "noPageCreate": "Không có trang Tạo mới",
     "noAlbums": "Không có Album",
     "accountLocked": "Tài khoản đã bị vô hiệu hóa.",
+    "noAvailableSongs": "Không có bài hát nào có sẵn.",
     "noSongs": "Không Có Bài Hát Nào"
   },
   "success": {
@@ -241,7 +244,7 @@
       "button": {
         "delete": "Xóa"
       },
-      "reason":"Lý do xóa: "
+      "reason": "Lý do xóa: "
     },
     "form": {
       "title": "Tiêu đề",

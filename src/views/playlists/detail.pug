@@ -56,7 +56,6 @@ block content
                 data-target="#audioPlayerModal"
                 onclick=`updateAudioPlayer("${song.url}", "${song.imageUrl}", "${song.title}", "${song.author.fullname}", ${index})`
                 class= song.status === currentStatus ? 'disabled' : ''
-                style= song.status === currentStatus ? 'cursor: not-allowed; pointer-events: none;' : ''
               ) #{t('playlist.play')}
             form(action=`/admin/playlists/remove-song/${playlist.id}`, method='post', class='form-inline')
               input(type='hidden', name='songId', value=song.id)

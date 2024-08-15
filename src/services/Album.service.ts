@@ -2,6 +2,8 @@ import { AppDataSource } from '@src/config/data-source';
 import { Album } from '../entities/Album.entity';
 import { getAuthorById } from '@src/services/Author.service';
 import { t } from 'i18next';
+import { getSongById } from './Song.service';
+import { request, Request } from 'express';
 
 const albumRepository = AppDataSource.getRepository(Album);
 export const createAlbum = async (data: {
@@ -37,7 +39,7 @@ export const getAlbums = async () => {
 export const getAlbumById = async (id: number) => {
   const album = await albumRepository.findOne({
     where: { id },
-    relations: ['songs', 'author'],
+    relations: ['songs', 'songs.author', 'author'],
   });
   return album;
 };
@@ -71,4 +73,67 @@ export const deleteAlbum = async (id: number) => {
   } catch (error) {
     return false;
   }
+};
+
+export const getAlbumPage = async (
+  page: number,
+  pageSize: number,
+  sortField: keyof Album = 'title',
+  sortOrder: 'ASC' | 'DESC' = 'ASC'
+) => {
+  const [albums, total] = await albumRepository.findAndCount({
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+    order: {
+      [sortField]: sortOrder,
+    },
+  });
+  return { albums, total };
+};
+
+export const addSongToAlbum = async (
+  req: Request,
+  albumId: number,
+  songId: number
+) => {
+  const album = await getAlbumById(albumId);
+
+  if (!album) {
+    throw new Error(req.t('error.albumNotFound'));
+  }
+
+  const song = await getSongById(request, songId);
+  if (!song) {
+    throw new Error(req.t('error.songNotFound'));
+  }
+
+  if (!album.songs?.length) {
+    album.songs = [];
+  }
+
+  album.songs.push(song);
+  await album.save();
+};
+
+export const removeSongFromAlbum = async (
+  req: Request,
+  albumId: number,
+  songId: number
+) => {
+  const album = await getAlbumById(albumId);
+
+  if (!album) {
+    throw new Error(req.t('error.failedToRemoveSongAlbum'));
+  }
+
+  if (!album.songs) {
+    album.songs = [];
+  }
+  const songExists = album.songs.some((s) => s.id === songId);
+  if (!songExists) {
+    throw new Error(req.t('error.songNotFound'));
+  }
+
+  album.songs = album.songs.filter((s) => s.id !== songId);
+  await album.save();
 };

@@ -19,18 +19,27 @@ $(document).ready(function () {
     try {
       playlistData = JSON.parse(playlistDataAttr);
       if (playlistData && playlistData.songs) {
-        playlistData.songs = playlistData.songs.filter(song => song.status !== 'Deleted');
+        playlistData.songs = playlistData.songs.filter(
+          (song) => song.status !== 'Deleted'
+        );
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   function playFirstAvailableSong() {
     if (playlistData && playlistData.songs) {
-      const availableSongs = playlistData.songs.filter(song => song.status !== 'Deleted');
+      const availableSongs = playlistData.songs.filter(
+        (song) => song.status !== 'Deleted'
+      );
       if (availableSongs.length > 0) {
         const firstSong = availableSongs[0];
-        updateAudioPlayer_a(firstSong.url, firstSong.imageUrl, firstSong.title, firstSong.author.fullname, 0);
+        updateAudioPlayer_a(
+          firstSong.url,
+          firstSong.imageUrl,
+          firstSong.title,
+          firstSong.author.fullname,
+          0
+        );
       } else {
         req.flash('error', req.t('error.noSongs'));
       }
@@ -93,11 +102,11 @@ $(document).ready(function () {
       $audioPlayer.attr('src', savedUrl);
       $audioPlayer[0].currentTime = savedTime ? parseFloat(savedTime) : 0;
       $audioPlayer[0].volume = savedVolume ? parseFloat(savedVolume) : 1;
-      
+
       $('#song-image').attr('src', savedImage || 'default-image.jpg');
       $('#song-title').text(savedTitle);
       $('#song-artist').text(savedArtist);
-      
+
       if (isPlaying) {
         $audioPlayer[0].play();
       }
@@ -119,7 +128,7 @@ $(document).ready(function () {
   window.updateAudioPlayer = function (url, imageUrl, title, artist, index) {
     updateAudioPlayer_a(url, imageUrl, title, artist, index);
   };
-  
+
   function updatePlayPauseBtn() {
     if (isPlaying) {
       $playPauseBtn.html('<i class="fas fa-pause"></i>');
@@ -136,15 +145,26 @@ $(document).ready(function () {
     }
     isPlaying = !isPlaying;
     updatePlayPauseBtn();
-    savePlayerState($('#song-image').attr('src'), $('#song-title').text(), $('#song-artist').text());
+    savePlayerState(
+      $('#song-image').attr('src'),
+      $('#song-title').text(),
+      $('#song-artist').text()
+    );
   });
 
   $prevBtn.on('click', function () {
     if (playlistData.songs.length > 0) {
       currentSongIndex =
-        (currentSongIndex - 1 + playlistData.songs.length) % playlistData.songs.length;
+        (currentSongIndex - 1 + playlistData.songs.length) %
+        playlistData.songs.length;
       const prevSong = playlistData.songs[currentSongIndex];
-      updateAudioPlayer(prevSong.url, prevSong.imageUrl, prevSong.title, prevSong.author.fullname, currentSongIndex);
+      updateAudioPlayer(
+        prevSong.url,
+        prevSong.imageUrl,
+        prevSong.title,
+        prevSong.author.fullname,
+        currentSongIndex
+      );
     }
   });
 
@@ -152,23 +172,41 @@ $(document).ready(function () {
     if (playlistData.songs.length > 0) {
       currentSongIndex = (currentSongIndex + 1) % playlistData.songs.length;
       const nextSong = playlistData.songs[currentSongIndex];
-      updateAudioPlayer(nextSong.url, nextSong.imageUrl, nextSong.title, nextSong.author.fullname, currentSongIndex);
+      updateAudioPlayer(
+        nextSong.url,
+        nextSong.imageUrl,
+        nextSong.title,
+        nextSong.author.fullname,
+        currentSongIndex
+      );
     }
   });
 
   $progress.on('input', function () {
     const seekTime = ($progress.val() / 100) * $audioPlayer[0].duration;
     $audioPlayer[0].currentTime = seekTime;
-    savePlayerState($('#song-image').attr('src'), $('#song-title').text(), $('#song-artist').text());
+    savePlayerState(
+      $('#song-image').attr('src'),
+      $('#song-title').text(),
+      $('#song-artist').text()
+    );
   });
 
   $volume.on('input', function () {
     $audioPlayer[0].volume = $volume.val();
-    savePlayerState($('#song-image').attr('src'), $('#song-title').text(), $('#song-artist').text());
+    savePlayerState(
+      $('#song-image').attr('src'),
+      $('#song-title').text(),
+      $('#song-artist').text()
+    );
   });
 
-  setInterval(function() {
-    savePlayerState($('#song-image').attr('src'), $('#song-title').text(), $('#song-artist').text());
+  setInterval(function () {
+    savePlayerState(
+      $('#song-image').attr('src'),
+      $('#song-title').text(),
+      $('#song-artist').text()
+    );
   }, 1000);
 
   $audioPlayer.on('timeupdate', updateTime);
@@ -177,7 +215,13 @@ $(document).ready(function () {
     if (playlistData.songs.length > 0) {
       currentSongIndex = (currentSongIndex + 1) % playlistData.songs.length;
       const nextSong = playlistData.songs[currentSongIndex];
-      updateAudioPlayer(nextSong.url, nextSong.imageUrl, nextSong.title, nextSong.author.fullname, currentSongIndex);
+      updateAudioPlayer(
+        nextSong.url,
+        nextSong.imageUrl,
+        nextSong.title,
+        nextSong.author.fullname,
+        currentSongIndex
+      );
     }
   });
 

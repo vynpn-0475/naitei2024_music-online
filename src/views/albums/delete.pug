@@ -5,6 +5,8 @@ block stylesheets
 
 block content
   .container
+    a.btn.btn_back.d-cursor-pointer(href=`/admin/albums/${album.id}`) 
+      i.fas.fa-chevron-left.d-cursor-pointer
     h1.d-flex #{t('common.delete')} #{t('option.album')}
     form#formDelete(action=`/admin/albums/delete/${album.id}?_method=DELETE`, method='POST', onsubmit=`return confirmDeletion()`)
       input(type='hidden', name='_method', value='DELETE')

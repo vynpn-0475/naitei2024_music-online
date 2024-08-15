@@ -275,3 +275,8 @@ a.btn_back {
   cursor: pointer;
   color: #ffffff;
 }
+
+.btn.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
