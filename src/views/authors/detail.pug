@@ -19,9 +19,48 @@ block content
         p
           strong #{t('authors.dateOfBirth')}:
           | #{new Date(author.dateOfBirth).toDateString()}
+        p
+          strong= t('authors.numOfSongs')
+          | #{count}
+        p
+          strong #{t('authors.bio')}:
+          .bio-content
+            | !{author.bio.replace(/\n/g, '<br>')}
+          a#toggleBio(href="javascript:void(0);", class="d-block mt-2", data-show-more=t('common.showMore'), data-show-less=t('common.showLess')) #{t('common.showMore')}
 
         .mt-4
           h3 #{t('authors.songs')}
+          if author.songs && author.songs.length > 0
+            ul.list-group
+              each song, index in author.songs
+                if index < 2
+                  li.list-group-item
+                    a(href=`/admin/musics/${song.id}`) #{song.title} - #{song.artist}
+                    br
+                    small #{song.updatedAt.toDateString()}
+            if author.songs.length > 2
+              a.btn.btn-info.mt-3(data-bs-toggle="modal", data-bs-target="#songsModal") #{t('common.showMore')}
+          else
+            p #{t('authors.noSongs')}
+
+    if error_msg.length
+      #errorAlert.alert.alert-danger #{error_msg}
+      
+    .mt-4
+      a.btn.btn-primary(href=`/admin/authors/update/${author.id}`) #{t('common.edit')}
+      a.btn.btn-danger(
+        href=author.songs && author.songs.length > 0 ? 'javascript:void(0);' : `/admin/authors/delete/${author.id}`,
+        class=author.songs && author.songs.length > 0 ? 'disabled text-muted' : '',
+        style=author.songs && author.songs.length > 0 ? 'cursor: not-allowed;' : ''
+      ) #{t('common.delete')}
+
+  .modal.fade#songsModal(tabindex="-1", aria-labelledby="songsModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title#songsModalLabel #{t('authors.songs')}
+          button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+        .modal-body
           if author.songs && author.songs.length > 0
             ul.list-group
               each song in author.songs
@@ -31,8 +70,6 @@ block content
                   small #{song.updatedAt.toDateString()}
           else
             p #{t('authors.noSongs')}
-
-    .mt-4
-      a.btn.btn-primary(href=`/admin/authors/update/${author.id}`) #{t('common.edit')}
-      a.btn.btn-danger(href=`/admin/authors/delete/${author.id}`) #{t('common.delete')}
-      a.btn.btn-success(href='/admin/authors') #{t('authors.authorListTitle')}
+  
+  block scripts
+    script(src="/js/user.js")

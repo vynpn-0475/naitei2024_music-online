@@ -6,7 +6,11 @@ block stylesheets
 block content
   .container
     h1= t('authors.deleteAuthor')
+    if error_msg.length
+      #errorAlert.alert.alert-danger #{error_msg}
     p= t('authors.confirmDeleteAuthor', { fullname: author.fullname })
     form(action=`/admin/authors/delete/${author.id}?_method=delete`, method='post')
       button.btn.btn-danger(type='submit')= t('common.delete')
       a.btn.btn-secondary.ml-2(href='/admin/authors')= t('common.cancel')
+  block scripts
+    script(src="/js/user.js")

@@ -22,6 +22,9 @@ export class Author extends BaseEntity {
   @Column()
   dateOfBirth: Date;
 
+  @Column('text')
+  bio: string;
+
   @OneToMany(() => Song, (song) => song.author)
   songs: Song[];
 

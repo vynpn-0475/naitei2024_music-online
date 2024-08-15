@@ -57,6 +57,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "class-transformer": "^0.5.1",
