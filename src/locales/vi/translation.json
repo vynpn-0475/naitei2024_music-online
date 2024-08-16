@@ -46,7 +46,9 @@
     "releaseDate": "Ngày phát hành",
     "title_album": "Tên Album",
     "avatar": "Ảnh đại diện",
-    "author": "Tác giả"
+    "author": "Tác giả",
+    "status": "Trạng Thái",
+    "reason": "Lí Do"
   },
   "action": {
     "register": "Đăng Ký",
@@ -123,7 +125,8 @@
     "sortSongsByUpdatedAt": "Đã xảy ra lỗi khi sắp xếp các bài hát theo ngày cập nhật.",
     "albumNotFound": "Không tìm thấy Album",
     "noPageCreate": "Không có trang Tạo mới",
-    "noAlbums": "Không có Album"
+    "noAlbums": "Không có Album",
+    "accountLocked": "Tài khoản đã bị vô hiệu hóa."
   },
   "success": {
     "createSuccess": "Tạo Thành Công",
@@ -148,7 +151,8 @@
     "successfullyDeleted": "Xóa Thành Công.",
     "confirmation_delete": "Bạn Có Chắc Chắn Muốn Xóa Không?",
     "errorOccurred": "Đã Xảy Ra Lỗi: {{error}}",
-    "numberSong": "Số bài hát"
+    "numberSong": "Số bài hát",
+    "enterReason": "Nhập lí do"
   },
   "genres": {
     "title": "Danh Sách Thể Loại",
