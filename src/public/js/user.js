@@ -81,6 +81,25 @@ $(document).ready(function () {
       reader.readAsDataURL(file);
     }
   });
+
+  $('#toggleBio').on('click', function() {
+    const bioContent = $('.bio-content');
+    const showMoreText = "#{t('common.showMore')}";
+    const showLessText = "#{t('common.showLess')}";
+    
+    if (bioContent.css('max-height') === 'none') {
+      bioContent.css('max-height', '100px');
+      $(this).text(showMoreText);
+    } else {
+      bioContent.css('max-height', 'none');
+      $(this).text(showLessText);
+    }
+  });
+
+  $('[data-bs-toggle="modal"]').on('click', function () {
+    const modal = new bootstrap.Modal(document.getElementById('songsModal'));
+    modal.show();
+  });
 });
 
 function confirmDeletion(message) {

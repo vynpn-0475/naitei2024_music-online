@@ -19,6 +19,7 @@ import { Playlist } from './Playlist.entity';
 import { Author } from './Author.entity';
 import { SuggestedSong } from './SuggestedSong.entity';
 import { SongStatus } from '../enums/SongStatus.enum';
+import { COLUMN_LENGTH } from '../constants/const';
 
 @Entity()
 export class Song extends BaseEntity {
@@ -34,10 +35,10 @@ export class Song extends BaseEntity {
   @Column('text')
   lyrics: string;
 
-  @Column()
+  @Column({ length: COLUMN_LENGTH.NUM_6000 })
   imageUrl: string;
 
-  @Column()
+  @Column({ length: COLUMN_LENGTH.NUM_6000 })
   url: string;
 
   @Column({

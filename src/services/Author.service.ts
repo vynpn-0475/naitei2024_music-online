@@ -4,8 +4,31 @@ import { TFunction } from 'i18next';
 
 const authorRepository = AppDataSource.getRepository(Author);
 
-export const getAuthors = async () => {
-  return authorRepository.find();
+export const getAuthors = async (
+  sortField: keyof Author = 'fullname',
+  sortOrder: 'ASC' | 'DESC' = 'ASC'
+) => {
+  return authorRepository.find({
+    order: {
+      [sortField]: sortOrder,
+    },
+  });
+};
+
+export const getAuthorsPage = async (
+  page: number,
+  pageSize: number,
+  sortField: keyof Author = 'fullname',
+  sortOrder: 'ASC' | 'DESC' = 'ASC'
+) => {
+  const [authors, total] = await authorRepository.findAndCount({
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+    order: {
+      [sortField]: sortOrder,
+    },
+  });
+  return { authors, total };
 };
 
 export const getAuthorById = async (authorId: number, t: TFunction) => {

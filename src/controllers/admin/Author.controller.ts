@@ -4,7 +4,7 @@ import {
   createAuthor,
   deleteAuthor,
   getAuthorById,
-  getAuthors,
+  getAuthorsPage,
   updateAuthor,
 } from '../../services/Author.service';
 import { Author } from '@src/entities/Author.entity';
@@ -13,6 +13,7 @@ import {
   countSongsByAuthorId,
   getSongsByAuthorId,
 } from '@src/services/Song.service';
+import { Change } from '@src/constants/change';
 
 export async function validateAndFetchAuthor(
   req: Request,
@@ -43,15 +44,28 @@ export async function validateAndFetchAuthor(
 
 export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
+  const page = parseInt(req.query.page as string, 10) || 1;
+  const pageSize = 5;
+
   try {
-    const authors = await getAuthors();
+    const { authors, total } = await getAuthorsPage(page, pageSize);
+    const totalPages = Math.ceil(total / pageSize);
+
+    if (!authors.length) {
+      req.flash('error_msg', t('error.noAuthors'));
+      return res.render('authors/index', {
+        authors: [],
+        title: t('authors.authorListTitle'),
+        currentPage: page,
+        totalPages,
+      });
+    }
+
     res.render('authors/index', {
       authors,
       title: t('authors.authorListTitle'),
-      flashMessages: {
-        error_msg: req.flash('error_msg') || null,
-        success_msg: req.flash('success_msg') || null,
-      },
+      currentPage: page,
+      totalPages,
     });
   } catch (error) {
     req.flash('error_msg', t('error.failedToFetchAuthors'));
@@ -69,15 +83,20 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
     }
     const count = await countSongsByAuthorId(req, author.id);
     const songs = await getSongsByAuthorId(req, author.id);
+    if (count === 0) {
+      req.flash('error_msg', t('error.songNotFound'));
+      return res.render('authors/detail', {
+        author,
+        songs,
+        count,
+        title: t('authors.authorDetailTitle'),
+      });
+    }
     res.render('authors/detail', {
       author,
       songs,
       count,
       title: t('authors.authorDetailTitle'),
-      flashMessages: {
-        error_msg: req.flash('error_msg') || null,
-        success_msg: req.flash('success_msg') || null,
-      },
     });
   } catch (error) {
     req.flash('error_msg', t('error.failedToFetchAuthor'));
@@ -88,16 +107,12 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
 export const createGet = (req: Request, res: Response) => {
   res.render('authors/create', {
     title: req.t('authors.createAuthor'),
-    flashMessages: {
-      error_msg: req.flash('error_msg') || null,
-      success_msg: req.flash('success_msg') || null,
-    },
   });
 };
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    const { fullname, dateOfBirth } = req.body;
+    const { fullname, bio, dateOfBirth } = req.body;
     let avatarUrl = '';
 
     const existingAuthor = await Author.findOne({ where: { fullname } });
@@ -107,16 +122,21 @@ export const createPost = async (req: Request, res: Response) => {
     }
 
     if (req.file) {
-      avatarUrl = await uploadFileToFirebase(
+      const url = await uploadFileToFirebase(
         req.file.buffer,
         req.file.originalname,
         'author_avatar',
         req.file.mimetype
       );
+      if (avatarUrl !== null) {
+        avatarUrl = url;
+      } else {
+        avatarUrl = Change.imageUrl;
+      }
     }
 
     await createAuthor(
-      { fullname, avatar: avatarUrl, dateOfBirth: new Date(dateOfBirth) },
+      { fullname, avatar: avatarUrl, bio, dateOfBirth: new Date(dateOfBirth) },
       req.t
     );
     req.flash('success_msg', req.t('authors.authorCreated'));
@@ -130,13 +150,13 @@ export const createPost = async (req: Request, res: Response) => {
 export const updateGet = (req: Request, res: Response) => {
   const t = req.t;
   const author = (req as any).author;
+  if (!author) {
+    req.flash('error_msg', t('error.authorNotFound'));
+    return res.redirect('/admin/authors');
+  }
   res.render('authors/update', {
     title: t('authors.updateAuthor'),
     author,
-    flashMessages: {
-      error_msg: req.flash('error_msg') || null,
-      success_msg: req.flash('success_msg') || null,
-    },
   });
 };
 
@@ -144,7 +164,7 @@ export const updatePost = async (req: Request, res: Response) => {
   const t = req.t;
   try {
     const authorId = parseInt(req.params.id, 10);
-    const { fullname, dateOfBirth } = req.body;
+    const { fullname, bio, dateOfBirth } = req.body;
 
     const author = await getAuthorById(authorId, t);
     if (!author) {
@@ -168,6 +188,7 @@ export const updatePost = async (req: Request, res: Response) => {
       {
         fullname: fullname || author.fullname,
         avatar: avatarUrl,
+        bio,
         dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : author.dateOfBirth,
       },
       t
@@ -183,26 +204,47 @@ export const updatePost = async (req: Request, res: Response) => {
 
 export const deleteGet = (req: Request, res: Response) => {
   const t = req.t;
-  const author = (req as any).author;
-  res.render('authors/delete', {
-    title: t('authors.deleteAuthor'),
-    author,
-    flashMessages: {
-      error_msg: req.flash('error_msg') || null,
-      success_msg: req.flash('success_msg') || null,
-    },
-  });
+
+  try {
+    const author = (req as any).author;
+
+    if (!author) {
+      req.flash('error_msg', t('error.noAlbums'));
+      return res.redirect('/admin/authors');
+    }
+
+    res.render('authors/delete', {
+      title: t('authors.deleteAuthor'),
+      author,
+    });
+  } catch (error) {
+    req.flash('error_msg', t('error.failedToFetchAuthor'));
+    res.redirect('/admin/authors');
+  }
 };
 
 export const deletePost = async (req: Request, res: Response) => {
   const t = req.t;
+  const { id } = req.params;
+
   try {
     const author = (req as any).author;
+
+    if (!author) {
+      req.flash('error_msg', t('error.authorNotFound'));
+      return res.redirect('/admin/authors');
+    }
+
+    if (author.songs.length > 0) {
+      req.flash('error_msg', t('warning.authorHasSongs'));
+      return res.redirect(`/admin/authors/delete/${id}`);
+    }
+
     await deleteAuthor(author.id, t);
-    req.flash('success_msg', t('authors.authorDeleted'));
+    req.flash('success_msg', t('success.authorDeleted'));
     res.redirect('/admin/authors');
   } catch (error) {
     req.flash('error_msg', t('error.failedToDeleteAuthor'));
-    res.redirect(`/admin/authors/delete/${req.params.id}`);
+    res.redirect(`/admin/authors/delete/${id}`);
   }
 };

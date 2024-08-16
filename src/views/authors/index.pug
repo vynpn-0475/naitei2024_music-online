@@ -6,6 +6,8 @@ block stylesheets
 block content
   .container
     h1.my-4= t('authors.authorListTitle')
+    if error_msg.length
+      #errorAlert.alert.alert-danger #{error_msg}
     ul.list-group
       each author in authors
         li.list-group-item.d-flex.justify-content-between.align-items-center
@@ -21,3 +23,28 @@ block content
               small #{t('authors.dateOfBirth')}: #{new Date(author.dateOfBirth).toDateString()}
     .mt-4
       a.btn.btn-success(href='/admin/authors/create') #{t('authors.createAuthor')}
+    if totalPages > 1
+      .pagination.justify-content-center.mt-4
+        if currentPage > 1
+          li.page-item
+            a.page-link(href=`/admin/authors?page=${currentPage - 1}`) &laquo;
+        else
+          li.page-item.disabled
+            span.page-link &laquo;
+
+        each page in [...Array(totalPages).keys()].map(n => n + 1)
+          if page === currentPage
+            li.page-item.active
+              span.page-link #{page}
+          else
+            li.page-item
+              a.page-link(href=`/admin/authors?page=${page}`) #{page}
+
+        if currentPage < totalPages
+          li.page-item
+            a.page-link(href=`/admin/authors?page=${currentPage + 1}`) &raquo;
+        else
+          li.page-item.disabled
+            span.page-link &raquo;
+  block scripts
+    script(src="/js/user.js")

@@ -191,3 +191,12 @@ button.btn.btn-outline-danger {
   border-color: #dc3545;
   background-color: #282828;
 }
+
+.bio-content {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.modal-title {
+  color: #000000;
+}

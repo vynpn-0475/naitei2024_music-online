@@ -6,6 +6,11 @@ block stylesheets
 block content
   .container
     h1= t('authors.updateAuthor')
+    if error_msg.length
+      #errorAlert.alert.alert-danger #{error_msg}
+    if success_msg.length
+      #successAlert.alert.alert-success
+        | #{success_msg}
     form(action=`/admin/authors/update/${author.id}?_method=put`, method='post', enctype='multipart/form-data')
       .form-group
         label(for='fullname')= t('authors.fullName')
@@ -18,10 +23,16 @@ block content
           img#current-image(src=author.avatar, alt=t('authors.currentAvatar'), width='100')
 
       .form-group
+        label(for='bio')= t('authors.bio')
+        textarea.form-control(id='bio', type='text', name='bio', value=author.bio, required)= author.bio
+
+      .form-group
         label(for='dateOfBirth')= t('authors.dateOfBirth')
         input.form-control(id='dateOfBirth', type='date', name='dateOfBirth', value=author.dateOfBirth.toISOString().split('T')[0], required)
 
       div
         button.btn.btn-primary(type='submit')= t('authors.updateAuthor')
 
-  script(src="/js/update_image.js")
+  block scripts
+    script(src="/js/update_image.js")
+    script(src="/js/user.js")

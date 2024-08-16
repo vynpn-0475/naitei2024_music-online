@@ -15,7 +15,7 @@
     "library": "Library",
     "create_playlist": "Playlist",
     "liked_song": "Liked Song",
-    "author": "Author",
+    "author": "Artist",
     "genre": "Genre",
     "song": "Song",
     "user": "User",
@@ -131,7 +131,7 @@
     "deleteSuccess": "Delete Success"
   },
   "warning": {
-    "authorHasSongs": "Tác giả không thể bị xóa vì có bài hát thuộc về họ."
+    "authorHasSongs": "Artist cannot be removed because there are songs that belong to them."
   },
   "message": {
     "notAccount": "Do not have an account?",
@@ -178,13 +178,15 @@
     "songs": "Songs",
     "noSongs": "No Songs Available",
     "lyrics": "Lyrics",
+    "bio": "Bio",
     "authorCreated": "Author successfully created.",
     "authorUpdated": "Author successfully updated.",
     "authorDeleted": "Author successfully deleted.",
     "authorAlreadyExists": "An author with this name already exists",
     "failedToCreateAuthor": "Failed to create author.",
     "failedToUpdateAuthor": "Failed to update author.",
-    "failedToDeleteAuthor": "Failed to delete author."
+    "failedToDeleteAuthor": "Failed to delete author.",
+    "numOfSongs": "Num of songs: "
   },
   "songs": {
     "createSong": {
@@ -271,7 +273,7 @@
     "titleDetail": "{{title}}",
     "type": "Type:",
     "createdAt": "Created At:",
-    "numOfSongs": "Num of songs:",
+    "numOfSongs": "Num of songs: ",
     "edit": "Edit",
     "delete": "Delete",
     "list": "Playlist List",
@@ -302,7 +304,10 @@
     "delete": "Delete",
     "create": "Create",
     "cancel": "Cancel",
-    "detail": "Detail"
+    "detail": "Detail",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "close": "Close"
   },
   "guess_page": {
     "popularArtist": "Popular artists",

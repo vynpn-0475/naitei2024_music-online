@@ -9,6 +9,7 @@ html(lang="en")
     link(rel="stylesheet", href="/styles/custom_homepage.css")
     link(rel="stylesheet" href="/styles/style.css")
     link(rel="stylesheet" href="/styles/custom_footer.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     block stylesheets
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
@@ -54,11 +55,16 @@ html(lang="en")
       audio#main-audio-player
         | Your browser does not support the audio element.
       .controls
-        button#prev-btn(type="button") #{t('footer.prev')}
-        button#play-pause-btn(type="button") #{t('footer.play')}
-        button#next-btn(type="button") #{t('footer.next')}
+        button#prev-btn(type="button")
+          i.fas.fa-backward
+        button#play-pause-btn(type="button")
+          i.fas.fa-play
+        button#next-btn(type="button")
+          i.fas.fa-forward
         .time
           span#current-time 00:00
           span#duration / 00:00
         input#progress(type="range", min="0", value="0")
-        input#volume(type="range", min="0", max="1", step="0.01", value="1")
+        .volume-container
+          i.fas.fa-volume-up
+          input#volume(type="range", min="0", max="1", step="0.01", value="1")

@@ -15,7 +15,7 @@
     "library": "Thư Viện",
     "create_playlist": "Playlist",
     "liked_song": "Bài Hát Yêu Thích",
-    "author": "Tác Giả",
+    "author": "Nghệ sĩ",
     "genre": "Thể Loại",
     "song": "Bài Hát",
     "user": "Người Dùng",
@@ -178,13 +178,15 @@
     "songs": "Danh Sách Bài Hát",
     "noSongs": "Không Có Bài Hát Nào",
     "lyrics": "Lời Bài Hát",
+    "bio": "Tiểu sử nghệ sĩ",
     "authorCreated": "Tác Giả Được Tạo Thành Công.",
     "authorUpdated": "Tác Giả Được Cập Nhật Thành Công.",
     "authorDeleted": "Tác Giả Được Xóa Thành Công.",
     "authorAlreadyExists": "Tác Giả Với Tên Này Đã Tồn Tại",
     "failedToCreateAuthor": "Không Thể Tạo Tác Giả.",
     "failedToUpdateAuthor": "Không Thể Cập Nhật Tác Giả.",
-    "failedToDeleteAuthor": "Không Thể Xóa Tác Giả."
+    "failedToDeleteAuthor": "Không Thể Xóa Tác Giả.",
+    "numOfSongs": "Số lượng bài hát: "
   },
   "songs": {
     "createSong": {
@@ -303,7 +305,10 @@
     "delete": "Xóa",
     "create": "Tạo Mới",
     "cancel": "Hủy",
-    "detail": "Chi tiết"
+    "detail": "Chi tiết",
+    "showMore": "Xem thêm",
+    "showLess": "Thu gọn",
+    "close": "Đóng"
   },
   "guess_page": {
     "popularArtist": "Nghệ sĩ nổi bật",
