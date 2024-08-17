@@ -5,19 +5,27 @@ import { Request, request } from 'express';
 
 const playlistRepository = AppDataSource.getRepository(Playlist);
 
-export const getAllPlaylists = async (req: Request) => {
-  try {
-    return await playlistRepository.find();
-  } catch (error) {
-    throw new Error(req.t('error.failedToFetchPlaylists'));
-  }
+export const getPlaylistsPage = async (
+  page: number,
+  pageSize: number = 6,
+  sortField: keyof Playlist = 'title',
+  sortOrder: 'ASC' | 'DESC' = 'ASC'
+) => {
+  const [playlists, total] = await playlistRepository.findAndCount({
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+    order: {
+      [sortField]: sortOrder,
+    },
+  });
+  return { playlists, total };
 };
 
 export const getPlaylistById = async (playlistId: number, req: Request) => {
   try {
     return await playlistRepository.findOne({
       where: { id: playlistId },
-      relations: ['songs', 'users'],
+      relations: ['songs', 'songs.author', 'users'],
     });
   } catch (error) {
     throw new Error(req.t('error.failedToFetchPlaylists'));

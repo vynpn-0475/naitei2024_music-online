@@ -16,6 +16,22 @@ export const getGenres = async (
   });
 };
 
+export const getGenresPage = async (
+  page: number,
+  pageSize: number,
+  sortField: keyof Genre = 'name',
+  sortOrder: 'ASC' | 'DESC' = 'ASC'
+) => {
+  const [genres, total] = await genreRepository.findAndCount({
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+    order: {
+      [sortField]: sortOrder,
+    },
+  });
+  return { genres, total };
+};
+
 export const getGenreById = async (genreId: number) => {
   return await genreRepository.findOne({
     where: { id: genreId },

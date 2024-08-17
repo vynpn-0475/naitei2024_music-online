@@ -3,8 +3,8 @@ import asyncHandler from 'express-async-handler';
 import {
   createSong,
   deleteSong,
-  getAllSongs,
   getSongById,
+  getSongsPage,
   updateSong,
   updateSongGenres,
 } from '@src/services/Song.service';
@@ -13,6 +13,8 @@ import { uploadFileToFirebase } from '@src/utils/fileUpload.utils';
 import { Song } from '@src/entities/Song.entity';
 import { SongStatus } from '@src/enums/SongStatus.enum';
 import { getGenres, getGenresByIds } from '@src/services/Genre.service';
+import { PAGE_SIZE_SONG } from '../../constants/const';
+
 
 export const validateAndFetchSong = async (
   req: Request,
@@ -39,9 +41,34 @@ export const validateAndFetchSong = async (
 };
 
 export const list = asyncHandler(async (req: Request, res: Response) => {
+  const t = req.t;
+  const page = parseInt(req.query.page as string, 10) || 1;
+  const pageSize = PAGE_SIZE_SONG;
+
   try {
-    const songs = await getAllSongs(req);
-    res.render('songs/index', { songs, title: req.t('songs.list.title') });
+    const { songs, total } = await getSongsPage(page, pageSize);
+    const totalPages = Math.ceil(total / pageSize);
+
+    const currentPage = Math.max(1, Math.min(page, totalPages));
+
+    if (!songs.length) {
+      req.flash('error_msg', t('error.noSongs'));
+      return res.render('songs/index', {
+        songs: [],
+        title: t('songs.list.title'),
+        currentPage,
+        totalPages,
+        baseUrl: '/admin/musics',
+      });
+    }
+    res.render('songs/index', {
+      songs,
+      title: t('songs.list.title'),
+      currentPage,
+      totalPages,
+      currentStatus: SongStatus.Deleted,
+      baseUrl: '/admin/musics',
+    });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchSongs'));
     res.redirect('/error');
@@ -51,7 +78,11 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
 export const detail = asyncHandler((req: Request, res: Response) => {
   try {
     const song = (req as any).song;
-    res.render('songs/detail', { song, title: req.t('songs.detail.title') });
+    res.render('songs/detail', {
+      song,
+      currentStatus: SongStatus.Deleted,
+      title: req.t('songs.detail.title'),
+    });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchSong'));
     res.redirect('/error');
@@ -188,14 +219,19 @@ export const updatePost = async (req: Request, res: Response) => {
 
     const updatedData: Partial<Song> = {};
     if (title !== currentSong.title) updatedData.title = title;
-    if (artist !== currentSong.artist) updatedData.artist = artist;
     if (lyrics !== currentSong.lyrics) updatedData.lyrics = lyrics;
     if (status !== currentSong.status) updatedData.status = status;
     if (imageUrl !== currentSong.imageUrl) updatedData.imageUrl = imageUrl;
     if (url !== currentSong.url) updatedData.url = url;
-
+    if (artist !== currentSong.artist) {
+      updatedData.artist = artist;
+      const author = await getAuthorById(artist, req.t);
+      if (!author) {
+        throw new Error(req.t('error.authorNotFound'));
+      }
+      updatedData.author = author;
+    }
     const updatedSong = await updateSong(req, song.id, updatedData);
-
     if (genresIds) {
       const genres = await getGenresByIds(genresIds);
       await updateSongGenres(req, song.id, genres);
@@ -227,8 +263,9 @@ export const deleteGet = asyncHandler((req: Request, res: Response) => {
 
 export const deletePost = asyncHandler(async (req: Request, res: Response) => {
   try {
+    const { deleteReason } = req.body;
     const song = (req as any).song;
-    await deleteSong(req, song.id);
+    await deleteSong(req, song.id, deleteReason);
     res.redirect('/admin/musics');
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToDeleteSong'));

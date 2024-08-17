@@ -1,22 +1,52 @@
-audio::-moz-media-controls {
-  display: none !important;
-}
-
-audio::-webkit-media-controls {
-  display: none !important;
-}
-
 footer.audio-player {
   background-color: #000000;
   color: #1db954;
   padding: 10px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-container {
+  padding-left: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.song-info {
+  display: flex;
+  align-items: center;
+}
+
+.song-info img#song-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.song-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-details h5#song-title {
+  font-size: 16px;
+  margin: 0;
+  color: #1db954;
+}
+
+.song-details small#song-artist {
+  font-size: 14px;
+  color: #cccccc;
 }
 
 .controls {
   align-items: center;
   display: flex;
   justify-content: center;
+  padding-left: 100px;
 }
 
 .controls button {

@@ -139,3 +139,17 @@
 .align-items-center {
   align-items: center;
 }
+
+.scrollable-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.text-muted:hover {
+  cursor: not-allowed;
+}
+
+.text-muted {
+  color: #6c757d !important;
+  pointer-events: none;
+}

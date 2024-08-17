@@ -14,6 +14,7 @@ import {
   getSongsByAuthorId,
 } from '@src/services/Song.service';
 import { Change } from '@src/constants/change';
+import { PAGE_SIZE } from '../../constants/const';
 
 export async function validateAndFetchAuthor(
   req: Request,
@@ -45,27 +46,31 @@ export async function validateAndFetchAuthor(
 export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
-  const pageSize = 5;
+  const pageSize = PAGE_SIZE;
 
   try {
     const { authors, total } = await getAuthorsPage(page, pageSize);
     const totalPages = Math.ceil(total / pageSize);
+
+    const currentPage = Math.max(1, Math.min(page, totalPages));
 
     if (!authors.length) {
       req.flash('error_msg', t('error.noAuthors'));
       return res.render('authors/index', {
         authors: [],
         title: t('authors.authorListTitle'),
-        currentPage: page,
+        currentPage,
         totalPages,
+        baseUrl: '/admin/authors',
       });
     }
 
     res.render('authors/index', {
       authors,
       title: t('authors.authorListTitle'),
-      currentPage: page,
+      currentPage,
       totalPages,
+      baseUrl: '/admin/authors',
     });
   } catch (error) {
     req.flash('error_msg', t('error.failedToFetchAuthors'));

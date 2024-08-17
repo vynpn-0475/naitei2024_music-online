@@ -126,7 +126,8 @@
     "albumNotFound": "Album Not Found",
     "noPageCreate": "No Page Create",
     "noAlbums": "Album not found",
-    "accountLocked": "The account has been deactive."
+    "accountLocked": "The account has been deactive.",
+    "noSongs": "No Songs Available"
   },
   "success": {
     "createSuccess": "Create Success",
@@ -213,7 +214,8 @@
       "artist": "Artist",
       "updatedAt": "Updated At",
       "viewDetails": "View Details",
-      "addNewSong": "Create New Song"
+      "addNewSong": "Create New Song",
+      "deleted": "Deleted"
     },
     "detail": {
       "title": "Song Detail",
@@ -238,7 +240,8 @@
       "confirmDelete": "Are you sure you want to delete the song: {{title}}",
       "button": {
         "delete": "Delete"
-      }
+      },
+      "reason":"Reason delete: "
     },
     "form": {
       "title": "Title",
@@ -296,6 +299,9 @@
     "selectType": "Select Type",
     "songs": "Songs",
     "updatePlaylist": "Update Playlist"
+  },
+  "audio": {
+    "noSupport": "Your browser does not support the audio element."
   },
   "footer": {
     "play": "Play",

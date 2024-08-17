@@ -1,0 +1,23 @@
+if totalPages > 1
+  .pagination.justify-content-center.mt-4
+    if currentPage > 1
+      li.page-item
+        a.page-link(href=`${baseUrl}?page=${currentPage - 1}`) &laquo;
+    else
+      li.page-item.disabled
+        span.page-link &laquo;
+
+    each page in [...Array(totalPages).keys()].map(n => n + 1)
+      if page === currentPage
+        li.page-item.active
+          span.page-link #{page}
+      else
+        li.page-item
+          a.page-link(href=`${baseUrl}?page=${page}`) #{page}
+
+    if currentPage < totalPages
+      li.page-item
+        a.page-link(href=`${baseUrl}?page=${currentPage + 1}`) &raquo;
+    else
+      li.page-item.disabled
+        span.page-link &raquo;

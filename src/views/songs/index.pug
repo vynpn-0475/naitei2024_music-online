@@ -17,8 +17,13 @@ block content
                 | #{t('authors.noImage')}
             .card-body
               h5.card-title= song.title
-              p.card-text #{t('songs.list.artist')}: #{song.artist}
+              p.card-text #{t('songs.list.artist')}: #{song.author.fullname}
               p.card-text #{t('content.play')}: #{song.updatedAt.toDateString()}
-              a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('common.detail')
+              if song.status !== currentStatus
+                a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('common.detail')
+              else
+                a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('songs.list.deleted')
     .mt-4
       a.btn.btn-success(href='/admin/musics/create')= t('songs.list.addNewSong')
+
+    include ../partials/_pagination.pug

@@ -35,7 +35,7 @@ block content
               each song, index in author.songs
                 if index < 2
                   li.list-group-item
-                    a(href=`/admin/musics/${song.id}`) #{song.title} - #{song.artist}
+                    a(href=`/admin/musics/${song.id}`) #{song.title} - #{author.fullname}
                     br
                     small #{song.updatedAt.toDateString()}
             if author.songs.length > 2
@@ -62,7 +62,7 @@ block content
           button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
         .modal-body
           if author.songs && author.songs.length > 0
-            ul.list-group
+            ul.list-group.scrollable-list
               each song in author.songs
                 li.list-group-item
                   a(href=`/admin/musics/${song.id}`) #{song.title} - #{song.artist}

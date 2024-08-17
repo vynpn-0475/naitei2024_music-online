@@ -6,14 +6,16 @@ import {
   addSongToPlaylist,
   createPlaylist,
   deletePlaylist,
-  getAllPlaylists,
   getPlaylistById,
+  getPlaylistsPage,
   removeSongFromPlaylist,
   updatePlaylist,
 } from '@src/services/Playlist.service';
 import { getAllSongs, getSongsByIds } from '@src/services/Song.service';
 import { PlaylistTypes } from '@src/enums/PlaylistTypes.enum';
 import { Song } from '@src/entities/Song.entity';
+import { SongStatus } from '@src/enums/SongStatus.enum';
+import { PAGE_SIZE } from '../../constants/const';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -46,11 +48,33 @@ export const validateAndFetchPlaylist = async (
 };
 
 export const list = asyncHandler(async (req: Request, res: Response) => {
+  const t = req.t;
+  const page = parseInt(req.query.page as string, 10) || 1;
+  const pageSize = PAGE_SIZE;
+
   try {
-    const playlists = await getAllPlaylists(req);
+    const { playlists, total } = await getPlaylistsPage(page, pageSize);
+    const totalPages = Math.ceil(total / pageSize);
+
+    const currentPage = Math.max(1, Math.min(page, totalPages));
+
+    if (!playlists.length) {
+      req.flash('error_msg', t('error.noPlaylists'));
+      return res.render('playlists/index', {
+        playlists: [],
+        title: req.t('playlist.title'),
+        currentPage,
+        totalPages,
+        baseUrl: '/admin/playlists',
+      });
+    }
+
     res.render('playlists/index', {
       playlists,
       title: req.t('playlist.title'),
+      currentPage,
+      totalPages,
+      baseUrl: '/admin/playlists',
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchPlaylists'));
@@ -62,7 +86,6 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
   try {
     const playlist = req.playlist as Playlist;
     const songs = await getAllSongs(req);
-
     const playlistSongIds = playlist.songs.map((song: Song) => song.id);
 
     const availableSongs = songs.filter(
@@ -70,13 +93,13 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
     );
 
     const firstSong = playlist.songs.length > 0 ? playlist.songs[0] : null;
-
     res.render('playlists/detail', {
       playlist,
       title: req.t('playlist.detail'),
       songs: playlist.songs,
       availableSongs,
       length: playlist.songs.length,
+      currentStatus: SongStatus.Deleted,
       firstSong,
     });
   } catch (error) {

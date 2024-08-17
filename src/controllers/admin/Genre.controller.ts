@@ -3,7 +3,7 @@ import {
   createGenre,
   deleteGenre,
   getGenreById,
-  getGenres,
+  getGenresPage,
   updateGenre,
 } from '@src/services/Genre.service';
 import {
@@ -13,6 +13,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { TFunction } from 'i18next';
+import { PAGE_SIZE } from '../../constants/const';
 
 interface GenreRequest extends Request {
   genre?: Genre;
@@ -45,11 +46,33 @@ export async function validateAndFetchGenre(
 }
 
 export const list = asyncHandler(async (req: Request, res: Response) => {
+  const t = req.t;
+  const page = parseInt(req.query.page as string, 10) || 1;
+  const pageSize = PAGE_SIZE;
+
   try {
-    const genres = await getGenres();
+    const { genres, total } = await getGenresPage(page, pageSize);
+    const totalPages = Math.ceil(total / pageSize);
+
+    const currentPage = Math.max(1, Math.min(page, totalPages));
+
+    if (!genres.length) {
+      req.flash('error_msg', t('error.noGenres'));
+      return res.render('genres/index', {
+        genres: [],
+        title: req.t('genres.title'),
+        currentPage,
+        totalPages,
+        baseUrl: '/admin/genres',
+      });
+    }
+
     res.render('genres/index', {
       genres,
       title: req.t('genres.title'),
+      currentPage,
+      totalPages,
+      baseUrl: '/admin/genres',
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchGenres'));

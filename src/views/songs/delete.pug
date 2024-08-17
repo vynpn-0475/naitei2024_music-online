@@ -18,7 +18,7 @@ block content
             h2.card-title= song.title
             p.card-text
               = t('content.artist')
-              b= song.artist
+              b= song.author.fullname
             p.card-text
               = t('content.lyrics')
               pre.card-text.lyrics-text-color= song.lyrics
@@ -29,5 +29,8 @@ block content
             button.btn.btn-primary(type="button" data-toggle="modal" data-target="#audioPlayerModal" onclick=`updateAudioPlayer("${song.url}")`)= t('content.play')
             p= t('songs.deleteSong.confirmDelete', { title: song.title })
             form(action=`/admin/musics/delete/${song.id}?_method=delete` method='POST')
+              .form-group
+                label(for='deleteReason') #{t('songs.deleteSong.reason')}
+                input#deleteReason.form-control(type='text', name='deleteReason', required=true)
               button(type='submit' class='btn btn-danger')= t('songs.deleteSong.button.delete')
               a(href='/admin/musics' class='btn btn-secondary ml-2')= t('common.cancel')
