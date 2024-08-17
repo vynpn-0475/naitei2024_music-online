@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 import { AppDataSource } from '../config/data-source';
 import { Genre } from '../entities/Genre.entity';
-import { In } from 'typeorm';
+import { In, Like } from 'typeorm';
 
 const genreRepository = AppDataSource.getRepository(Genre);
 
@@ -20,9 +20,13 @@ export const getGenresPage = async (
   page: number,
   pageSize: number,
   sortField: keyof Genre = 'name',
-  sortOrder: 'ASC' | 'DESC' = 'ASC'
+  sortOrder: 'ASC' | 'DESC' = 'ASC',
+  query: string = ''
 ) => {
   const [genres, total] = await genreRepository.findAndCount({
+    where: {
+      name: Like(`%${query}%`),
+    },
     skip: (page - 1) * pageSize,
     take: pageSize,
     order: {
@@ -92,4 +96,11 @@ export const deleteGenre = async (genreId: number, t: TFunction) => {
   } catch (error) {
     throw new Error(t('error.failedToDeleteGenre'));
   }
+};
+
+export const searchGenres = async (query: string) => {
+  return await genreRepository
+    .createQueryBuilder('genre')
+    .where('genre.name LIKE :query', { query: `%${query}%` })
+    .getMany();
 };

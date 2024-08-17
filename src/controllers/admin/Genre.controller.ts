@@ -49,23 +49,12 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
   const pageSize = PAGE_SIZE;
+  const query = req.query.query as string || '';
 
   try {
-    const { genres, total } = await getGenresPage(page, pageSize);
+    const { genres, total } = await getGenresPage(page, pageSize, 'name', 'ASC', query);
     const totalPages = Math.ceil(total / pageSize);
-
     const currentPage = Math.max(1, Math.min(page, totalPages));
-
-    if (!genres.length) {
-      req.flash('error_msg', t('error.noGenres'));
-      return res.render('genres/index', {
-        genres: [],
-        title: req.t('genres.title'),
-        currentPage,
-        totalPages,
-        baseUrl: '/admin/genres',
-      });
-    }
 
     res.render('genres/index', {
       genres,
@@ -73,6 +62,8 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
       currentPage,
       totalPages,
       baseUrl: '/admin/genres',
+      query,
+      noGenresMessage: !genres.length ? req.t('genres.noMatchingGenres') : null,
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchGenres'));

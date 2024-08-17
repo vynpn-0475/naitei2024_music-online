@@ -26,7 +26,8 @@
     "artist": "Artist: ",
     "play": "Play",
     "genres": "Genres: ",
-    "lyrics": "Lyrics:"
+    "lyrics": "Lyrics:",
+    "search": "Search"
   },
   "title_Logo": "Music Online",
   "title_register": "Register to listen to music",
@@ -124,9 +125,9 @@
     "errorLoadingPage": "Error loading page.",
     "sortSongsByUpdatedAt": "An error occurred while sorting songs by update date.",
     "albumNotFound": "Album Not Found",
+    "noPageCreate": "No Page Create",
     "failedToRemoveSongAlbum": "Failed to remove song from Album.",
     "failedToAddSongAlbum": "Failed to add song to Album.",
-    "noPageCreate": "No Page Create",
     "noAlbums": "Album not found",
     "accountLocked": "The account has been deactive.",
     "noAvailableSongs": "No available songs.",
@@ -169,7 +170,8 @@
     "deleteGenre": "Delete Genre",
     "songCount": "Number of Songs",
     "songs": "List Song",
-    "noSongs": "Don't have Song"
+    "noSongs": "Don't have Song",
+    "noMatchingGenres": "No matching genres found"
   },
   "authors": {
     "createAuthor": "Create Author",
@@ -194,7 +196,8 @@
     "failedToCreateAuthor": "Failed to create author.",
     "failedToUpdateAuthor": "Failed to update author.",
     "failedToDeleteAuthor": "Failed to delete author.",
-    "numOfSongs": "Num of songs: "
+    "numOfSongs": "Num of songs: ",
+    "noMatchingAuthors": "No matching authors found"
   },
   "songs": {
     "createSong": {
@@ -218,7 +221,8 @@
       "updatedAt": "Updated At",
       "viewDetails": "View Details",
       "addNewSong": "Create New Song",
-      "deleted": "Deleted"
+      "deleted": "Deleted",
+      "noMatchingSongs": "No matching songs found"
     },
     "detail": {
       "title": "Song Detail",
@@ -244,7 +248,7 @@
       "button": {
         "delete": "Delete"
       },
-      "reason": "Reason delete: "
+      "reason":"Reason delete: "
     },
     "form": {
       "title": "Title",
@@ -292,7 +296,8 @@
     "remove": "Remove",
     "findMore": "Find More",
     "findMoreSongs": "Find More Songs",
-    "add": "Add"
+    "add": "Add",
+    "noMatchingPlaylists": "No matching playlists found"
   },
   "playlistUpdate": {
     "title": "Title",
@@ -331,5 +336,25 @@
     "newSongs": "New Songs",
     "showAll": "Show all",
     "artist": "Artist"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "all": "All",
+    "songs": "Songs",
+    "artists": "Artists",
+    "genres": "Genres",
+    "playlists": "Playlists",
+    "albums": "Albums",
+    "songsTitle": "Songs",
+    "artistTitle": "Artists",
+    "genresTitle": "Genres",
+    "playlistsTitle": "Playlists",
+    "albumsTitle": "Albums",
+    "artist": "Artist",
+    "noImage": "No Image",
+    "noResults": "No results found."
+  },
+  "albums": {
+    "noMatchingAlbums": "No matching albums found"
   }
 }

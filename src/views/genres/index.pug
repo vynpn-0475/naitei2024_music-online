@@ -6,14 +6,29 @@ block stylesheets
 block content
   .container
     h1.my-4.text-light= t('genres.title')
-    ul.list-group
-      each genre in genres
-        li.list-group-item.d-flex.justify-content-between.align-items-center.bg-dark.text-light
-          div
-            a(href=`/admin/genres/${genre.id}`, class="text-decoration-none text-success")
-              h5.mb-1= genre.name
-            small= t('genres.genreName', { name: genre.name })
+
+    form(method="get", action="/admin/genres", id="searchForm")
+      .row.mb-4
+        .col-md-12
+          .input-group
+            input.form-control(type="text", name="query", placeholder=t('search.placeholder'), value=query, id="searchInput")
+
+    if noGenresMessage
+      #noGenresAlert.alert.alert-warning #{noGenresMessage}
+
+    if genres.length > 0
+      ul.list-group
+        each genre in genres
+          li.list-group-item.d-flex.justify-content-between.align-items-center.bg-dark.text-light
+            div
+              a(href=`/admin/genres/${genre.id}`, class="text-decoration-none text-success")
+                h5.mb-1= genre.name
+              small= t('genres.genreName', { name: genre.name })
+
     .mt-4
       a(href="/admin/genres/create", class="btn btn-success")= t('genres.createNewGenre')
 
     include ../partials/_pagination.pug
+
+  block scripts
+    script(src="/js/user.js")

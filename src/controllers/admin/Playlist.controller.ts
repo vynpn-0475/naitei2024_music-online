@@ -51,23 +51,12 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
   const pageSize = PAGE_SIZE;
+  const query = req.query.query as string || '';
 
   try {
-    const { playlists, total } = await getPlaylistsPage(page, pageSize);
+    const { playlists, total } = await getPlaylistsPage(page, pageSize, 'title', 'ASC', query);
     const totalPages = Math.ceil(total / pageSize);
-
     const currentPage = Math.max(1, Math.min(page, totalPages));
-
-    if (!playlists.length) {
-      req.flash('error_msg', t('error.noPlaylists'));
-      return res.render('playlists/index', {
-        playlists: [],
-        title: req.t('playlist.title'),
-        currentPage,
-        totalPages,
-        baseUrl: '/admin/playlists',
-      });
-    }
 
     res.render('playlists/index', {
       playlists,
@@ -75,6 +64,8 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
       currentPage,
       totalPages,
       baseUrl: '/admin/playlists',
+      query,
+      noPlaylistsMessage: !playlists.length ? req.t('playlist.noMatchingPlaylists') : null,
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchPlaylists'));

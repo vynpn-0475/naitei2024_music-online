@@ -7,6 +7,8 @@ $(document).ready(function () {
   const $volume = $('#volume');
   const $currentTimeElem = $('#current-time');
   const $durationElem = $('#duration');
+  const form = $('#searchForm');
+  const buttons = $('.btn-group button');
 
   let isPlaying = false;
   let currentSongIndex = 0;
@@ -254,5 +256,23 @@ $(document).ready(function () {
     if (e.originalEvent.state && e.originalEvent.state.path) {
       loadNewPage(e.originalEvent.state.path);
     }
+  });
+  
+  function setButtonState(activeButton) {
+    buttons.each(function() {
+      if ($(this).is(activeButton)) {
+        $(this).addClass('btn-primary');
+      } else {
+        $(this).removeClass('btn-primary');
+      }
+    });
+  }
+
+  buttons.on('click', function() {
+    const type = $(this).data('type');
+    console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} button clicked`);
+    form.attr('action', `/admin/search/${type}`);
+    form.submit();
+    setButtonState($(this));
   });
 });

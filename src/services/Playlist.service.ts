@@ -1,3 +1,4 @@
+import { Like } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import { Playlist } from '../entities/Playlist.entity';
 import { getSongById } from './Song.service';
@@ -9,9 +10,13 @@ export const getPlaylistsPage = async (
   page: number,
   pageSize: number = 6,
   sortField: keyof Playlist = 'title',
-  sortOrder: 'ASC' | 'DESC' = 'ASC'
+  sortOrder: 'ASC' | 'DESC' = 'ASC',
+  query: string = ''
 ) => {
   const [playlists, total] = await playlistRepository.findAndCount({
+    where: {
+      title: Like(`%${query}%`),
+    },
     skip: (page - 1) * pageSize,
     take: pageSize,
     order: {
@@ -126,4 +131,11 @@ export const deletePlaylist = async (req: Request, playlistId: number) => {
   } catch (error) {
     throw new Error(req.t('error.failedToDeletePlaylist'));
   }
+};
+
+export const searchPlaylists = async (query: string) => {
+  return await playlistRepository
+    .createQueryBuilder('playlist')
+    .where('playlist.title LIKE :query', { query: `%${query}%` })
+    .getMany();
 };

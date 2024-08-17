@@ -6,19 +6,31 @@ block stylesheets
 block content
   .container
     h1.my-4= t('playlist.title')
-    ul.list-group
-      each playlist in playlists
-        li.list-group-item.d-flex.justify-content-between.align-items-center
-          .d-flex.align-items-center
-            if playlist.avatar
-              img(src=playlist.avatar, alt=playlist.title, class='rounded-circle author-avatar')
-            else
-              .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
-                | #{t('playlist.noImage')}
-            .ml-2
-              a(href=`/admin/playlists/${playlist.id}`, class='text-decoration-none')
-                h5.mb-1= playlist.title
-              small #{t('playlist.type')} #{playlist.type} | #{t('playlist.createdAt')} #{new Date(playlist.createdAt).toDateString()}
+
+    form(method="get", action="/admin/playlists", id="searchForm")
+      .row.mb-4
+        .col-md-12
+          .input-group
+            input.form-control(type="text", name="query", placeholder=t('search.placeholder'), value=query, id="searchInput")
+
+    if noPlaylistsMessage
+      #noPlaylistsAlert.alert.alert-warning #{noPlaylistsMessage}
+
+    if playlists.length > 0
+      ul.list-group
+        each playlist in playlists
+          li.list-group-item.d-flex.justify-content-between.align-items-center
+            .d-flex.align-items-center
+              if playlist.avatar
+                img(src=playlist.avatar, alt=playlist.title, class='rounded-circle author-avatar')
+              else
+                .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
+                  | #{t('playlist.noImage')}
+              .ml-2
+                a(href=`/admin/playlists/${playlist.id}`, class='text-decoration-none')
+                  h5.mb-1= playlist.title
+                small #{t('playlist.type')}: #{playlist.type} | #{t('playlist.createdAt')}: #{new Date(playlist.createdAt).toDateString()}
+
     .mt-4
       a.btn.btn-success(href='/admin/playlists/create')= t('playlist.createNewPlaylist')
 

@@ -1,3 +1,4 @@
+import { Like } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import { Author } from '../entities/Author.entity';
 import { TFunction } from 'i18next';
@@ -19,9 +20,13 @@ export const getAuthorsPage = async (
   page: number,
   pageSize: number,
   sortField: keyof Author = 'fullname',
-  sortOrder: 'ASC' | 'DESC' = 'ASC'
+  sortOrder: 'ASC' | 'DESC' = 'ASC',
+  query: string = ''
 ) => {
   const [authors, total] = await authorRepository.findAndCount({
+    where: {
+      fullname: Like(`%${query}%`),
+    },
     skip: (page - 1) * pageSize,
     take: pageSize,
     order: {
@@ -108,4 +113,11 @@ export const deleteAuthor = async (authorId: number, t: TFunction) => {
   } catch (error) {
     throw new Error(t('error.failedToDeleteAuthor'));
   }
+};
+
+export const searchAuthors = async (query: string) => {
+  return await authorRepository
+    .createQueryBuilder('author')
+    .where('author.fullname LIKE :query', { query: `%${query}%` })
+    .getMany();
 };

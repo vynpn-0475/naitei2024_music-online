@@ -2,29 +2,43 @@ extends ../layout_admin
 
 block stylesheets
   link(rel="stylesheet", href="/styles/custom_list.css")
+  link(rel="stylesheet", href="/styles/search_page.css")
   link(rel="stylesheet", href="/styles/custom_detail.css")
 
 block content 
   .container 
     h1.text-center #{t('action.list')} #{t('option.album')}
+
+    form(method="get", action="/admin/albums", id="searchForm")
+      .row.mb-4
+        .col-md-12
+          .input-group
+            input.form-control(type="text", name="query", placeholder=t('search.placeholder'), value=query, id="searchInput")
+
     a.btn.btn-success.mb-3(href='/admin/albums/create') #{t('action.create')} #{t('option.album')}
-    if albums.length === 0
-      #errorAlert.alert.alert-danger #{t('error.noAlbums')}
+
+    if noAlbumsMessage
+      #noAlbumsAlert.alert.alert-warning #{noAlbumsMessage}
+
     if error_msg.length
-        #errorAlert.alert.alert-danger #{error_msg}
+      #errorAlert.alert.alert-danger #{error_msg}
+
     if success_msg.length
-        #successAlert.alert.alert-success #{success_msg}
-    ul.list-group
-      each album in albums
-        li.list-group-item.d-flex.justify-content-between.align-items-center
-          .d-flex.align-items-center
-            img.album-avatar(src=album.imageUrl, alt=album.title)
-            .ml-2
-              a.text-decoration-none.text-success(href=`/admin/albums/${album.id}`)
-                h5.mb-1= album.title
-              p #{t('form.releaseDate')}: #{album.releaseDate.toDateString()}
+      #successAlert.alert.alert-success #{success_msg}
+
+    if albums.length > 0
+      ul.list-group
+        each album in albums
+          li.list-group-item.d-flex.justify-content-between.align-items-center
+            .d-flex.align-items-center
+              img.album-avatar(src=album.imageUrl, alt=album.title)
+              .ml-2
+                a.text-decoration-none.text-success(href=`/admin/albums/${album.id}`)
+                  h5.mb-1= album.title
+                p #{t('form.releaseDate')}: #{album.releaseDate.toDateString()}
 
     include ../partials/_pagination.pug
 
   block scripts
     script(src="/js/user.js")
+    script(src="/js/layout_admin.js")

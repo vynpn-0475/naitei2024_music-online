@@ -1,0 +1,45 @@
+.btn-group button {
+    margin: 0 25px;
+  }
+  
+  .btn-primary {
+    background-color: #12d373;
+    color: white;
+  }
+  
+  .btn-outline-primary {
+    border-color: #12d373;
+    color: #09a155;
+  }
+  
+  .btn-outline-primary.active, .btn-outline-primary:hover {
+    background-color: #12d373;
+    color: white;
+  }
+  
+.genre-link {
+  text-decoration: none;
+  color: #28a745;
+  font-size: 1.25rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.genre-link:hover {
+  color: #218838;
+}
+
+.genre-item {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.genre-item:hover {
+  background-color: #e9ecef;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}

@@ -75,19 +75,19 @@ export const deleteAlbum = async (id: number) => {
   }
 };
 
-export const getAlbumPage = async (
-  page: number,
-  pageSize: number,
-  sortField: keyof Album = 'title',
-  sortOrder: 'ASC' | 'DESC' = 'ASC'
-) => {
-  const [albums, total] = await albumRepository.findAndCount({
-    skip: (page - 1) * pageSize,
-    take: pageSize,
-    order: {
-      [sortField]: sortOrder,
-    },
-  });
+export const getAlbumPage = async (page: number, pageSize: number, query: string = '') => {
+  const skip = (page - 1) * pageSize;
+  const qb = albumRepository.createQueryBuilder('album')
+    .leftJoinAndSelect('album.author', 'author')
+    .orderBy('album.releaseDate', 'DESC')
+    .skip(skip)
+    .take(pageSize);
+
+  if (query) {
+    qb.where('album.title LIKE :query', { query: `%${query}%` });
+  }
+
+  const [albums, total] = await qb.getManyAndCount();
   return { albums, total };
 };
 
@@ -136,4 +136,13 @@ export const removeSongFromAlbum = async (
 
   album.songs = album.songs.filter((s) => s.id !== songId);
   await album.save();
+};
+
+
+export const searchAlbums = async (query: string) => {
+  return await albumRepository
+    .createQueryBuilder('album')
+    .leftJoinAndSelect('album.author', 'author')
+    .where('album.title LIKE :query', { query: `%${query}%` })
+    .getMany();
 };

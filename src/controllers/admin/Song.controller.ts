@@ -15,7 +15,6 @@ import { SongStatus } from '@src/enums/SongStatus.enum';
 import { getGenres, getGenresByIds } from '@src/services/Genre.service';
 import { PAGE_SIZE_SONG } from '../../constants/const';
 
-
 export const validateAndFetchSong = async (
   req: Request,
   res: Response,
@@ -44,23 +43,13 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
   const pageSize = PAGE_SIZE_SONG;
+  const query = req.query.query as string || '';
 
   try {
-    const { songs, total } = await getSongsPage(page, pageSize);
+    const { songs, total } = await getSongsPage(page, pageSize, 'title', 'ASC', query);
     const totalPages = Math.ceil(total / pageSize);
-
     const currentPage = Math.max(1, Math.min(page, totalPages));
 
-    if (!songs.length) {
-      req.flash('error_msg', t('error.noSongs'));
-      return res.render('songs/index', {
-        songs: [],
-        title: t('songs.list.title'),
-        currentPage,
-        totalPages,
-        baseUrl: '/admin/musics',
-      });
-    }
     res.render('songs/index', {
       songs,
       title: t('songs.list.title'),
@@ -68,6 +57,8 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
       totalPages,
       currentStatus: SongStatus.Deleted,
       baseUrl: '/admin/musics',
+      query,
+      noSongsMessage: !songs.length ? req.t('songs.list.noMatchingSongs') : null,
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchSongs'));
