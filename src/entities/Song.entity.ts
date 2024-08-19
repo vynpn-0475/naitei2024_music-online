@@ -48,6 +48,9 @@ export class Song extends BaseEntity {
   })
   status: SongStatus;
 
+  @Column({ nullable: true, type: 'text' })
+  deleteReason?: string;
+
   @ManyToMany(() => Genre, (genre) => genre.songs)
   @JoinTable()
   genres: Genre[];

@@ -1,6 +1,7 @@
 import { AppDataSource } from '@src/config/data-source';
 import { Genre } from '@src/entities/Genre.entity';
 import { Song } from '@src/entities/Song.entity';
+import { SongStatus } from '@src/enums/SongStatus.enum';
 import { Request } from 'express';
 import { In } from 'typeorm';
 
@@ -16,10 +17,29 @@ export const countSongsByGenreId = async (req: Request, genreId: number) => {
 
 export const getAllSongs = async (req: Request) => {
   try {
-    return await songRepository.find();
+    return await songRepository.find({
+      relations: ['author', 'album', 'genres'],
+    });
   } catch (error) {
     throw new Error(req.t('error.failedToFetchSongs'));
   }
+};
+
+export const getSongsPage = async (
+  page: number,
+  pageSize: number = 6,
+  sortField: keyof Song = 'title',
+  sortOrder: 'ASC' | 'DESC' = 'ASC'
+) => {
+  const [songs, total] = await songRepository.findAndCount({
+    relations: ['author', 'album', 'genres'],
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+    order: {
+      [sortField]: sortOrder,
+    },
+  });
+  return { songs, total };
 };
 
 export const getSongById = async (req: Request, songId: number) => {
@@ -48,7 +68,7 @@ export const getSongsByGenreId = async (req: Request, genreId: number) => {
   try {
     return await songRepository.find({
       where: { genres: { id: genreId } },
-      relations: ['genres'],
+      relations: ['author', 'album', 'genres'],
     });
   } catch (error) {
     throw new Error(req.t('error.failedToFetchSongs'));
@@ -59,7 +79,7 @@ export const getSongsByAuthorId = async (req: Request, authorId: number) => {
   try {
     return await songRepository.find({
       where: { author: { id: authorId } },
-      relations: ['author'],
+      relations: ['author', 'album', 'genres'],
     });
   } catch (error) {
     throw new Error(req.t('error.failedToFetchSongs'));
@@ -118,13 +138,20 @@ export const updateSongGenres = async (
   await song.save();
 };
 
-export const deleteSong = async (req: Request, songId: number) => {
+export const deleteSong = async (
+  req: Request,
+  songId: number,
+  reason: string
+) => {
   try {
     const song = await songRepository.findOne({ where: { id: songId } });
     if (!song) {
       throw new Error(req.t('error.songNotFound'));
     }
-    await song.remove();
+
+    song.status = SongStatus.Deleted;
+    song.deleteReason = reason;
+    await song.save();
   } catch (error) {
     throw new Error(req.t('error.failedToDeleteSong'));
   }

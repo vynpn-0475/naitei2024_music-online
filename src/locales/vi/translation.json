@@ -126,7 +126,8 @@
     "albumNotFound": "Không tìm thấy Album",
     "noPageCreate": "Không có trang Tạo mới",
     "noAlbums": "Không có Album",
-    "accountLocked": "Tài khoản đã bị vô hiệu hóa."
+    "accountLocked": "Tài khoản đã bị vô hiệu hóa.",
+    "noSongs": "Không Có Bài Hát Nào"
   },
   "success": {
     "createSuccess": "Tạo Thành Công",
@@ -213,7 +214,8 @@
       "artist": "Nghệ Sĩ",
       "updatedAt": "Cập Nhật Lúc",
       "viewDetails": "Xem Chi Tiết",
-      "addNewSong": "Thêm Bài Hát Mới"
+      "addNewSong": "Thêm Bài Hát Mới",
+      "deleted": "Đã xóa"
     },
     "detail": {
       "title": "Chi tiết bài hát",
@@ -238,7 +240,8 @@
       "confirmDelete": "Bạn Có Chắc Chắn Muốn Xóa Bài Hát: {{title}}",
       "button": {
         "delete": "Xóa"
-      }
+      },
+      "reason":"Lý do xóa: "
     },
     "form": {
       "title": "Tiêu đề",
@@ -297,6 +300,9 @@
     "selectType": "Chọn Loại",
     "songs": "Bài Hát",
     "updatePlaylist": "Cập Nhật Danh Sách"
+  },
+  "audio": {
+    "noSupport": "Trình duyệt của bạn không hỗ trợ phần tử âm thanh."
   },
   "footer": {
     "play": "Phát",

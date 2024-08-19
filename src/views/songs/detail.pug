@@ -6,7 +6,6 @@ block stylesheets
 block content
   .container
     h1 #{song.title}
-
     .row
       .col-md-6
         .card-songs-detail
@@ -15,7 +14,7 @@ block content
             h2.card-title= song.title
             p.card-text
               | #{t('content.artist')}
-              b= song.artist
+              b= song.author.fullname
             p.card-text
               | #{t('content.genres')}
               each genre in song.genres
@@ -23,11 +22,18 @@ block content
       .col-md-6
         .card-songs-detail
           .card-body
-            button.btn.btn-primary(type="button" data-toggle="modal" data-target="#audioPlayerModal" onclick=`updateAudioPlayer("${song.url}"), ${-1}`) #{t('content.play')}
-            div.mt-4
-              a.btn.btn-primary(href=`/admin/musics/update/${song.id}`) #{t('common.edit')}
-              a.btn.btn-danger(href=`/admin/musics/delete/${song.id}`) #{t('common.delete')}
-              a.btn.btn-success(href='/admin/musics') #{t('songs.list.title')}
+            if song.status !== currentStatus
+              button.btn.btn-primary(type="button" data-toggle="modal" data-target="#audioPlayerModal" onclick=`updateAudioPlayer("${song.url}", "${song.imageUrl}", "${song.title}", "${song.author.fullname}", ${-1})`) #{t('content.play')}
+              div.mt-4
+                a.btn.btn-primary(href=`/admin/musics/update/${song.id}`) #{t('common.edit')}
+                a.btn.btn-danger(href=`/admin/musics/delete/${song.id}`) #{t('common.delete')}
+            else
+              | #{t('songs.list.deleted')}
+              br
+              | #{t('songs.deleteSong.reason')}
+              b= song.deleteReason
+              div.mt-4
+                a.btn.btn-primary(href=`/admin/musics/update/${song.id}`) #{t('common.edit')}
       .card-body
         p.card-text
           | #{t('content.lyrics')}

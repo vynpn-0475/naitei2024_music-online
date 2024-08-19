@@ -200,3 +200,8 @@ button.btn.btn-outline-danger {
 .modal-title {
   color: #000000;
 }
+
+.scrollable-list {
+  max-height: 400px;
+  overflow-y: auto;
+}

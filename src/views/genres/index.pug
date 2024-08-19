@@ -15,3 +15,5 @@ block content
             small= t('genres.genreName', { name: genre.name })
     .mt-4
       a(href="/admin/genres/create", class="btn btn-success")= t('genres.createNewGenre')
+
+    include ../partials/_pagination.pug

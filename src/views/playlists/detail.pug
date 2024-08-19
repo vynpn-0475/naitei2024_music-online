@@ -4,7 +4,6 @@ block stylesheets
   link(rel="stylesheet", href="/styles/custom_detail_playlist.css")
 
 block content
-
   .container
     h1= t('playlist.titleDetail', { title: playlist.title })
     .row
@@ -27,7 +26,6 @@ block content
         .mt-4
           a.btn.btn-primary(href=`/admin/playlists/update/${playlist.id}`) #{t('common.edit')}
           a.btn.btn-danger(href=`/admin/playlists/delete/${playlist.id}`) #{t('common.delete')}
-          a.btn.btn-success(href='/admin/playlists') #{t('playlist.title')}
 
     h1.text-center.mb-4= t('playlist.listOfSongs')
     ul.list-group
@@ -40,13 +38,26 @@ block content
               .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-image
                 = t('playlist.noImage')
             .ml-2
-              a(href=`/musics/${song.id}`, class='text-decoration-none')
-                h5.mb-1= song.title
-              small: = song.artist  
-              | &nbsp;
-              small : #{new Date(song.createdAt).toDateString()}
+              if song.status !== currentStatus
+                a(href=`/admin/musics/${song.id}`, class='text-decoration-none')
+                  h5.mb-1= song.title
+                  small: = song.author.fullname  
+                  | &nbsp;
+                  small : #{new Date(song.createdAt).toDateString()}
+              else
+                h5.mb-1.text-muted= song.title
+                small.text-muted= song.author.fullname  
+                | &nbsp;
+                small.text-muted : #{new Date(song.createdAt).toDateString()}
           .mt-4
-            button.btn.btn-primary(type="button" data-toggle="modal" data-target="#audioPlayerModal" onclick=`updateAudioPlayer("${song.url}", ${index})`) #{t('playlist.play')}
+            button.btn.btn-primary(
+                type="button"
+                data-toggle="modal"
+                data-target="#audioPlayerModal"
+                onclick=`updateAudioPlayer("${song.url}", "${song.imageUrl}", "${song.title}", "${song.author.fullname}", ${index})`
+                class= song.status === currentStatus ? 'disabled' : ''
+                style= song.status === currentStatus ? 'cursor: not-allowed; pointer-events: none;' : ''
+              ) #{t('playlist.play')}
             form(action=`/admin/playlists/remove-song/${playlist.id}`, method='post', class='form-inline')
               input(type='hidden', name='songId', value=song.id)
               button.btn.btn-danger(type='submit') #{t('playlist.remove')}
@@ -62,7 +73,7 @@ block content
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true')
           .modal-body
-            ul.list-group
+            ul.list-group.scrollable-list
               each song in availableSongs
                 li.list-group-item.d-flex.justify-content-between.align-items-center
                   .d-flex.align-items-center
@@ -74,9 +85,9 @@ block content
                     .ml-2
                       a(href=`/musics/${song.id}`, class='text-decoration-none')
                         h5.mb-1= song.title
-                      small: = song.artist  
-                      | &nbsp;
-                      small : #{new Date(song.createdAt).toDateString()}
+                        small: = song.artist  
+                        | &nbsp;
+                        small : #{new Date(song.createdAt).toDateString()}
                   form(action=`/admin/playlists/add-song/${playlist.id}`, method='post', class='form-inline')
                     input(type='hidden', name='songId', value=song.id)
                     button.btn.btn-success(type='submit') #{t('playlist.add')}
@@ -84,4 +95,4 @@ block content
   if playlist
     #playlist-data(playlist-datas=playlist)
   if firstSong
-    #first-song(data-song-url=firstSong.url)
+    #first-song(data-song-url=firstSong)

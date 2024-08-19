@@ -20,4 +20,6 @@ block content
                 h5.mb-1= playlist.title
               small #{t('playlist.type')} #{playlist.type} | #{t('playlist.createdAt')} #{new Date(playlist.createdAt).toDateString()}
     .mt-4
-      a.btn.btn-success(href='/admin/playlists/create') #{t('playlist.createNewPlaylist')}
+      a.btn.btn-success(href='/admin/playlists/create')= t('playlist.createNewPlaylist')
+
+    include ../partials/_pagination.pug
