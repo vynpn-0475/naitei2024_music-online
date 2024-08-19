@@ -83,6 +83,7 @@
     "hashPassword": "Lỗi Băm Mật Khẩu: {{error}}",
     "comparePassword": "Lỗi So Sánh Mật Khẩu: {{error}}",
     "missingPassword": "Cần Có Cả Mật Khẩu Đơn Giản Và Mật Khẩu Băm",
+    "passwordNotFound": "Mật khẩu trống",
     "title": "Lỗi",
     "system": "Lỗi Từ Hệ Thống",
     "usernameAlreadyTaken": "Tên Người Dùng Đã Được Sử Dụng",
@@ -131,12 +132,14 @@
     "noAlbums": "Không có Album",
     "accountLocked": "Tài khoản đã bị vô hiệu hóa.",
     "noAvailableSongs": "Không có bài hát nào có sẵn.",
-    "noSongs": "Không Có Bài Hát Nào"
+    "noSongs": "Không Có Bài Hát Nào",
+    "OTPIncorrect": "Mã OTP không chính xác."
   },
   "success": {
     "createSuccess": "Tạo Thành Công",
     "updateSuccess": "Cập Nhật Thành Công",
-    "deleteSuccess": "Xóa Thành Công"
+    "deleteSuccess": "Xóa Thành Công",
+    "passwordChangedSuccessfully": "Mật khẩu đã được thay đổi thành công"
   },
   "warning": {
     "authorHasSongs": "Tác giả không thể bị xóa vì có bài hát thuộc về họ."
@@ -248,7 +251,7 @@
       "button": {
         "delete": "Xóa"
       },
-      "reason":"Lý do xóa: "
+      "reason": "Lý do xóa: "
     },
     "form": {
       "title": "Tiêu đề",

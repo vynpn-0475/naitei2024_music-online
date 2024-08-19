@@ -83,6 +83,7 @@
     "hashPassword": "Error hashing password: {{error}}",
     "comparePassword": "Error comparing passwords: {{error}}",
     "missingPassword": "Both plainPassword and hashedPassword are required",
+    "passwordNotFound": "Password Not Found",
     "title": "Error",
     "system": "Error from system",
     "usernameAlreadyTaken": "Username already taken",
@@ -131,12 +132,14 @@
     "noAlbums": "Album not found",
     "accountLocked": "The account has been deactive.",
     "noAvailableSongs": "No available songs.",
-    "noSongs": "No Songs Available"
+    "noSongs": "No Songs Available",
+    "OTPIncorrect": "OTP code is incorrect"
   },
   "success": {
     "createSuccess": "Create Success",
     "updateSuccess": "Update Success",
-    "deleteSuccess": "Delete Success"
+    "deleteSuccess": "Delete Success",
+    "passwordChangedSuccessfully": "Password changed successfully"
   },
   "warning": {
     "authorHasSongs": "Artist cannot be removed because there are songs that belong to them."
@@ -248,7 +251,7 @@
       "button": {
         "delete": "Delete"
       },
-      "reason":"Reason delete: "
+      "reason": "Reason delete: "
     },
     "form": {
       "title": "Title",

@@ -1,0 +1,29 @@
+extends ../layout_user
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_create.css")
+  link(rel="stylesheet", href="/styles/custom_change_password.css")
+
+block content 
+  .container 
+    a.back(href=`/user/account/`)
+      i.fas.fa-chevron-left
+    h2.text-light.mb-3.text-auto #{t('OTP.title')} 
+    form.w-400(action=`/user/account/change-password/OTP/${user.id}?_method=PUT` method="POST") 
+      input(type="hidden" name="_method" value="PUT")
+      if error_msg.length
+        #errorAlert.alert.alert-danger
+          | #{error_msg}
+      if success_msg.length
+        #successAlert.alert.alert-success
+          | #{success_msg}
+      p A code has been sent to #{user.email}
+      .otp-input
+        each digit, index in [0, 1, 2, 3, 4, 5]
+          input(type="text" maxlength="1" class="otp-digit" id=`otp-${index}` name=`otpDigit${index}`)
+      .d-flex.align-items-center.mt-3
+        button.btn.btn-secondary.text-decoration-none.mr-3(type="reset") #{t('common.cancel')}
+        button.btn.btn-success(type="submit")= t('OTP.submit')
+
+  block scripts
+    script(src="/js/user.js")

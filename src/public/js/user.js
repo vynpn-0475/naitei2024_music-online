@@ -100,6 +100,74 @@ $(document).ready(function () {
     const modal = new bootstrap.Modal(document.getElementById('songsModal'));
     modal.show();
   });
+
+  // show/hidden password
+  $('.togglePassword').on('click', function () {
+    const target = $(this).data('target');
+    const passwordField = $(target);
+    const type =
+      passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+
+    // Toggle the eye icon
+    $(this).toggleClass('fa-eye fa-eye-slash');
+  });
+
+  // Check currentPassword
+  $('#currentPassword').on('change', function () {
+    var currentPassword = $(this).val();
+    const messageDiv = $('#responseMessage');
+
+    fetch('/check-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ currentPassword: currentPassword }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.message);
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.isValid) {
+          // Enable the password fields
+          $('#newPassword, #confirmNewPassword').prop('disabled', false);
+          // $('.forgot-password-link').hide(); // Hide the forgot password link
+          messageDiv.text('');
+        }
+      })
+      .catch((error) => {
+        // Handle errors here
+        messageDiv.text(error.message);
+        $('#newPassword, #confirmNewPassword').prop('disabled', true);
+        // $('.forgot-password-link').show(); // Show the forgot password link
+        messageDiv.css('color', 'red');
+      });
+  });
+
+  // Nhap OTP
+  $('.otp-digit').each(function (idx) {
+    $(this).on('input', function () {
+      if ($(this).val().length === 1 && idx < $('.otp-digit').length - 1) {
+        $('.otp-digit')
+          .eq(idx + 1)
+          .focus();
+      }
+    });
+
+    $(this).on('keydown', function (e) {
+      if (e.key === 'Backspace' && idx > 0 && $(this).val() === '') {
+        $('.otp-digit')
+          .eq(idx - 1)
+          .focus();
+      }
+    });
+  });
 });
 
 function confirmDeletion(message) {

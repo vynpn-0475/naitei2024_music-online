@@ -8,8 +8,14 @@ import { User } from '@src/entities/User.entity';
 import { getAuthors } from '@src/services/Author.service';
 import { getAlbums } from '@src/services/Album.service';
 import { songsSortByUpdatedAt } from '@src/services/Song.service';
+import { sendEmailNormal } from '@src/config/mailer';
+import { transOTPEmail } from '@src/constants/contentMail';
 
 export class UserController {
+  private static generateOTP(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
   public static getRegister = (req: Request, res: Response) => {
     try {
       res.render('pages/user/register', { pageTitle: t('action.register') });
@@ -171,6 +177,142 @@ export class UserController {
     } catch (error) {
       req.flash('error_msg', t('error.updateFail'));
       res.redirect('/error');
+    }
+  };
+
+  public static getChangePassword = async (req: Request, res: Response) => {
+    const user = req.session.user;
+    const { id } = req.params;
+    try {
+      const userForm = await UserService.findById(parseInt(id));
+      if (!userForm) {
+        req.flash('error_msg', t('error.userNotFound'));
+        return res.redirect('/login');
+      }
+      const dateOfBirth = formatDateYMD(userForm.user_dateOfBirth);
+      return res.render('user.account/change_password', {
+        title: t('title'),
+        user: user,
+        userForm,
+        dateOfBirth,
+      });
+    } catch (error) {
+      req.flash('error_msg', t('error.userNotFound'));
+      res.redirect('/login');
+    }
+  };
+
+  public static checkPassword = async (req: Request, res: Response) => {
+    const user = req.session.user;
+    const currentPass = req.body.currentPassword;
+    try {
+      if (!user) {
+        return res.status(400).json({ message: t('error.usernameNotFound') });
+      }
+      if (!currentPass) {
+        return res.status(400).json({ message: t('error.passwordNotFound') });
+      }
+      const isMatch = await comparePassword(currentPass, user?.password);
+
+      if (!isMatch) {
+        return res.status(400).json({ message: t('error.passwordIncorrect') });
+      }
+      return res.status(200).json({ isValid: true });
+    } catch (error) {
+      console.log('Error: ', error);
+      return res.status(500).json({ message: t('error.system') });
+    }
+  };
+
+  public static postChangePassword = async (req: Request, res: Response) => {
+    const user = res.locals.user;
+    const { id } = req.params;
+    const newPassword = req.body.newPassword;
+    const confirmNewPassword = req.body.confirmNewPassword;
+    if (!user || !user.email) {
+      req.flash('error_msg', t('error.userNotFound'));
+      return res.redirect('/login');
+    }
+    try {
+      if (!newPassword || newPassword !== confirmNewPassword) {
+        req.flash('error_msg', t('error.passwordIncorrect'));
+        return res.redirect(`/user/account/change-password/${id}`);
+      }
+      const userForm = await UserService.findById(parseInt(id));
+      if (!userForm) {
+        req.flash('error_msg', t('error.userNotFound'));
+        return res.redirect('/user/account');
+      }
+      (req.session as any).newPassword = newPassword;
+      res.redirect(`/user/account/change-password/OTP/${id}`);
+    } catch (error) {
+      req.flash('error_msg', t('error.system'));
+      console.log('Error: ', error);
+      res.redirect('/login');
+    }
+  };
+
+  public static getInputOTP = async (req: Request, res: Response) => {
+    const user = res.locals.user;
+    const { id } = req.params;
+    try {
+      const userForm = await UserService.findById(parseInt(id));
+      if (!userForm) {
+        req.flash('error_msg', t('error.userNotFound'));
+        return res.redirect('/user/account');
+      }
+      const otp = UserController.generateOTP();
+      (req.session as any).otp = otp;
+      const dataSend = {
+        username: userForm.user_email,
+        otp: otp,
+      };
+      await sendEmailNormal(
+        user.email,
+        transOTPEmail.subject,
+        transOTPEmail.template(dataSend)
+      );
+      res.render('user.account/inputOTP', { user });
+    } catch (error) {
+      req.flash('error_msg', t('error.system'));
+      console.log('Error: ', error);
+      res.redirect('/login');
+    }
+  };
+
+  public static putChangePassword = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const otpDigits = [
+      req.body.otpDigit0,
+      req.body.otpDigit1,
+      req.body.otpDigit2,
+      req.body.otpDigit3,
+      req.body.otpDigit4,
+      req.body.otpDigit5,
+    ];
+    // Kết hợp các giá trị thành một chuỗi OTP
+    const otp = otpDigits.join('');
+    const otpMail = res.locals.otp;
+    const newPassword = res.locals.newPassword;
+    try {
+      if (otp !== otpMail) {
+        req.flash('error_msg', t('error.OTPIncorrect'));
+        return res.redirect(`/user/account/change-password/OTP/${id}`);
+      }
+      const hashedPassword = await hashPassword(newPassword);
+      const updateResult = await UserService.update(parseInt(id), {
+        password: hashedPassword,
+      });
+      if (!updateResult) {
+        req.flash('error_msg', t('error.updateFail'));
+        return res.redirect(`/user/account/change-password/${id}`);
+      }
+
+      req.flash('success_msg', t('success.passwordChangedSuccessfully'));
+      res.redirect(`/user/account/change-password/${id}`);
+    } catch (error) {
+      req.flash('error_msg', t('error.system'));
+      res.redirect('/login');
     }
   };
 }

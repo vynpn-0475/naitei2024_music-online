@@ -79,3 +79,7 @@ form#createUserform {
 .textarea-scroll {
   overflow-y: auto;
 }
+
+form.w-400 {
+  width: 400px;
+}

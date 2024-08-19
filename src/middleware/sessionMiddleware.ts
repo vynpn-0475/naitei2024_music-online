@@ -7,5 +7,7 @@ export function sessionMiddleware(
 ) {
   // Sử dụng res.locals để lưu trữ dữ liệu người dùng
   res.locals.user = (req.session as any).user;
+  res.locals.otp = (req.session as any).otp;
+  res.locals.newPassword = (req.session as any).newPassword;
   next();
 }

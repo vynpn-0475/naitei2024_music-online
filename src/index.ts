@@ -42,6 +42,9 @@ app.use(
     secret: process.env.SESSION_SECRET || 'defaultSecret',
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+    },
   })
 );
 
