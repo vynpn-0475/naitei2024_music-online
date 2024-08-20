@@ -124,9 +124,12 @@
     "errorLoadingPage": "Error loading page.",
     "sortSongsByUpdatedAt": "An error occurred while sorting songs by update date.",
     "albumNotFound": "Album Not Found",
+    "failedToRemoveSongAlbum": "Failed to remove song from Album.",
+    "failedToAddSongAlbum": "Failed to add song to Album.",
     "noPageCreate": "No Page Create",
     "noAlbums": "Album not found",
     "accountLocked": "The account has been deactive.",
+    "noAvailableSongs": "No available songs.",
     "noSongs": "No Songs Available"
   },
   "success": {
@@ -241,7 +244,7 @@
       "button": {
         "delete": "Delete"
       },
-      "reason":"Reason delete: "
+      "reason": "Reason delete: "
     },
     "form": {
       "title": "Title",
