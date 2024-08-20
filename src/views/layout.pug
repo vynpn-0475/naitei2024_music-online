@@ -8,6 +8,7 @@ html(lang="en")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     link(rel="stylesheet", href="/styles/custom_homepage.css")
     link(rel="stylesheet" href="/styles/style.css")
+    block stylesheets
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
     script(src="/scripts/bootstrap.min.js")
@@ -27,26 +28,14 @@ html(lang="en")
       .sidebar
         ul.nav.flex-column
           li.nav-item.active
-            a.nav-link(href="#")
+            a.nav-link(href="/")
               i.fa-solid.fa-house
               = t('sidebar.home')
               span.sr-only (current)
           li.nav-item
-            a.nav-link(href="#")
+            a.nav-link(href="/guess/search")
               i.fa-solid.fa-magnifying-glass
               = t('sidebar.search')
-          li.nav-item
-            a.nav-link(href="#")
-              i.fas.fa-swatchbook
-              = t('sidebar.library')
-          li.nav-item.divider
-            hr
-          li.nav-item
-            a.nav-link(href="#")
-              = t('sidebar.create_playlist')
-          li.nav-item
-            a.nav-link(href="#")
-              = t('sidebar.liked_song')
 
       .content
         block content

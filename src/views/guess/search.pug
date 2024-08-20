@@ -1,0 +1,98 @@
+extends ../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/search_page.css")
+  link(rel="stylesheet", href="/styles/custom_homepage.css")
+
+block content
+  .container
+    h1.text-center.my-4= t('content.search')
+
+    form(method="get", action="/guess/search", id="guessSearchForm")
+      .row.mb-4
+        .col-md-12
+          .input-group
+            input.form-control(type="text", name="query", placeholder=t('search.placeholder'), value=query, id="searchInput")
+        .col-md-12.mt-2
+          .btn-group
+            button.btn.btn-outline-primary(type="button", id="allButton", data-type="all")= t('search.all')
+            button.btn.btn-outline-primary(type="button", id="songButton", data-type="songs")= t('search.songs')
+            button.btn.btn-outline-primary(type="button", id="artistButton", data-type="artists")= t('search.artists')
+            button.btn.btn-outline-primary(type="button", id="genreButton", data-type="genres")= t('search.genres')
+            button.btn.btn-outline-primary(type="button", id="playlistButton", data-type="playlists")= t('search.playlists')
+            button.btn.btn-outline-primary(type="button", id="albumButton", data-type="albums")= t('search.albums')
+
+    if searchResults.songs && searchResults.songs.length > 0
+      .songs.px-4
+        .d-flex.justify-content-between.mt-4
+          a(href="#").title #{t('search.songsTitle')}
+        ul.d-flex.mt-3.pl-0
+          each song, index in searchResults.songs
+            if index < 6
+              li.item(role="button")
+                if song.imageUrl
+                  img.avatar.square(src=song.imageUrl, alt=song.title, data-url=`/songs/${song.id}`)
+                else
+                  .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar(data-url=`/songs/${song.id}`)
+                    | #{t('search.noImage')}
+                a.full_name(data-url=`/songs/${song.id}`) #{song.title}
+                p.artist #{t('search.artist')}: #{song.author.fullname}
+
+    if searchResults.authors && searchResults.authors.length > 0
+      .artists.px-4
+        .d-flex.justify-content-between.mt-4
+          a(href="#").title #{t('search.artistTitle')}
+        ul.d-flex.mt-3.single-line
+          each author, index in searchResults.authors
+            if index < 6
+              li.item(role="button")
+                img.avatar.circle(src=author.avatar, alt=author.fullname, data-url=`/authors/${author.id}`)
+                a.full_name(data-url=`/authors/${author.id}`) #{author.fullname}
+                p.artist #{t('guess_page.artist')}
+
+    if searchResults.genres && searchResults.genres.length > 0
+      .genres.px-4
+        .d-flex.justify-content-between.mt-4
+          a(href="#").title #{t('search.genresTitle')}
+        ul.d-flex.mt-3.pl-0
+          each genre, index in searchResults.genres
+            if index < 6
+              li.item
+                a.genre-link(href="#" class="text-decoration-none text-success" data-url=`/genres/${genre.id}`) #{genre.name}
+
+    if searchResults.playlists && searchResults.playlists.length > 0
+      .playlists.px-4
+        .d-flex.justify-content-between.mt-4
+          a(href="#").title #{t('search.playlistsTitle')}
+        ul.d-flex.mt-3.pl-0
+          each playlist, index in searchResults.playlists
+            if index < 6
+              li.item(role="button")
+                if playlist.avatar
+                  img.avatar.square(src=playlist.avatar, alt=playlist.title, data-url=`/playlists/${playlist.id}`)
+                else
+                  .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar(data-url=`/playlists/${playlist.id}`)
+                    | #{t('search.noImage')}
+                a.full_name(data-url=`/playlists/${playlist.id}`) #{playlist.title}
+
+    if searchResults.albums && searchResults.albums.length > 0
+      .albums.px-4
+        .d-flex.justify-content-between.mt-4
+          a(href="#").title #{t('search.albumsTitle')}
+        ul.d-flex.mt-3.pl-0
+          each album, index in searchResults.albums
+            if index < 6
+              li.item(role="button")
+                if album.imageUrl
+                  img.avatar.square(src=album.imageUrl, alt=album.title, data-url=`/albums/${album.id}`)
+                else
+                  .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar(data-url=`/albums/${album.id}`)
+                    | #{t('search.noImage')}
+                a.full_name(data-url=`/albums/${album.id}`) #{album.title}
+                p.artist #{album.author.fullname}
+
+    if (!searchResults.songs || searchResults.songs.length === 0) && (!searchResults.authors || searchResults.authors.length === 0) && (!searchResults.genres || searchResults.genres.length === 0) && (!searchResults.playlists || searchResults.playlists.length === 0) && (!searchResults.albums || searchResults.albums.length === 0)
+      p= t('search.noResults')
+
+  block scripts
+    script(src="/js/guess.js")

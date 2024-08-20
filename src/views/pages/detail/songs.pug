@@ -20,6 +20,24 @@ block content
               | #{t('content.genres')}
               each genre in song.genres
                 a.btn.btn-success(href='#') #{genre.name}
+
+            .suggested-songs
+              each suggestedSong in suggestedSongs
+                if suggestedSong.status !== currentStatus
+                  a(href=`/user/detail/musics/${suggestedSong.id}`)
+                    .suggested-song
+                      img.suggested-song-img(src=suggestedSong.imageUrl alt=suggestedSong.title)
+                      .suggested-song-details
+                        p.suggested-song-title= suggestedSong.title
+                        p.suggested-song-author= suggestedSong.author.fullname
+                else
+                  .suggested-song
+                    img.suggested-song-img(src=suggestedSong.imageUrl alt=suggestedSong.title)
+                    .suggested-song-details
+                      p.suggested-song-title= suggestedSong.title
+                      p.suggested-song-author= suggestedSong.author.fullname
+                      p.text-muted #{t('content.songDeleted')}
+
       .col-md-6
         .card-songs-detail
           .card-body
@@ -34,11 +52,12 @@ block content
               data-toggle="modal"
               data-target="#addToPlaylistModal"
             ) #{t('playlist.addToPlaylist')}
-
-      .card-body
-        p.card-text
-          | #{t('content.lyrics')}
-          pre.card-text.lyrics-text-color= song.lyrics
+            p
+            p
+              strong #{t('content.lyrics')}
+              .bio-content
+                | !{song.lyrics.replace(/\n/g, '<br>')}
+              a#toggleBio(href="javascript:void(0);", class="d-block mt-2", data-show-more=t('common.showMore'), data-show-less=t('common.showLess')) #{t('common.showMore')}
 
     .modal.fade(id='addToPlaylistModal', tabindex='-1', role='dialog')
       .modal-dialog(role='document')
@@ -67,3 +86,6 @@ block content
                         a(href=`#`, class='text-decoration-none')
                           h5.mb-1= playlist.title
                         small #{t('playlist.type')} #{playlist.type} | #{t('playlist.createdAt')} #{new Date(playlist.createdAt).toDateString()}
+
+  block scripts
+    script(src="/js/user.js")
