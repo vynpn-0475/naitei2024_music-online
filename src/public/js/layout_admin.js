@@ -270,7 +270,6 @@ $(document).ready(function () {
 
   buttons.on('click', function() {
     const type = $(this).data('type');
-    console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} button clicked`);
     form.attr('action', `/admin/search/${type}`);
     form.submit();
     setButtonState($(this));

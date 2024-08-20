@@ -7,7 +7,7 @@ import { UserRoles, UserStatus } from '@src/enums/UserRoles.enum';
 import { User } from '@src/entities/User.entity';
 import { getAuthors } from '@src/services/Author.service';
 import { getAlbums } from '@src/services/Album.service';
-import { songsSortByUpdatedAt } from '@src/services/Song.service';
+import { getAllSongs } from '@src/services/Song.service';
 import { sendEmailNormal } from '@src/config/mailer';
 import { transOTPEmail } from '@src/constants/contentMail';
 
@@ -120,7 +120,7 @@ export class UserController {
     if (user) {
       const authors = await getAuthors();
       const albums = await getAlbums();
-      const songs = await songsSortByUpdatedAt(req);
+      const songs = await getAllSongs(req, user?.role);
       return res.render('pages/home', {
         authors,
         albums,

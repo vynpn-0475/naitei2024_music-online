@@ -1,0 +1,40 @@
+extends ../../layout_user
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_list.css")
+
+block content
+  .container
+    h1.my-4= t('playlist.title')
+    ul.list-group
+      each playlist in playlists
+        li.list-group-item.d-flex.justify-content-between.align-items-center
+          .d-flex.align-items-center
+            if playlist.avatar
+              img(src=playlist.avatar, alt=playlist.title, class='rounded-circle author-avatar')
+            else
+              .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
+                | #{t('playlist.noImage')}
+            .ml-2
+              a(href=`/user/playlists/${playlist.id}`, class='text-decoration-none')
+                h5.mb-1= playlist.title
+              small #{t('playlist.type')} #{playlist.type} | #{t('playlist.createdAt')} #{new Date(playlist.createdAt).toDateString()}
+    .mt-4
+      a.btn.btn-success(href='/user/playlists/create')= t('playlist.createNewPlaylist')
+
+    h1.my-4= t('playlist.titleSystem')
+    ul.list-group
+      each playlist in systemPlaylist
+        li.list-group-item.d-flex.justify-content-between.align-items-center
+          .d-flex.align-items-center
+            if playlist.avatar
+              img(src=playlist.avatar, alt=playlist.title, class='rounded-circle author-avatar')
+            else
+              .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
+                | #{t('playlist.noImage')}
+            .ml-2
+              a(href=`/user/playlists/${playlist.id}`, class='text-decoration-none')
+                h5.mb-1= playlist.title
+              small #{t('playlist.type')} #{playlist.type} | #{t('playlist.createdAt')} #{new Date(playlist.createdAt).toDateString()}
+
+    include ../../partials/_pagination.pug

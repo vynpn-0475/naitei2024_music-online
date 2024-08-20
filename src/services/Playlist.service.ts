@@ -1,29 +1,79 @@
-import { Like } from 'typeorm';
+import { UserRoles } from '@src/enums/UserRoles.enum';
 import { AppDataSource } from '../config/data-source';
 import { Playlist } from '../entities/Playlist.entity';
 import { getSongById } from './Song.service';
 import { Request, request } from 'express';
+import { PlaylistTypes } from '@src/enums/PlaylistTypes.enum';
+import { User } from '@src/entities/User.entity';
+import { Like } from 'typeorm';
+import userService from './user.service';
 
 const playlistRepository = AppDataSource.getRepository(Playlist);
 
 export const getPlaylistsPage = async (
   page: number,
   pageSize: number = 6,
+  role?: string,
+  username?: string,
+  isSystemPlaylist: boolean = false,
   sortField: keyof Playlist = 'title',
   sortOrder: 'ASC' | 'DESC' = 'ASC',
-  query: string = ''
+  query: string = '',
 ) => {
+  let userId: number | undefined;
+
+  if (role && username) {
+    const user = await userService.findByUsername(username);
+    if (user) {
+      userId = user.id;
+    }
+  }
+
+  const whereConditions: any = {
+    title: Like(`%${query}%`),
+  };
+
+  if (userId) {
+    whereConditions.users = { id: userId };
+  }
+
+  if (isSystemPlaylist) {
+    whereConditions.type = PlaylistTypes.System;
+  }
+
   const [playlists, total] = await playlistRepository.findAndCount({
-    where: {
-      title: Like(`%${query}%`),
-    },
+    where: whereConditions,
     skip: (page - 1) * pageSize,
     take: pageSize,
     order: {
       [sortField]: sortOrder,
     },
+    relations: ['users'],
   });
+
   return { playlists, total };
+};
+
+export const getAllPlaylistByUser = async (req: Request, role?: string, username?: string) => {
+  try {
+    let whereConditions: any = {};
+
+    if (role && username) {
+      const user = await userService.findByUsername(username);
+      if (user) {
+        whereConditions.users = { id: user.id };
+      }
+    }
+
+    const playlists = await playlistRepository.find({
+      where: whereConditions,
+      relations: ['songs', 'songs.author', 'users'],
+    });
+
+    return playlists;
+  } catch (error) {
+    throw new Error(req.t('error.failedToFetchPlaylists'));
+  }
 };
 
 export const getPlaylistById = async (playlistId: number, req: Request) => {
@@ -37,10 +87,26 @@ export const getPlaylistById = async (playlistId: number, req: Request) => {
   }
 };
 
-export const createPlaylist = async (req: Request, data: Partial<Playlist>) => {
+export const createPlaylist = async (req: Request, data: Partial<Playlist>, role?: string, username?: string) => {
   try {
+    data.type = role === UserRoles.User ? PlaylistTypes.User : PlaylistTypes.System;
+
     const playlist = new Playlist(data);
+
     await playlist.save();
+
+    if (role === UserRoles.User && username) {
+      const user = await User.findOne({
+        where: { username },
+        relations: ['playlists']
+      });
+
+      if (user) {
+        user.playlists = [...(user.playlists || []), playlist];
+        await user.save();
+      }
+    }
+
     return playlist;
   } catch (error) {
     throw new Error(req.t('error.failedToCreatePlaylist'));

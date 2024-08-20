@@ -168,12 +168,34 @@ $(document).ready(function () {
       }
     });
   });
+
+  const form = $('#userSearchForm');
+  const buttons = $('.btn-group button');
+
+  function setButtonState($activeButton) {
+    buttons.each(function () {
+      if ($(this).is($activeButton)) {
+        $(this).addClass('btn-primary');
+      } else {
+        $(this).removeClass('btn-primary');
+      }
+    });
+  }
+
+  buttons.on('click', function (event) {
+    event.preventDefault();
+    const type = $(this).data('type');
+    form.attr('action', `/user/search/${type}`);
+    form.submit();
+    setButtonState($(this));
+  });
 });
 
 function confirmDeletion(message) {
   var message = $('#confirmation-message').text();
   return confirm(message);
 }
+
 function toggleReasonLockUser() {
   const statusSelect = document.getElementById('status');
   const reasonLockUser = document.getElementById('reasonLockUser');

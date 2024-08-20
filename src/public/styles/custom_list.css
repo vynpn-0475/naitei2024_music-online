@@ -18,6 +18,19 @@ body {
   background-color: #121212;
 }
 
+.btn-add {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #191414;
+  color: #1db954;
+}
+
+.btn-add:hover {
+  background-color: #fff;
+}
+
 .container {
   background-color: #191414;
   margin: 2% auto 2% auto;
@@ -36,6 +49,10 @@ h1.my-4 {
 h5.mb-1 {
   font-size: 1.25rem;
   margin-bottom: 5px;
+}
+
+h5 {
+  color: #1db954;
 }
 
 li.list-group-item {
