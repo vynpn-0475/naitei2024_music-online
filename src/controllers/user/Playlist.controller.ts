@@ -53,9 +53,11 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
 
   try {
     const user = req.session.user;
-    const { playlists: userPlaylist, total: totalPlaylistUser } = await getPlaylistsPage(page, pageSize, user?.role, user?.username, false);
-    const { playlists: systemPlaylist, total: totalPlaylistSystem } = await getPlaylistsPage(page, pageSize, undefined, undefined, true);
-    
+    const { playlists: userPlaylist, total: totalPlaylistUser } =
+      await getPlaylistsPage(page, pageSize, user?.role, user?.username, false);
+    const { playlists: systemPlaylist, total: totalPlaylistSystem } =
+      await getPlaylistsPage(page, pageSize, undefined, undefined, true);
+
     const totalPagesUser = Math.ceil(totalPlaylistUser / pageSize);
     const currentPageUser = Math.max(1, Math.min(page, totalPagesUser));
 
@@ -70,6 +72,7 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
         currentPageUser,
         totalPagesUser,
         baseUrl: '/user/playlists',
+        systemPlaylist,
       });
     }
 
@@ -83,7 +86,7 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
       titleSystem: req.t('playlist.titleSytem'),
       currentPageSystem,
       totalPlaylistSystem,
-      
+
       baseUrl: '/user/playlists',
     });
   } catch (error) {
@@ -97,7 +100,9 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
     const user = req.session.user;
     const playlist = (req as any).playlist;
     const songs = await getAllSongs(req, user?.role);
-    const playlistSongIds = playlist.songs.map((song: Song) => song.id);
+    const playlistSongIds = (playlist.songs as Song[]).map(
+      (song: Song) => song.id
+    );
 
     const availableSongs = songs.filter(
       (song: Song) => !playlistSongIds.includes(song.id)
@@ -179,15 +184,20 @@ export const createPost = async (req: Request, res: Response) => {
       );
     }
 
-    const playlist = await createPlaylist(req, {
-      title,
-      avatar: avatarUrl,
-      songs,
-      type,
-    }, user?.role, user?.username);
+    const playlist = await createPlaylist(
+      req,
+      {
+        title,
+        avatar: avatarUrl,
+        songs,
+        type,
+      },
+      user?.role,
+      user?.username
+    );
 
     res.redirect(`/user/playlists/${playlist.id}`);
-  } catch (error) { 
+  } catch (error) {
     req.flash('error_msg', req.t('error.failedToCreatePlaylist'));
     res
       .status(500)

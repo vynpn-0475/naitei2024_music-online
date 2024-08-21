@@ -18,7 +18,7 @@ export const getPlaylistsPage = async (
   isSystemPlaylist: boolean = false,
   sortField: keyof Playlist = 'title',
   sortOrder: 'ASC' | 'DESC' = 'ASC',
-  query: string = '',
+  query: string = ''
 ) => {
   let userId: number | undefined;
 
@@ -54,9 +54,13 @@ export const getPlaylistsPage = async (
   return { playlists, total };
 };
 
-export const getAllPlaylistByUser = async (req: Request, role?: string, username?: string) => {
+export const getAllPlaylistByUser = async (
+  req: Request,
+  role?: string,
+  username?: string
+) => {
   try {
-    let whereConditions: any = {};
+    const whereConditions: any = {};
 
     if (role && username) {
       const user = await userService.findByUsername(username);
@@ -87,9 +91,15 @@ export const getPlaylistById = async (playlistId: number, req: Request) => {
   }
 };
 
-export const createPlaylist = async (req: Request, data: Partial<Playlist>, role?: string, username?: string) => {
+export const createPlaylist = async (
+  req: Request,
+  data: Partial<Playlist>,
+  role?: string,
+  username?: string
+) => {
   try {
-    data.type = role === UserRoles.User ? PlaylistTypes.User : PlaylistTypes.System;
+    data.type =
+      role === UserRoles.User ? PlaylistTypes.User : PlaylistTypes.System;
 
     const playlist = new Playlist(data);
 
@@ -98,7 +108,7 @@ export const createPlaylist = async (req: Request, data: Partial<Playlist>, role
     if (role === UserRoles.User && username) {
       const user = await User.findOne({
         where: { username },
-        relations: ['playlists']
+        relations: ['playlists'],
       });
 
       if (user) {
@@ -204,4 +214,28 @@ export const searchPlaylists = async (query: string) => {
     .createQueryBuilder('playlist')
     .where('playlist.title LIKE :query', { query: `%${query}%` })
     .getMany();
+};
+
+export const getPlaylistByUserId = async (
+  userId: number
+): Promise<Playlist[]> => {
+  return await playlistRepository
+    .createQueryBuilder('playlist')
+    .leftJoinAndSelect('playlist.users', 'user')
+    .leftJoinAndSelect('playlist.songs', 'song')
+    .where('user.id = :userId', { userId })
+    .getMany();
+};
+
+export const getPlaylistByUserIdAndTitle = async (
+  userId: number,
+  playlistTitle: string
+): Promise<Playlist | null> => {
+  return await playlistRepository
+    .createQueryBuilder('playlist')
+    .leftJoinAndSelect('playlist.users', 'user')
+    .leftJoinAndSelect('playlist.songs', 'song')
+    .where('user.id = :userId', { userId })
+    .andWhere('playlist.title = :playlistTitle', { playlistTitle })
+    .getOne(); // Sử dụng getOne() vì bạn muốn tìm một playlist duy nhất
 };

@@ -14,7 +14,7 @@ import { UserRoles } from '@src/enums/UserRoles.enum';
 
 export const search = async (req: Request, res: Response) => {
   const query = (req.query.query as string) || '';
-  const type = (req.params.type as string) || 'all';
+  const type = req.params.type || 'all';
   let results: {
     songs?: Song[];
     authors?: Author[];

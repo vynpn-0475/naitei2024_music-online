@@ -26,7 +26,7 @@ export const validateAndFetchSong = async (
   }
 };
 
-export const songDetail = asyncHandler(async (req: Request, res: Response) => {
+export const songDetail = asyncHandler((req: Request, res: Response) => {
   const user = req.session.user;
   if (!user) {
     req.flash('error_msg', req.t('error.unauthorized'));

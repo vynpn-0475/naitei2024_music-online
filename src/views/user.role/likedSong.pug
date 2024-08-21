@@ -1,0 +1,28 @@
+extends ../layout_user
+block content
+  .combo_back.px-4
+    a.btn.btn_back.d-cursor-pointer.mr-2(href="/user") 
+      i.fas.fa-chevron-left.d-cursor-pointer
+    a.btn.btn_back.d-cursor-not-allowed(href="") 
+      i.fas.fa-chevron-right.d-cursor-not-allowed
+  #errorAlert.alert.alert-danger.d-none #{error_msg}
+  #successAlert.alert.alert-success.d-none #{success_msg}
+  .albums.px-4
+    .d-flex.justify-content-between.mt-4
+      h1.title #{t('likedSong.title')}
+    if songsByLikedSong.length > 0
+      ul.d-flex.mt-3.pl-0
+        each song in songsByLikedSong
+          li.item(role="button") 
+            img.avatar.square(src=song.imageUrl, alt=song.title)
+            a.full_name(href=`/user/musics/${song.id}`) #{song.title}
+            .d-flex.justify-content-between.mt-2
+              p.artist #{song.author.fullname}
+              span.like-button(data-liked='true' data-song-id=song.id)
+                i.fas.fa-heart
+    else 
+      h4 #{t('likedSong.description')}
+      p #{t('likedSong.instruction')}
+
+  block scripts
+    script(src="/js/layout_user.js")

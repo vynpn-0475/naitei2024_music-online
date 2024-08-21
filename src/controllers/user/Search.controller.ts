@@ -13,7 +13,7 @@ import { searchAll } from '@src/services/Search.service';
 
 export const search = async (req: Request, res: Response) => {
   const query = (req.query.query as string) || '';
-  const type = (req.params.type as string) || 'all';
+  const type = req.params.type || 'all';
   const user = req.session.user;
   let results: {
     songs?: Song[];

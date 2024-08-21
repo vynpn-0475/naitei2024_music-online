@@ -136,13 +136,16 @@
     "noAvailableSongs": "No available songs.",
     "noSongs": "No Songs Available",
     "OTPIncorrect": "OTP code is incorrect",
-    "unauthorized": "You are not authorized to access this resource."
+    "unauthorized": "You are not authorized to access this resource.",
+    "errorFetchingLikedSong": "Error fetching liked songs"
   },
   "success": {
     "createSuccess": "Create Success",
     "updateSuccess": "Update Success",
     "deleteSuccess": "Delete Success",
-    "passwordChangedSuccessfully": "Password changed successfully"
+    "passwordChangedSuccessfully": "Password changed successfully",
+    "addSongLikedSong": "Add Song to Liked Song Success",
+    "removeSongLikedSong": "Remove Song from Liked Song Success"
   },
   "warning": {
     "authorHasSongs": "Artist cannot be removed because there are songs that belong to them."
@@ -367,5 +370,10 @@
   },
   "albums": {
     "noMatchingAlbums": "No matching albums found"
+  },
+  "likedSong": {
+    "title": "Liked Song",
+    "description": "Your favorite songs will appear here",
+    "instruction": "Save a song by clicking on the heart icon."
   }
 }
