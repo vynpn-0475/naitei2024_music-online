@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    margin: 0 auto;
+    margin: 20px auto 20px auto;
     padding: 20px;
     width: 1200px;
     overflow: auto;

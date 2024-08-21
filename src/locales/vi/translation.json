@@ -26,7 +26,8 @@
     "artist": "Nghệ Sĩ: ",
     "play": "Phát",
     "genres": "Thể loại: ",
-    "lyrics": "Lời bài hát:"
+    "lyrics": "Lời bài hát:",
+    "search": "Tìm kiếm"
   },
   "title_Logo": "Âm Nhạc Trực Tuyến",
   "title_register": "Đăng ký để nghe nhạc",
@@ -123,9 +124,9 @@
     "errorDeletingPlaylist": "Lỗi khi xóa danh sách bài hát: {{errorMessage}}",
     "errorLoadingPage": "Lỗi khi tải trang.",
     "sortSongsByUpdatedAt": "Đã xảy ra lỗi khi sắp xếp các bài hát theo ngày cập nhật.",
-    "albumNotFound": "Không tìm thấy Album",
     "failedToRemoveSongAlbum": "Không thể xóa bài hát ra khỏi Album.",
     "failedToAddSongAlbum": "Không thể thêm bài hát vào Album.",
+    "albumNotFound": "Không tìm thấy Album",
     "noPageCreate": "Không có trang Tạo mới",
     "noAlbums": "Không có Album",
     "accountLocked": "Tài khoản đã bị vô hiệu hóa.",
@@ -169,7 +170,8 @@
     "deleteGenre": "Xóa Thể Loại",
     "songCount": "Số Lượng Bài Hát",
     "songs": "Danh sách bài hát",
-    "noSongs": "Không có bài hát nào!!!"
+    "noSongs": "Không có bài hát nào!!!",
+    "noMatchingGenres": "Không tìm thấy thể loại phù hợp"
   },
   "authors": {
     "createAuthor": "Tạo Tác Giả",
@@ -194,7 +196,8 @@
     "failedToCreateAuthor": "Không Thể Tạo Tác Giả.",
     "failedToUpdateAuthor": "Không Thể Cập Nhật Tác Giả.",
     "failedToDeleteAuthor": "Không Thể Xóa Tác Giả.",
-    "numOfSongs": "Số lượng bài hát: "
+    "numOfSongs": "Số lượng bài hát: ",
+    "noMatchingAuthors": "Không tìm thấy nghệ sĩ phù hợp"
   },
   "songs": {
     "createSong": {
@@ -218,7 +221,8 @@
       "updatedAt": "Cập Nhật Lúc",
       "viewDetails": "Xem Chi Tiết",
       "addNewSong": "Thêm Bài Hát Mới",
-      "deleted": "Đã xóa"
+      "deleted": "Đã xóa",
+      "noMatchingSongs": "Không tìm thấy bài hát phù hợp"
     },
     "detail": {
       "title": "Chi tiết bài hát",
@@ -244,7 +248,7 @@
       "button": {
         "delete": "Xóa"
       },
-      "reason": "Lý do xóa: "
+      "reason":"Lý do xóa: "
     },
     "form": {
       "title": "Tiêu đề",
@@ -293,7 +297,8 @@
     "remove": "Xóa",
     "findMore": "Tìm thêm",
     "findMoreSongs": "Tìm thêm bài hát",
-    "add": "Thêm"
+    "add": "Thêm",
+    "noMatchingPlaylists": "Không tìm thấy playlist phù hợp"
   },
   "playlistUpdate": {
     "title": "Tiêu Đề",
@@ -332,5 +337,25 @@
     "newSongs": "Bài hát mới",
     "showAll": "Hiển thị tất cả",
     "artist": "Nghệ sĩ"
+  },
+  "search": {
+    "placeholder": "Tìm kiếm...",
+    "all": "Tất cả",
+    "songs": "Bài hát",
+    "artists": "Nghệ sĩ",
+    "genres": "Thể loại",
+    "playlists": "Danh sách phát",
+    "albums": "Album",
+    "songsTitle": "Bài hát",
+    "artistTitle": "Nghệ sĩ",
+    "genresTitle": "Thể loại",
+    "playlistsTitle": "Danh sách phát",
+    "albumsTitle": "Album",
+    "artist": "Nghệ sĩ",
+    "noImage": "Không có ảnh",
+    "noResults": "Không tìm thấy kết quả."
+  },
+  "albums": {
+    "noMatchingAlbums": "Không tìm thấy album phù hợp"
   }
 }

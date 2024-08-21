@@ -47,23 +47,12 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
   const pageSize = PAGE_SIZE;
+  const query = req.query.query as string || '';
 
   try {
-    const { authors, total } = await getAuthorsPage(page, pageSize);
+    const { authors, total } = await getAuthorsPage(page, pageSize, 'fullname', 'ASC', query);
     const totalPages = Math.ceil(total / pageSize);
-
     const currentPage = Math.max(1, Math.min(page, totalPages));
-
-    if (!authors.length) {
-      req.flash('error_msg', t('error.noAuthors'));
-      return res.render('authors/index', {
-        authors: [],
-        title: t('authors.authorListTitle'),
-        currentPage,
-        totalPages,
-        baseUrl: '/admin/authors',
-      });
-    }
 
     res.render('authors/index', {
       authors,
@@ -71,9 +60,11 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
       currentPage,
       totalPages,
       baseUrl: '/admin/authors',
+      query,
+      noAuthorsMessage: !authors.length ? req.t('authors.noMatchingAuthors') : null,
     });
   } catch (error) {
-    req.flash('error_msg', t('error.failedToFetchAuthors'));
+    req.flash('error_msg', req.t('error.failedToFetchAuthors'));
     res.redirect('/error');
   }
 });

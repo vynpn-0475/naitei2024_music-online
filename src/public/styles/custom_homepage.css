@@ -91,7 +91,7 @@ body {
 }
 
 .main-content {
-  background-color: #111;
+  background-color: #222;
   display: flex;
   flex: 1;
   overflow: hidden;
@@ -245,7 +245,10 @@ p.artist {
   display: none
 }
 
+.songs ul,
 .artists ul,
+.genres ul,
+.playlists ul,
 .albums ul {
   display: flex;
   flex-wrap: wrap;

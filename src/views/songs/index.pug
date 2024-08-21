@@ -6,23 +6,35 @@ block stylesheets
 block content
   .container
     h1.text-center.my-4= t('content.discover_new_music')
-    .row
-      each song in songs
-        .col-md-4.mb-4
-          .card
-            if song.imageUrl
-              img.card-img-top(src=song.imageUrl, alt=song.title)
-            else
-              .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
-                | #{t('authors.noImage')}
-            .card-body
-              h5.card-title= song.title
-              p.card-text #{t('songs.list.artist')}: #{song.author.fullname}
-              p.card-text #{t('content.play')}: #{song.updatedAt.toDateString()}
-              if song.status !== currentStatus
-                a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('common.detail')
+
+    form(method="get", action="/admin/musics", id="searchForm")
+      .row.mb-4
+        .col-md-12
+          .input-group
+            input.form-control(type="text", name="query", placeholder=t('search.placeholder'), value=query, id="searchInput")
+
+    if noSongsMessage
+      #noSongsAlert.alert.alert-warning #{noSongsMessage}
+
+    if songs.length > 0
+      .row
+        each song in songs
+          .col-md-4.mb-4
+            .card
+              if song.imageUrl
+                img.card-img-top(src=song.imageUrl, alt=song.title)
               else
-                a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('songs.list.deleted')
+                .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
+                  | #{t('authors.noImage')}
+              .card-body
+                h5.card-title= song.title
+                p.card-text #{t('songs.list.artist')}: #{song.author.fullname}
+                p.card-text #{t('content.play')}: #{song.updatedAt.toDateString()}
+                if song.status !== currentStatus
+                  a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('common.detail')
+                else
+                  a.btn.btn-primary(href=`/admin/musics/${song.id}`)= t('songs.list.deleted')
+
     .mt-4
       a.btn.btn-success(href='/admin/musics/create')= t('songs.list.addNewSong')
 

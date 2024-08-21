@@ -3,7 +3,7 @@ import { Genre } from '@src/entities/Genre.entity';
 import { Song } from '@src/entities/Song.entity';
 import { SongStatus } from '@src/enums/SongStatus.enum';
 import { Request } from 'express';
-import { In } from 'typeorm';
+import { In, Like } from 'typeorm';
 
 const songRepository = AppDataSource.getRepository(Song);
 
@@ -29,10 +29,14 @@ export const getSongsPage = async (
   page: number,
   pageSize: number = 6,
   sortField: keyof Song = 'title',
-  sortOrder: 'ASC' | 'DESC' = 'ASC'
+  sortOrder: 'ASC' | 'DESC' = 'ASC',
+  query: string = ''
 ) => {
   const [songs, total] = await songRepository.findAndCount({
     relations: ['author', 'album', 'genres'],
+    where: {
+      title: Like(`%${query}%`),
+    },
     skip: (page - 1) * pageSize,
     take: pageSize,
     order: {
@@ -173,4 +177,17 @@ export const getSongCountByAlbumId = async (id: number) => {
   return await songRepository.count({
     where: { album: { id } },
   });
+};
+
+export const searchSongs = async (query: string) => {
+  return await songRepository
+    .createQueryBuilder('song')
+    .leftJoinAndSelect('song.author', 'author')
+    .leftJoinAndSelect('song.album', 'album')
+    .leftJoinAndSelect('song.genres', 'genres')
+    .where('song.title LIKE :query', { query: `%${query}%` })
+    .orWhere('author.fullname LIKE :query', { query: `%${query}%` })
+    .orWhere('album.title LIKE :query', { query: `%${query}%` })
+    .orWhere('genres.name LIKE :query', { query: `%${query}%` })
+    .getMany();
 };
