@@ -283,3 +283,21 @@ a.btn_back {
   cursor: not-allowed;
   pointer-events: none;
 }
+
+.back {
+  margin-bottom: 20px;
+  background-color: #282828;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 18px;
+}
+
+.back:hover {
+  text-decoration: none;
+  color: #1db954;
+}

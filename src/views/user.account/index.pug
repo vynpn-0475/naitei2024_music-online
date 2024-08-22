@@ -2,7 +2,7 @@ extends ../layout_user
 
 block stylesheets
   link(rel="stylesheet", href="/styles/custom.css")
-
+  
 
 block content 
   .container
@@ -15,4 +15,4 @@ block content
         a.text-decoration-none(href=`/user/account/edit-profile/${user.id}`) #{t('common.edit')} #{t('action.profile')}
       li.list-group-item
         i.fa-solid.fa-lock.mr-3
-        a.text-decoration-none(href="#") #{t('action.changePassword')}
+        a.text-decoration-none(href=`/user/account/change-password/${user.id}`) #{t('action.changePassword')}

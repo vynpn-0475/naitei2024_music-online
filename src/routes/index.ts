@@ -11,8 +11,10 @@ import validateRequest from '@src/middleware/validate-request.middleware';
 import { UserController } from '@src/controllers/user/user.controller';
 import { RegisterDto } from '@src/DTO/user/register';
 import { LoginDto } from '@src/DTO/user/login';
+import { sessionMiddleware } from '@src/middleware/sessionMiddleware';
 
 const router = Router();
+router.use(sessionMiddleware);
 
 router.get('/', homepage);
 
@@ -37,4 +39,5 @@ router.get('/section/artists', showSectionArtist);
 router.get('/section/albums', showSectionAlbum);
 router.get('/section/songs', showSectionSong);
 
+router.post('/check-password', UserController.checkPassword);
 export default router;
