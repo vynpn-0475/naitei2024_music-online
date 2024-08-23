@@ -27,7 +27,9 @@
     "play": "Phát",
     "genres": "Thể loại: ",
     "lyrics": "Lời bài hát:",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "suggestedSongs": "Bài hát gợi ý",
+    "viewDetails": "Xem chi tiết"
   },
   "title_Logo": "Âm Nhạc Trực Tuyến",
   "title_register": "Đăng ký để nghe nhạc",
@@ -133,7 +135,8 @@
     "accountLocked": "Tài khoản đã bị vô hiệu hóa.",
     "noAvailableSongs": "Không có bài hát nào có sẵn.",
     "noSongs": "Không Có Bài Hát Nào",
-    "OTPIncorrect": "Mã OTP không chính xác."
+    "OTPIncorrect": "Mã OTP không chính xác.",
+    "unauthorized": "Bạn không có quyền truy cập tài nguyên này."
   },
   "success": {
     "createSuccess": "Tạo Thành Công",
@@ -211,7 +214,8 @@
         "lyrics": "Lời bài hát",
         "image": "Hình ảnh",
         "song": "Tệp bài hát",
-        "status": "Trạng thái"
+        "status": "Trạng thái",
+        "genre": "Thể loại"
       },
       "button": {
         "submit": "Tạo Bài Hát"

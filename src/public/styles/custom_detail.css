@@ -218,3 +218,45 @@ button.btn.btn-outline-danger {
   max-height: 400px;
   overflow-y: auto;
 }
+
+.lyrics {
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.suggested-songs {
+  margin-top: 20px;
+}
+
+.suggested-song {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #6C757D;
+  border-radius: 8px;
+}
+
+.suggested-song-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.suggested-song-details {
+  flex-grow: 1;
+}
+
+.suggested-song-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.suggested-song-author {
+  font-size: 14px;
+  color: #1ed760;
+  margin: 0;
+}

@@ -27,7 +27,9 @@
     "play": "Play",
     "genres": "Genres: ",
     "lyrics": "Lyrics:",
-    "search": "Search"
+    "search": "Search",
+    "suggestedSongs": "Suggested Songs",
+    "viewDetails": "View Details"
   },
   "title_Logo": "Music Online",
   "title_register": "Register to listen to music",
@@ -133,7 +135,8 @@
     "accountLocked": "The account has been deactive.",
     "noAvailableSongs": "No available songs.",
     "noSongs": "No Songs Available",
-    "OTPIncorrect": "OTP code is incorrect"
+    "OTPIncorrect": "OTP code is incorrect",
+    "unauthorized": "You are not authorized to access this resource."
   },
   "success": {
     "createSuccess": "Create Success",
@@ -211,7 +214,8 @@
         "lyrics": "Lyrics",
         "image": "Image",
         "song": "Song File",
-        "status": "Status"
+        "status": "Status",
+        "genre": "Genre"
       },
       "button": {
         "submit": "Create Song"

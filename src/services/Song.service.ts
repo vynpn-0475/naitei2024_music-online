@@ -198,11 +198,31 @@ export const searchSongs = async (query: string, role?: string) => {
     .leftJoinAndSelect('song.author', 'author')
     .where('(song.title LIKE :query OR author.fullname LIKE :query)', { query: `%${query}%` });
 
-  if (role === UserRoles.User) {
+  if (role === UserRoles.User || role === UserRoles.Guess) {
     songQuery = songQuery.andWhere('song.status != :status', { status: SongStatus.Deleted });
   }
 
   let songs = await songQuery.getMany();
   return songs;
+};
+
+export const getSongsBySameAuthor = async (req: Request, authorId: number, excludeSongId: number, role?: string) => {
+  const whereCondition: any = {
+    author: { id: authorId },
+    id: Not(excludeSongId),
+  };
+
+  if (role === UserRoles.User) {
+    whereCondition.status = Not(SongStatus.Deleted);
+  }
+
+  try {
+    return await songRepository.find({
+      where: whereCondition,
+      relations: ['author', 'album', 'genres'],
+    });
+  } catch (error) {
+    throw new Error(req.t('error.failedToFetchSongsBySameAuthor'));
+  }
 };
 

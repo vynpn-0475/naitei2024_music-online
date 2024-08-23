@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import asyncHandler from 'express-async-handler';
 import {
   getSongById,
+  getSongsBySameAuthor,
 } from '@src/services/Song.service';
 import { SongStatus } from '@src/enums/SongStatus.enum';
 import { getAllPlaylistByUser } from '@src/services/Playlist.service';
@@ -34,6 +35,7 @@ export const songDetail = asyncHandler(async(req: Request, res: Response) => {
   try {
     const user = req.session.user;
     const song = (req as any).song;
+    const suggestedSongs = await getSongsBySameAuthor(req, song.author.id, song.id, user?.role);
     const allPlaylists = await getAllPlaylistByUser(req, user?.role, user?.username);
     const playlists = allPlaylists.filter(playlist =>
       !playlist.songs.some(existingSong => existingSong.id === song.id)
@@ -44,7 +46,8 @@ export const songDetail = asyncHandler(async(req: Request, res: Response) => {
       currentStatus: SongStatus.Deleted,
       title: req.t('songs.detail.title'),
       playlists,
-      countPlaylist: playlists.length
+      countPlaylist: playlists.length,
+      suggestedSongs
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchSong'));

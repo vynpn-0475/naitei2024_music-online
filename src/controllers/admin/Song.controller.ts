@@ -134,7 +134,7 @@ export const createPost = asyncHandler(async (req: Request, res: Response) => {
     const genres = await getGenresByIds(genresIds);
     await createSong(req, {
       title,
-      artist: author.fullname,
+      artist: author.id.toString(),
       lyrics,
       imageUrl,
       url,
