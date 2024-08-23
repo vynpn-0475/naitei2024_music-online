@@ -1,9 +1,11 @@
 import { AppDataSource } from '@src/config/data-source';
+import { PAGE_SIZE_SONG } from '@src/constants/const';
 import { Genre } from '@src/entities/Genre.entity';
 import { Song } from '@src/entities/Song.entity';
 import { SongStatus } from '@src/enums/SongStatus.enum';
+import { UserRoles } from '@src/enums/UserRoles.enum';
 import { Request } from 'express';
-import { In, Like } from 'typeorm';
+import { FindOptionsWhere, In, Like, Not } from 'typeorm';
 
 const songRepository = AppDataSource.getRepository(Song);
 
@@ -15,9 +17,14 @@ export const countSongsByGenreId = async (req: Request, genreId: number) => {
   }
 };
 
-export const getAllSongs = async (req: Request) => {
+export const getAllSongs = async (req: Request, role?: string) => {
   try {
+    const whereCondition = role === UserRoles.User
+      ? { status: Not(SongStatus.Deleted) }
+      : {};
+
     return await songRepository.find({
+      where: whereCondition,
       relations: ['author', 'album', 'genres'],
     });
   } catch (error) {
@@ -27,7 +34,7 @@ export const getAllSongs = async (req: Request) => {
 
 export const getSongsPage = async (
   page: number,
-  pageSize: number = 6,
+  pageSize: number = PAGE_SIZE_SONG,
   sortField: keyof Song = 'title',
   sortOrder: 'ASC' | 'DESC' = 'ASC',
   query: string = ''
@@ -79,10 +86,16 @@ export const getSongsByGenreId = async (req: Request, genreId: number) => {
   }
 };
 
-export const getSongsByAuthorId = async (req: Request, authorId: number) => {
+export const getSongsByAuthorId = async (req: Request, authorId: number, role?: string) => {
   try {
+    const whereCondition: FindOptionsWhere<Song> = { author: { id: authorId } };
+
+    if (role === UserRoles.User) {
+      whereCondition.status = Not(SongStatus.Deleted);
+    }
+
     return await songRepository.find({
-      where: { author: { id: authorId } },
+      where: whereCondition,
       relations: ['author', 'album', 'genres'],
     });
   } catch (error) {
@@ -179,15 +192,17 @@ export const getSongCountByAlbumId = async (id: number) => {
   });
 };
 
-export const searchSongs = async (query: string) => {
-  return await songRepository
+export const searchSongs = async (query: string, role?: string) => {
+  let songQuery = songRepository
     .createQueryBuilder('song')
     .leftJoinAndSelect('song.author', 'author')
-    .leftJoinAndSelect('song.album', 'album')
-    .leftJoinAndSelect('song.genres', 'genres')
-    .where('song.title LIKE :query', { query: `%${query}%` })
-    .orWhere('author.fullname LIKE :query', { query: `%${query}%` })
-    .orWhere('album.title LIKE :query', { query: `%${query}%` })
-    .orWhere('genres.name LIKE :query', { query: `%${query}%` })
-    .getMany();
+    .where('(song.title LIKE :query OR author.fullname LIKE :query)', { query: `%${query}%` });
+
+  if (role === UserRoles.User) {
+    songQuery = songQuery.andWhere('song.status != :status', { status: SongStatus.Deleted });
+  }
+
+  let songs = await songQuery.getMany();
+  return songs;
 };
+

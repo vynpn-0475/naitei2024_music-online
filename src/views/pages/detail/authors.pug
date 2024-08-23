@@ -1,4 +1,4 @@
-extends ../layout_admin
+extends ../../layout_user
 
 block stylesheets
   link(rel="stylesheet", href="/styles/custom_detail.css")
@@ -30,29 +30,21 @@ block content
 
         .mt-4
           h3 #{t('authors.songs')}
-          if author.songs && author.songs.length > 0
+          if songs && songs.length > 0
             ul.list-group
-              each song, index in author.songs
+              each song, index in songs
                 if index < 2
                   li.list-group-item
-                    a(href=`/admin/musics/${song.id}`) #{song.title} - #{author.fullname}
+                    a(href=`/user/detail/musics/${song.id}`) #{song.title} - #{author.fullname}
                     br
                     small #{song.updatedAt.toDateString()}
-            if author.songs.length > 2
+            if songs.length > 2
               a.btn.btn-info.mt-3(data-bs-toggle="modal", data-bs-target="#songsModal") #{t('common.showMore')}
           else
             p #{t('authors.noSongs')}
 
     if error_msg.length
       #errorAlert.alert.alert-danger #{error_msg}
-      
-    .mt-4
-      a.btn.btn-primary(href=`/admin/authors/update/${author.id}`) #{t('common.edit')}
-      a.btn.btn-danger(
-        href=author.songs && author.songs.length > 0 ? 'javascript:void(0);' : `/admin/authors/delete/${author.id}`,
-        class=author.songs && author.songs.length > 0 ? 'disabled text-muted' : '',
-        style=author.songs && author.songs.length > 0 ? 'cursor: not-allowed;' : ''
-      ) #{t('common.delete')}
 
   .modal.fade#songsModal(tabindex="-1", aria-labelledby="songsModalLabel", aria-hidden="true")
     .modal-dialog
@@ -65,7 +57,7 @@ block content
             ul.list-group.scrollable-list
               each song in author.songs
                 li.list-group-item
-                  a(href=`/admin/musics/${song.id}`) #{song.title} - #{author.fullname}
+                  a(href=`/user/detail/musics/${song.id}`) #{song.title} - #{song.artist}
                   br
                   small #{song.updatedAt.toDateString()}
           else

@@ -1,7 +1,6 @@
 import { Playlist } from '@src/entities/Playlist.entity';
 import { Request, Response, NextFunction } from 'express';
 import asyncHandler from 'express-async-handler';
-import { uploadFileToFirebase } from '@src/utils/fileUpload.utils';
 import {
   addSongToPlaylist,
   createPlaylist,
@@ -9,13 +8,13 @@ import {
   getPlaylistById,
   getPlaylistsPage,
   removeSongFromPlaylist,
-  updatePlaylist,
 } from '@src/services/Playlist.service';
 import { getAllSongs, getSongsByIds } from '@src/services/Song.service';
-import { PlaylistTypes } from '@src/enums/PlaylistTypes.enum';
 import { Song } from '@src/entities/Song.entity';
 import { SongStatus } from '@src/enums/SongStatus.enum';
-import { PAGE_SIZE } from '../../constants/const';
+import { PAGE_SIZE } from '@src/constants/const';
+import { PlaylistTypes } from '@src/enums/PlaylistTypes.enum';
+import { uploadFileToFirebase } from '@src/utils/fileUpload.utils';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -51,21 +50,41 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
   const pageSize = PAGE_SIZE;
-  const query = req.query.query as string || '';
 
   try {
-    const { playlists, total } = await getPlaylistsPage(page, pageSize, undefined, undefined, false, 'title', 'ASC', query);
-    const totalPages = Math.ceil(total / pageSize);
-    const currentPage = Math.max(1, Math.min(page, totalPages));
+    const user = req.session.user;
+    const { playlists: userPlaylist, total: totalPlaylistUser } = await getPlaylistsPage(page, pageSize, user?.role, user?.username, false);
+    const { playlists: systemPlaylist, total: totalPlaylistSystem } = await getPlaylistsPage(page, pageSize, undefined, undefined, true);
+    
+    const totalPagesUser = Math.ceil(totalPlaylistUser / pageSize);
+    const currentPageUser = Math.max(1, Math.min(page, totalPagesUser));
 
-    res.render('playlists/index', {
-      playlists,
+    const totalPagesSystem = Math.ceil(totalPlaylistSystem / pageSize);
+    const currentPageSystem = Math.max(1, Math.min(page, totalPagesSystem));
+
+    if (!userPlaylist.length) {
+      req.flash('error_msg', t('error.noPlaylists'));
+      return res.render('pages/playlists', {
+        playlists: [],
+        title: req.t('playlist.title'),
+        currentPageUser,
+        totalPagesUser,
+        baseUrl: '/user/playlists',
+      });
+    }
+
+    res.render('pages/playlists', {
+      playlists: userPlaylist,
       title: req.t('playlist.title'),
-      currentPage,
-      totalPages,
-      baseUrl: '/admin/playlists',
-      query,
-      noPlaylistsMessage: !playlists.length ? req.t('playlist.noMatchingPlaylists') : null,
+      currentPageUser,
+      totalPagesUser,
+
+      systemPlaylist,
+      titleSystem: req.t('playlist.titleSytem'),
+      currentPageSystem,
+      totalPlaylistSystem,
+      
+      baseUrl: '/user/playlists',
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchPlaylists'));
@@ -75,8 +94,9 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
 
 export const detail = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const playlist = req.playlist as Playlist;
-    const songs = await getAllSongs(req);
+    const user = req.session.user;
+    const playlist = (req as any).playlist;
+    const songs = await getAllSongs(req, user?.role);
     const playlistSongIds = playlist.songs.map((song: Song) => song.id);
 
     const availableSongs = songs.filter(
@@ -84,7 +104,7 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
     );
 
     const firstSong = playlist.songs.length > 0 ? playlist.songs[0] : null;
-    res.render('playlists/detail', {
+    res.render('pages/playlists/detail', {
       playlist,
       title: req.t('playlist.detail'),
       songs: playlist.songs,
@@ -92,6 +112,7 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
       length: playlist.songs.length,
       currentStatus: SongStatus.Deleted,
       firstSong,
+      userType: PlaylistTypes.User,
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchPlaylists'));
@@ -101,11 +122,11 @@ export const detail = asyncHandler(async (req: Request, res: Response) => {
 
 export const addSongPost = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const playlistId = parseInt(req.params.id, 10);
+    const playlist = (req as any).playlist;
     const { songId } = req.body;
 
-    await addSongToPlaylist(req, playlistId, songId);
-    res.redirect(`/admin/playlists/${playlistId}`);
+    await addSongToPlaylist(req, playlist.id, songId);
+    res.redirect(`/user/playlists/${playlist.id}`);
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToAddSongPlaylist'));
     res.status(500).json({ success: false, message: error.message });
@@ -115,10 +136,10 @@ export const addSongPost = asyncHandler(async (req: Request, res: Response) => {
 export const removeSongPost = asyncHandler(
   async (req: Request, res: Response) => {
     try {
-      const playlistId = parseInt(req.params.id, 10);
+      const playlist = (req as any).playlist;
       const { songId } = req.body;
-      await removeSongFromPlaylist(req, playlistId, Number(songId));
-      res.redirect(`/admin/playlists/${playlistId}`);
+      await removeSongFromPlaylist(req, playlist.id, Number(songId));
+      res.redirect(`/user/playlists/${playlist.id}`);
     } catch (error) {
       req.flash('error_msg', req.t('error.failedToRemoveSongPlaylist'));
       res.status(500).json({ success: false, message: error.message });
@@ -128,12 +149,11 @@ export const removeSongPost = asyncHandler(
 
 export const createGet = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const songs = await getAllSongs(req);
-    const playlistTypes = Object.values(PlaylistTypes);
+    const user = req.session.user;
+    const songs = await getAllSongs(req, user?.role);
 
-    res.render('playlists/create', {
+    res.render('pages/playlists/create', {
       songs,
-      playlistTypes,
       title: req.t('playlist.createNewPlaylist'),
     });
   } catch (error) {
@@ -144,6 +164,7 @@ export const createGet = asyncHandler(async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
   try {
+    const user = req.session.user;
     const { title, songIds, type } = req.body;
     const songs = await getSongsByIds(req, songIds);
 
@@ -163,10 +184,10 @@ export const createPost = async (req: Request, res: Response) => {
       avatar: avatarUrl,
       songs,
       type,
-    });
+    }, user?.role, user?.username);
 
-    res.redirect(`/admin/playlists/${playlist.id}`);
-  } catch (error) {
+    res.redirect(`/user/playlists/${playlist.id}`);
+  } catch (error) { 
     req.flash('error_msg', req.t('error.failedToCreatePlaylist'));
     res
       .status(500)
@@ -176,68 +197,11 @@ export const createPost = async (req: Request, res: Response) => {
   }
 };
 
-export const updateGet = asyncHandler(async (req: Request, res: Response) => {
-  try {
-    const playlist = (req as any).playlist;
-    const playlistTypes = Object.values(PlaylistTypes);
-    const songs = await getAllSongs(req);
-
-    res.render('playlists/update', {
-      title: req.t('playlist.updatePlaylist'),
-      playlist,
-      songs,
-      playlistTypes,
-    });
-  } catch (error) {
-    req.flash('error_msg', req.t('error.failedToFetchPlaylists'));
-    res.status(500).send(req.t('error.failedToFetchPlaylists'));
-  }
-});
-
-export const updatePost = async (req: Request, res: Response) => {
-  try {
-    const playlistId = parseInt(req.params.id, 10);
-    const { title, songIds, type } = req.body;
-
-    const currentPlaylist = await getPlaylistById(playlistId, req);
-
-    let avatarUrl = currentPlaylist?.avatar;
-    if (req.file) {
-      avatarUrl = await uploadFileToFirebase(
-        req.file.buffer,
-        req.file.originalname,
-        'playlists',
-        req.file.mimetype
-      );
-    }
-
-    const updatedData: Partial<Playlist> = {
-      title: title || currentPlaylist?.title,
-      avatar: avatarUrl,
-      songs: songIds
-        ? await getSongsByIds(req, songIds)
-        : currentPlaylist?.songs,
-      type: type || currentPlaylist?.type,
-    };
-
-    const updatedPlaylist = await updatePlaylist(req, playlistId, updatedData);
-
-    res.redirect(`/admin/playlists/${updatedPlaylist.id}`);
-  } catch (error) {
-    req.flash('error_msg', req.t('error.failedToUpdatePlaylist'));
-    res
-      .status(500)
-      .send(
-        req.t('error.errorUpdatingPlaylist', { errorMessage: error.message })
-      );
-  }
-};
-
 export const deleteGet = asyncHandler(async (req: Request, res: Response) => {
   try {
     const playlist = (req as any).playlist;
     const songs = await getAllSongs(req);
-    res.render('playlists/delete', {
+    res.render('pages/playlists/delete', {
       title: req.t('playlist.deletePlaylist'),
       playlist,
       songs,
@@ -251,9 +215,9 @@ export const deleteGet = asyncHandler(async (req: Request, res: Response) => {
 
 export const deletePost = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const playlistId = parseInt(req.params.id, 10);
-    await deletePlaylist(req, playlistId);
-    res.redirect('/admin/playlists');
+    const playlist = (req as any).playlist;
+    await deletePlaylist(req, playlist.id);
+    res.redirect('/user/playlists');
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToDeletePlaylist'));
     res

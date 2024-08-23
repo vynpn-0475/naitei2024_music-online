@@ -300,7 +300,11 @@
     "findMore": "Find More",
     "findMoreSongs": "Find More Songs",
     "add": "Add",
-    "noMatchingPlaylists": "No matching playlists found"
+    "noMatchingPlaylists": "No matching playlists found",
+    "titleSystem": "List playlists System",
+    "addToPlaylist": "Add to playlist",
+    "selectPlaylist": "Select Playlist",
+    "noPlaylist": "This song is already on all playlists."
   },
   "playlistUpdate": {
     "title": "Title",

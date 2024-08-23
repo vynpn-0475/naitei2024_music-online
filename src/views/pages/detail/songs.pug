@@ -1,0 +1,69 @@
+extends ../../layout_user
+
+block stylesheets
+  link(rel="stylesheet" href="/styles/custom_detail.css")
+  link(rel="stylesheet" href="/styles/custom_list.css")
+
+block content
+  .container
+    h1 #{song.title}
+    .row
+      .col-md-6
+        .card-songs-detail
+          img.card-img-top(src=song.imageUrl alt="Song Image")
+          .card-body
+            h2.card-title= song.title
+            p.card-text
+              | #{t('content.artist')}
+              b= song.author.fullname
+            p.card-text
+              | #{t('content.genres')}
+              each genre in song.genres
+                a.btn.btn-success(href='#') #{genre.name}
+      .col-md-6
+        .card-songs-detail
+          .card-body
+            button.btn.btn-primary(
+              type="button"
+              data-toggle="modal"
+              data-target="#audioPlayerModal"
+              onclick=`updateAudioPlayer("${song.url}", "${song.imageUrl}", "${song.title}", "${song.author.fullname}", ${-1})`
+            ) #{t('content.play')}
+            button.btn.btn-info.ml-2(
+              type="button"
+              data-toggle="modal"
+              data-target="#addToPlaylistModal"
+            ) #{t('playlist.addToPlaylist')}
+
+      .card-body
+        p.card-text
+          | #{t('content.lyrics')}
+          pre.card-text.lyrics-text-color= song.lyrics
+
+    .modal.fade(id='addToPlaylistModal', tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5.modal-title= t('playlist.selectPlaylist')
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+          .modal-body
+            if countPlaylist < 1
+              h5 #{t('playlist.noPlaylist')}
+            else
+              ul.list-group
+                each playlist in playlists
+                  li.list-group-item.d-flex.justify-content-between.align-items-center
+                    .d-flex.align-items-center
+                      if playlist.avatar
+                        img(src=playlist.avatar, alt=playlist.title, class='rounded-circle author-avatar')
+                      else
+                        .bg-secondary.text-white.rounded-circle.d-flex.align-items-center.justify-content-center.no-avatar
+                          | #{t('playlist.noImage')}
+                      .ml-2
+                        form(action=`/user/playlists/add-song/${playlist.id}`, method='post', class='form-inline')
+                          input(type='hidden', name='songId', value=song.id)
+                          button.btn.btn-add(type='submit') #{t('playlist.add')}
+                        a(href=`#`, class='text-decoration-none')
+                          h5.mb-1= playlist.title
+                        small #{t('playlist.type')} #{playlist.type} | #{t('playlist.createdAt')} #{new Date(playlist.createdAt).toDateString()}

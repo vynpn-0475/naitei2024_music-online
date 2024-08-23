@@ -1,0 +1,21 @@
+extends ../../layout_user
+
+block stylesheets
+  link(rel="stylesheet", href="/styles/custom_detail.css")
+
+block content
+  .container
+    div.container
+      h1.my-4 #{t('genres.titleDetailGenre')}: #{genre.name}
+      h4.my-4 #{t('genres.songCount')}: #{countSong}
+      .mt-4
+        h3 #{t('genres.songs')}
+        if songs && songs.length > 0
+          ul.list-group
+            each song in songs
+              li.list-group-item
+                a(href=`/user/detail/musics/${song.id}`) #{song.title} - #{song.artist}
+                br
+                small #{song.updatedAt.toDateString()}
+        else
+          p #{t('genres.noSongs')}

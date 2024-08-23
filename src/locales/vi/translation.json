@@ -301,7 +301,11 @@
     "findMore": "Tìm thêm",
     "findMoreSongs": "Tìm thêm bài hát",
     "add": "Thêm",
-    "noMatchingPlaylists": "Không tìm thấy playlist phù hợp"
+    "noMatchingPlaylists": "Không tìm thấy playlist phù hợp",
+    "titleSystem": "Danh sách playlists của hệ thống",
+    "addToPlaylist": "Thêm vào playlist",
+    "selectPlaylist": "Chọn playlist",
+    "noPlaylist": "Bài hát này đã tồn tại trong tất cả các playlist. "
   },
   "playlistUpdate": {
     "title": "Tiêu Đề",

@@ -1,4 +1,4 @@
-extends ../layout_admin
+extends ../../layout_user
 
 block stylesheets
   link(rel="stylesheet", href="/styles/custom_create.css")
@@ -6,7 +6,7 @@ block stylesheets
 block content
   .container
     h1= t('playlist.createTitle')
-    form(action='/admin/playlists/create', method='post', enctype='multipart/form-data')
+    form(action='/user/playlists/create', method='post', enctype='multipart/form-data')
       div.form-group
         label(for='title')= t('playlist.title_name')
         input.form-control(id='title', type='text', name='title', required)

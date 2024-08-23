@@ -17,7 +17,7 @@ block content
         if index < 6
           li.item(role="button") 
             img.avatar.circle(src=author.avatar, alt=author.fullname)
-            a.full_name(href=`#`) #{author.fullname}
+            a.full_name(href=`/user/detail/authors/${author.id}`) #{author.fullname}
             p.artist #{t('guess_page.artist')}
   .albums.px-4
     .d-flex.justify-content-between.mt-4
@@ -39,5 +39,5 @@ block content
         if index < 6
           li.item(role="button") 
             img.avatar.square(src=song.imageUrl, alt=song.title)
-            a.full_name(href="#") #{song.title}
-            p.artist #{song.artist}
+            a.full_name(href=`/user/detail/musics/${song.id}`) #{song.title}
+            p.artist #{song.author.fullname}

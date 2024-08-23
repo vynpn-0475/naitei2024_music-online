@@ -1,0 +1,23 @@
+footer.audio-player
+  .player-container
+    .song-info
+      img#song-image.rounded-circle(src="", alt="Song Image")
+      .song-details
+        h5#song-title
+        small#song-artist
+    .controls
+      button#prev-btn(type="button")
+        i.fas.fa-backward
+      button#play-pause-btn(type="button")
+        i.fas.fa-play
+      button#next-btn(type="button")
+        i.fas.fa-forward
+      .time
+        span#current-time 00:00
+        span#duration / 00:00
+      input#progress(type="range", min="0", value="0")
+      .volume-container
+        i.fas.fa-volume-up
+        input#volume(type="range", min="0", max="1", step="0.01", value="1")
+  audio#main-audio-player
+    | #{t('audio.noSupport')}

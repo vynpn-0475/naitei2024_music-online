@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { UserController } from '@src/controllers/user/user.controller';
-import authorRoutes from './Author.route';
+import detailRoutes from './Detail.route';
+import playlistRoutes from './Playlist.route';
+import search from './Search.route';
 
 import {
   showSectionAlbum,
@@ -12,7 +14,9 @@ import { sessionMiddleware } from '@src/middleware/sessionMiddleware';
 const router = Router();
 router.use(sessionMiddleware);
 
-router.use('/authors', authorRoutes);
+router.use('/detail', detailRoutes);
+router.use('/playlists', playlistRoutes);
+router.use('/search', search);
 
 router.get('/', UserController.getHomeUser);
 

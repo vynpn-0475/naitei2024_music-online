@@ -8,11 +8,14 @@ html(lang="en")
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     link(rel="stylesheet", href="/stylesheets/all.min.css")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    link(rel="stylesheet" href="/styles/custom_footer.css")
     link(rel="stylesheet", href="/styles/custom_homepage.css")
+    link(rel="stylesheet" href="/styles/style.css")
     block stylesheets
     script(src="/scripts/jquery.min.js")
     script(src="/scripts/popper.min.js")
     script(src="/scripts/bootstrap.min.js")
+    script(src="/js/layout_admin.js")
     script(src="/js/modal.js")
   body
     nav.navbar.navbar-dark
@@ -29,12 +32,12 @@ html(lang="en")
       .sidebar
         ul.nav.flex-column
           li.nav-item.active
-            a.nav-link(href="#")
+            a.nav-link(href="/user")
               i.fas.fa-home
               = t('sidebar.home')
               span.sr-only (current)
           li.nav-item
-            a.nav-link(href="#")
+            a.nav-link(href="/user/search")
               i.fas.fa-search
               = t('sidebar.search')
           li.nav-item
@@ -44,7 +47,7 @@ html(lang="en")
           li.nav-item.divider
             hr
           li.nav-item
-            a.nav-link(href="#")
+            a.nav-link(href="/user/playlists")
               i.fas.fa-plus
               = t('sidebar.create_playlist')
           li.nav-item
@@ -68,3 +71,4 @@ html(lang="en")
                 li
                   a(href="/logout") #{t('action.logout')}
                   i.fas.fa-sign-out-alt.ml-3
+    include footer.pug
