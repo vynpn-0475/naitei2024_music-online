@@ -7,9 +7,11 @@ import { UserRoles, UserStatus } from '@src/enums/UserRoles.enum';
 import { User } from '@src/entities/User.entity';
 import { getAuthors } from '@src/services/Author.service';
 import { getAlbums } from '@src/services/Album.service';
-import { getAllSongs } from '@src/services/Song.service';
+import { getAllSongs, getSongsByPlaylistId } from '@src/services/Song.service';
 import { sendEmailNormal } from '@src/config/mailer';
 import { transOTPEmail } from '@src/constants/contentMail';
+import { PlaylistTitle } from '@src/enums/PlaylistTypes.enum';
+import { getPlaylistByUserIdAndTitle } from '@src/services/Playlist.service';
 
 export class UserController {
   private static generateOTP(): string {
@@ -116,17 +118,35 @@ export class UserController {
   };
 
   public static getHomeUser = async (req: Request, res: Response) => {
-    const user = req.session.user;
+    const user = res.locals.user;
     if (user) {
       const authors = await getAuthors();
       const albums = await getAlbums();
       const songs = await getAllSongs(req, user?.role);
+
+      const likedSongPlaylist = await getPlaylistByUserIdAndTitle(
+        user.id,
+        t(`likedSong.${PlaylistTitle.LikedSong}`)
+      );
+      if (!likedSongPlaylist) {
+        const songsByLikedSong = {};
+        return res.render('pages/home', {
+          authors,
+          albums,
+          songs,
+          title: t('title'),
+          user: user,
+          songsByLikedSong: songsByLikedSong,
+        });
+      }
+      const songsByLikedSong = await getSongsByPlaylistId(likedSongPlaylist.id);
       return res.render('pages/home', {
         authors,
         albums,
         songs,
         title: t('title'),
         user: user,
+        songsByLikedSong,
       });
     } else {
       res.redirect('/login');
@@ -219,7 +239,6 @@ export class UserController {
       }
       return res.status(200).json({ isValid: true });
     } catch (error) {
-      console.log('Error: ', error);
       return res.status(500).json({ message: t('error.system') });
     }
   };
@@ -247,7 +266,6 @@ export class UserController {
       res.redirect(`/user/account/change-password/OTP/${id}`);
     } catch (error) {
       req.flash('error_msg', t('error.system'));
-      console.log('Error: ', error);
       res.redirect('/login');
     }
   };
@@ -275,7 +293,6 @@ export class UserController {
       res.render('user.account/inputOTP', { user });
     } catch (error) {
       req.flash('error_msg', t('error.system'));
-      console.log('Error: ', error);
       res.redirect('/login');
     }
   };
@@ -316,3 +333,60 @@ export class UserController {
     }
   };
 }
+
+export const showSectionArtist = async (req: Request, res: Response) => {
+  const user = res.locals.user;
+  try {
+    const authors = await getAuthors();
+    res.render('user.role/section/popularArtist', {
+      authors,
+      title: t('title'),
+      user,
+    });
+  } catch (error) {
+    res.redirect('/login');
+  }
+};
+
+export const showSectionAlbum = async (req: Request, res: Response) => {
+  const user = res.locals.user;
+  try {
+    const albums = await getAlbums();
+    res.render('user.role/section/popularAlbum', {
+      albums,
+      title: t('title'),
+      user,
+    });
+  } catch (error) {
+    res.redirect('/login');
+  }
+};
+
+export const showSectionSong = async (req: Request, res: Response) => {
+  const user = res.locals.user;
+  try {
+    const songs = await getAllSongs(req, user?.role);
+    const likedSongPlaylist = await getPlaylistByUserIdAndTitle(
+      user.id,
+      t(`likedSong.${PlaylistTitle.LikedSong}`)
+    );
+    if (!likedSongPlaylist) {
+      const songsByLikedSong = {};
+      return res.render('user.role/section/songNews', {
+        songs,
+        title: t('title'),
+        user,
+        songsByLikedSong,
+      });
+    }
+    const songsByLikedSong = await getSongsByPlaylistId(likedSongPlaylist.id);
+    res.render('user.role/section/songNews', {
+      songs,
+      title: t('title'),
+      user,
+      songsByLikedSong,
+    });
+  } catch (error) {
+    res.redirect('/login');
+  }
+};

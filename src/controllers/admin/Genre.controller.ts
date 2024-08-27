@@ -46,13 +46,18 @@ export async function validateAndFetchGenre(
 }
 
 export const list = asyncHandler(async (req: Request, res: Response) => {
-  const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
   const pageSize = PAGE_SIZE;
-  const query = req.query.query as string || '';
+  const query = (req.query.query as string) || '';
 
   try {
-    const { genres, total } = await getGenresPage(page, pageSize, 'name', 'ASC', query);
+    const { genres, total } = await getGenresPage(
+      page,
+      pageSize,
+      'name',
+      'ASC',
+      query
+    );
     const totalPages = Math.ceil(total / pageSize);
     const currentPage = Math.max(1, Math.min(page, totalPages));
 

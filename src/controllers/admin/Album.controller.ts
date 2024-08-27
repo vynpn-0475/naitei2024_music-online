@@ -73,20 +73,21 @@ export class AlbumController {
   public static getList = async (req: Request, res: Response) => {
     const page = parseInt(req.query.page as string, 10) || 1;
     const pageSize = PAGE_SIZE;
-    const query = req.query.query as string || '';
-  
+    const query = (req.query.query as string) || '';
+
     try {
       const { albums, total } = await getAlbumPage(page, pageSize, query);
       const totalPages = Math.ceil(total / pageSize);
       const currentPage = Math.max(1, Math.min(page, totalPages));
-  
+
       return res.render('albums/list', {
         albums,
         query,
         currentPage,
         totalPages,
         baseUrl: '/admin/albums',
-        noAlbumsMessage: !albums.length && query ? req.t('albums.noMatchingAlbums') : null,
+        noAlbumsMessage:
+          !albums.length && query ? req.t('albums.noMatchingAlbums') : null,
       });
     } catch (error) {
       req.flash('error_msg', req.t('error.system'));

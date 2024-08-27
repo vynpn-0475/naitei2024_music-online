@@ -43,10 +43,16 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
   const t = req.t;
   const page = parseInt(req.query.page as string, 10) || 1;
   const pageSize = PAGE_SIZE_SONG;
-  const query = req.query.query as string || '';
+  const query = (req.query.query as string) || '';
 
   try {
-    const { songs, total } = await getSongsPage(page, pageSize, 'title', 'ASC', query);
+    const { songs, total } = await getSongsPage(
+      page,
+      pageSize,
+      'title',
+      'ASC',
+      query
+    );
     const totalPages = Math.ceil(total / pageSize);
     const currentPage = Math.max(1, Math.min(page, totalPages));
 
@@ -58,7 +64,9 @@ export const list = asyncHandler(async (req: Request, res: Response) => {
       currentStatus: SongStatus.Deleted,
       baseUrl: '/admin/musics',
       query,
-      noSongsMessage: !songs.length ? req.t('songs.list.noMatchingSongs') : null,
+      noSongsMessage: !songs.length
+        ? req.t('songs.list.noMatchingSongs')
+        : null,
     });
   } catch (error) {
     req.flash('error_msg', req.t('error.failedToFetchSongs'));

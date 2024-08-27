@@ -1,7 +1,5 @@
 import { Genre } from '@src/entities/Genre.entity';
-import {
-  getGenreById,
-} from '@src/services/Genre.service';
+import { getGenreById } from '@src/services/Genre.service';
 import {
   countSongsByGenreId,
   getSongsByGenreId,
@@ -40,25 +38,27 @@ export async function validateAndFetchGenre(
   }
 }
 
-export const genreDetail = asyncHandler(async (req: GenreRequest, res: Response) => {
-  try {
-    const genre = (req as any).genre;
-    if (!genre) {
-      req.flash('error_msg', req.t('error.genreNotFound'));
-      return res.redirect('/error');
+export const genreDetail = asyncHandler(
+  async (req: GenreRequest, res: Response) => {
+    try {
+      const genre = (req as any).genre;
+      if (!genre) {
+        req.flash('error_msg', req.t('error.genreNotFound'));
+        return res.redirect('/error');
+      }
+
+      const songs = await getSongsByGenreId(req, genre.id);
+      const countSong = await countSongsByGenreId(req, genre.id);
+
+      res.render('pages/detail/genres', {
+        genre,
+        songs,
+        countSong,
+        title: req.t('genres.titleDetailGenre'),
+      });
+    } catch (error) {
+      req.flash('error_msg', req.t('error.failedToFetchGenres'));
+      res.redirect('/error');
     }
-
-    const songs = await getSongsByGenreId(req, genre.id);
-    const countSong = await countSongsByGenreId(req, genre.id);
-
-    res.render('pages/detail/genres', {
-      genre,
-      songs,
-      countSong,
-      title: req.t('genres.titleDetailGenre'),
-    });
-  } catch (error) {
-    req.flash('error_msg', req.t('error.failedToFetchGenres'));
-    res.redirect('/error');
   }
-});
+);

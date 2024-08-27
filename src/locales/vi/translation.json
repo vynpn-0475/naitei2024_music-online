@@ -136,13 +136,16 @@
     "noAvailableSongs": "Không có bài hát nào có sẵn.",
     "noSongs": "Không Có Bài Hát Nào",
     "OTPIncorrect": "Mã OTP không chính xác.",
-    "unauthorized": "Bạn không có quyền truy cập tài nguyên này."
+    "unauthorized": "Bạn không có quyền truy cập tài nguyên này.",
+    "errorFetchingLikedSong": "Lỗi tìm nạp bài hát đã thích"
   },
   "success": {
     "createSuccess": "Tạo Thành Công",
     "updateSuccess": "Cập Nhật Thành Công",
     "deleteSuccess": "Xóa Thành Công",
-    "passwordChangedSuccessfully": "Mật khẩu đã được thay đổi thành công"
+    "passwordChangedSuccessfully": "Mật khẩu đã được thay đổi thành công",
+    "addSongLikedSong": "Thêm bài hát vào bài hát đã thích thành công",
+    "removeSongLikedSong": "Xóa bài hát khỏi bài hát đã thích thành công"
   },
   "warning": {
     "authorHasSongs": "Tác giả không thể bị xóa vì có bài hát thuộc về họ."
@@ -368,5 +371,10 @@
   },
   "albums": {
     "noMatchingAlbums": "Không tìm thấy album phù hợp"
+  },
+  "likedSong": {
+    "title": "Bài hát đã thích",
+    "description": "Bài hát bạn đã thích sẽ xuất hiện ở đây",
+    "instruction": "Lưu bài hát bằng cách nhấn vào biểu tượng trái tim."
   }
 }

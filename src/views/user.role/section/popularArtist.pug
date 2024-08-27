@@ -1,8 +1,8 @@
-extends ../../layout
+extends ../../layout_user
 
 block content
   .combo_back.px-4
-    a.btn.btn_back.d-cursor-pointer.mr-2(href="/") 
+    a.btn.btn_back.d-cursor-pointer.mr-2(href="/user") 
       i.fas.fa-chevron-left.d-cursor-pointer
     a.btn.btn_back.d-cursor-not-allowed
       i.fas.fa-chevron-right.d-cursor-not-allowed
@@ -13,8 +13,5 @@ block content
       each author in authors
         li.item(role="button")
           img.avatar.circle(src=author.avatar, alt=author.fullname)
-          a.full_name(data-url=`/authors/${author.id}`) #{author.fullname}
+          a.full_name(href=`/user/detail/authors/${author.id}`) #{author.fullname}
           p.artist #{t('guess_page.artist')}
-
-  block scripts
-    script(src="/js/guess.js")

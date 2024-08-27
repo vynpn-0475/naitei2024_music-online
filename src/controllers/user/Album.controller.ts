@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import { t } from 'i18next';
-import {
-  getAlbumById,
-} from '@src/services/Album.service';
+import { getAlbumById } from '@src/services/Album.service';
 import { getSongCountByAlbumId } from '@src/services/Song.service';
 
 export class AlbumController {
@@ -17,6 +15,7 @@ export class AlbumController {
       const songs = album.songs;
       const author = album.author;
       const countSong = await getSongCountByAlbumId(parseInt(id));
+      const firstSong = album.songs.length > 0 ? album.songs[0] : null;
       if (countSong === 0) {
         req.flash('error_msg', t('error.songNotFound'));
         return res.render('pages/detail/albums', {
@@ -24,6 +23,7 @@ export class AlbumController {
           songs,
           author,
           countSong,
+          firstSong,
         });
       }
       return res.render('pages/detail/albums', {
@@ -31,6 +31,7 @@ export class AlbumController {
         songs,
         author,
         countSong,
+        firstSong,
       });
     } catch (error) {
       req.flash('error_msg', t('error.system'));
