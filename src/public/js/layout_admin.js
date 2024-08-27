@@ -257,9 +257,9 @@ $(document).ready(function () {
       loadNewPage(e.originalEvent.state.path);
     }
   });
-  
+
   function setButtonState(activeButton) {
-    buttons.each(function() {
+    buttons.each(function () {
       if ($(this).is(activeButton)) {
         $(this).addClass('btn-primary');
       } else {
@@ -268,7 +268,7 @@ $(document).ready(function () {
     });
   }
 
-  buttons.on('click', function() {
+  buttons.on('click', function () {
     const type = $(this).data('type');
     form.attr('action', `/admin/search/${type}`);
     form.submit();

@@ -29,8 +29,7 @@ block content
               .ml-2
                 a(href=`/admin/playlists/${playlist.id}`, class='text-decoration-none')
                   h5.mb-1= playlist.title
-                small #{t('playlist.type')}: #{playlist.type} | #{t('playlist.createdAt')}: #{new Date(playlist.createdAt).toDateString()}
-
+                small #{t('playlist.type')} #{playlist.type} | #{t('playlist.createdAt')} #{new Date(playlist.createdAt).toDateString()}
     .mt-4
       a.btn.btn-success(href='/admin/playlists/create')= t('playlist.createNewPlaylist')
 

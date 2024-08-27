@@ -1,9 +1,7 @@
 import { Playlist } from '@src/entities/Playlist.entity';
 import { Request, Response, NextFunction } from 'express';
 import asyncHandler from 'express-async-handler';
-import {
-  getPlaylistById,
-} from '@src/services/Playlist.service';
+import { getPlaylistById } from '@src/services/Playlist.service';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -35,11 +33,10 @@ export const validateAndFetchPlaylist = async (
   }
 };
 
-export const detail = asyncHandler(async (req: Request, res: Response) => {
+export const detail = asyncHandler((req: Request, res: Response) => {
   const user = req.session.user;
   if (!user) {
     req.flash('error_msg', req.t('error.unauthorized'));
     return res.redirect('/login');
   }
 });
-

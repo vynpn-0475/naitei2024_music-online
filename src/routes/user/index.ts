@@ -8,8 +8,13 @@ import {
   showSectionAlbum,
   showSectionArtist,
   showSectionSong,
-} from '@src/controllers/guess/index.controller';
+} from '@src/controllers/user/user.controller';
 import { sessionMiddleware } from '@src/middleware/sessionMiddleware';
+import {
+  addSongToLikedSong,
+  deleteSongFromLikedSong,
+  getLikedSong,
+} from '@src/controllers/user/Song.user.controller';
 
 const router = Router();
 router.use(sessionMiddleware);
@@ -37,5 +42,9 @@ router.post('/account/change-password/:id', UserController.postChangePassword);
 router.get('/section/artists', showSectionArtist);
 router.get('/section/albums', showSectionAlbum);
 router.get('/section/songs', showSectionSong);
+
+router.delete('/liked-songs', deleteSongFromLikedSong);
+router.post('/liked-songs', addSongToLikedSong);
+router.get('/liked-song', getLikedSong);
 
 export default router;

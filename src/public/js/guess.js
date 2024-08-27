@@ -20,10 +20,10 @@ $(document).ready(function () {
     setButtonState($(this));
   });
 
-  $(document).on('click', '[data-url]', function(event) {
+  $(document).on('click', '[data-url]', function (event) {
     event.preventDefault();
     const url = $(this).data('url');
-    
+
     const isAuthenticated = false;
 
     if (isAuthenticated) {

@@ -75,9 +75,14 @@ export const deleteAlbum = async (id: number) => {
   }
 };
 
-export const getAlbumPage = async (page: number, pageSize: number, query: string = '') => {
+export const getAlbumPage = async (
+  page: number,
+  pageSize: number,
+  query: string = ''
+) => {
   const skip = (page - 1) * pageSize;
-  const qb = albumRepository.createQueryBuilder('album')
+  const qb = albumRepository
+    .createQueryBuilder('album')
     .leftJoinAndSelect('album.author', 'author')
     .orderBy('album.releaseDate', 'DESC')
     .skip(skip)
@@ -137,7 +142,6 @@ export const removeSongFromAlbum = async (
   album.songs = album.songs.filter((s) => s.id !== songId);
   await album.save();
 };
-
 
 export const searchAlbums = async (query: string) => {
   return await albumRepository

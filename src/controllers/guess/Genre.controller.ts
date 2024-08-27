@@ -1,7 +1,5 @@
 import { Genre } from '@src/entities/Genre.entity';
-import {
-  getGenreById,
-} from '@src/services/Genre.service';
+import { getGenreById } from '@src/services/Genre.service';
 import { NextFunction, Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { TFunction } from 'i18next';
@@ -38,7 +36,7 @@ export async function validateAndFetchGenre(
 
 export const genreDetail = asyncHandler((req: GenreRequest, res: Response) => {
   const user = req.session.user;
-  
+
   if (!user) {
     req.flash('error_msg', req.t('error.unauthorized'));
     return res.redirect('/login');

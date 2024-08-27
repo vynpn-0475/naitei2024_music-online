@@ -6,12 +6,11 @@ block content
       i.fas.fa-chevron-left.d-cursor-not-allowed
     a.btn.btn_back.d-cursor-not-allowed
       i.fas.fa-chevron-right.d-cursor-not-allowed
-  if error_msg.length
-    #errorAlert.alert.alert-danger #{error_msg}
+  
   .artists.px-4
     .d-flex.justify-content-between.mt-4
       a(href="/section/artists").title #{t('guess_page.popularArtist')}
-      a.text-light(href="/section/artists")  #{t('guess_page.showAll')}
+      a.text-light(href="/user/section/artists")  #{t('guess_page.showAll')}
     ul.d-flex.mt-3.single-line
       each author, index in authors
         if index < 6
@@ -21,23 +20,31 @@ block content
             p.artist #{t('guess_page.artist')}
   .albums.px-4
     .d-flex.justify-content-between.mt-4
-      a(href="/section/albums").title #{t('guess_page.popularAlbum')}
-      a.text-light(href="/section/albums")  #{t('guess_page.showAll')}
+      a(href="/user/section/albums").title #{t('guess_page.popularAlbum')}
+      a.text-light(href="/user/section/albums")  #{t('guess_page.showAll')}
     ul.d-flex.mt-3.pl-0
       each album, index in albums
         if index < 6
           li.item(role="button") 
             img.avatar.square(src=album.imageUrl, alt=album.title)
-            a.full_name(href="#") #{album.title}
+            a.full_name(href=`/user/detail/albums/${album.id}`) #{album.title}
             p.artist #{album.author.fullname}
+  #errorAlert.alert.alert-danger.d-none #{error_msg}
+  #successAlert.alert.alert-success.d-none #{success_msg}
   .songs.px-4
     .d-flex.justify-content-between.mt-4
       a.title #{t('guess_page.newSongs')}
-      a.text-light(href="/section/songs")  #{t('guess_page.showAll')}
+      a.text-light(href="/user/section/songs")  #{t('guess_page.showAll')}
     ul.d-flex.mt-3.pl-0
       each song, index in songs   
         if index < 6
+          - const isLiked = Array.isArray(songsByLikedSong) && songsByLikedSong.some(likedSong => likedSong.id === song.id)
           li.item(role="button") 
             img.avatar.square(src=song.imageUrl, alt=song.title)
             a.full_name(href=`/user/detail/musics/${song.id}`) #{song.title}
-            p.artist #{song.author.fullname}
+            .d-flex.justify-content-between.mt-2
+              p.artist #{song.author.fullname}
+              span.like-button(data-liked=isLiked.toString() data-song-id=song.id)
+                i(class=isLiked ? 'fas fa-heart' : 'far fa-heart')
+  block scripts
+    script(src="/js/layout_user.js")
