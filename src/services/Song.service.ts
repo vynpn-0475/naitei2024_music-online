@@ -54,11 +54,18 @@ export const getSongsPage = async (
 
 export const getSongById = async (req: Request, songId: number) => {
   try {
-    return await songRepository.findOne({
+    const song = await songRepository.findOne({
       where: { id: songId },
       relations: ['author', 'album', 'genres'],
     });
+    if (!song) {
+      throw new Error(req.t('error.failedToFetchSongs'));
+    }
+    return song;
   } catch (error) {
+    if (error.message === req.t('error.failedToFetchSongs')) {
+      throw error;
+    }
     throw new Error(req.t('error.failedToFetchSongs'));
   }
 };
@@ -138,6 +145,9 @@ export const updateSong = async (
     await song.save();
     return song;
   } catch (error) {
+    if (error.message === req.t('error.songNotFound')) {
+      throw error;
+    }
     throw new Error(req.t('error.failedToUpdateSong'));
   }
 };
@@ -147,15 +157,22 @@ export const updateSongGenres = async (
   songId: number,
   genres: Genre[]
 ) => {
-  const song = await Song.findOne({
-    where: { id: songId },
-    relations: ['genres'],
-  });
-  if (!song) {
-    throw new Error(req.t('error.songNotFound'));
+  try {
+    const song = await Song.findOne({
+      where: { id: songId },
+      relations: ['genres'],
+    });
+    if (!song) {
+      throw new Error(req.t('error.songNotFound'));
+    }
+    song.genres = genres;
+    await song.save();
+  } catch (error) {
+    if (error.message === req.t('error.songNotFound')) {
+      throw error;
+    }
+    throw new Error(req.t('error.failedToUpdateSongGenres'));
   }
-  song.genres = genres;
-  await song.save();
 };
 
 export const deleteSong = async (
@@ -173,6 +190,9 @@ export const deleteSong = async (
     song.deleteReason = reason;
     await song.save();
   } catch (error) {
+    if (error.message === req.t('error.songNotFound')) {
+      throw error;
+    }
     throw new Error(req.t('error.failedToDeleteSong'));
   }
 };

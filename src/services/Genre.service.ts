@@ -64,7 +64,7 @@ export const createGenre = async (data: Partial<Genre>, t: TFunction) => {
     await genre.save();
     return genre;
   } catch (error) {
-    if(error.message === 'error.genreAlreadyExists' ){
+    if (error.message === 'error.genreAlreadyExists') {
       throw error;
     }
     throw new Error(t('error.failedToCreateGenre'));

@@ -7,14 +7,10 @@ import { mockTFunction } from '../path/mockTFunction';
 describe('GenreService', () => {
   let genreRepository: Repository<Genre>;
 
-
   beforeAll(async () => {
     await AppDataSource.initialize();
     genreRepository = AppDataSource.getRepository(Genre);
-    await genreRepository.insert([
-      { name: 'Rock' },
-      { name: 'Pop' },
-    ]);
+    await genreRepository.insert([{ name: 'Rock' }, { name: 'Pop' }]);
   });
 
   afterAll(async () => {
@@ -60,7 +56,13 @@ describe('GenreService', () => {
     });
 
     it('should return paginated genres matching keyword', async () => {
-      const result = await genreService.getGenresPage(1, 10, 'name', 'ASC', 'Rock');
+      const result = await genreService.getGenresPage(
+        1,
+        10,
+        'name',
+        'ASC',
+        'Rock'
+      );
       expect(result.genres.length).toEqual(1);
       expect(result.genres[0]).toBeInstanceOf(Genre);
       expect(result.genres[0].name).toEqual('Rock');
@@ -93,7 +95,10 @@ describe('GenreService', () => {
       const createOptions = {
         name: 'Jazz',
       };
-      const result = await genreService.createGenre(createOptions, mockTFunction);
+      const result = await genreService.createGenre(
+        createOptions,
+        mockTFunction
+      );
       expect(result).toBeInstanceOf(Genre);
       expect(result.name).toEqual('Jazz');
     });
@@ -111,11 +116,11 @@ describe('GenreService', () => {
       const createOptions = {
         name: 'Blues',
       };
-  
+
       jest.spyOn(genreRepository, 'save').mockImplementationOnce(() => {
         throw new Error('Some database error');
       });
-  
+
       try {
         await genreService.createGenre(createOptions, mockTFunction);
         fail('Expected error to be thrown');
@@ -134,7 +139,11 @@ describe('GenreService', () => {
         const updateOptions = {
           name: 'Jazz & Blues',
         };
-        const result = await genreService.updateGenre(genre.id, updateOptions, mockTFunction);
+        const result = await genreService.updateGenre(
+          genre.id,
+          updateOptions,
+          mockTFunction
+        );
         expect(result).toBeInstanceOf(Genre);
         expect(result.name).toEqual('Jazz & Blues');
       }
@@ -142,7 +151,11 @@ describe('GenreService', () => {
 
     it('should throw an error if genre is not found', async () => {
       try {
-        await genreService.updateGenre(10000, { name: 'New Genre' }, mockTFunction);
+        await genreService.updateGenre(
+          10000,
+          { name: 'New Genre' },
+          mockTFunction
+        );
         fail('Expected error to be thrown');
       } catch (error) {
         expect(error.message).toBe('error.failedToUpdateGenre');

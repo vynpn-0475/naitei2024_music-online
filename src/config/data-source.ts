@@ -4,9 +4,10 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const database = process.env.NODE_ENV === 'test' 
-  ? process.env.DB_TEST_DATABASE
-  : process.env.DB_DATABASE;
+const database =
+  process.env.NODE_ENV === 'test'
+    ? process.env.DB_TEST_DATABASE
+    : process.env.DB_DATABASE;
 
 export const AppDataSource = new DataSource({
   type: 'mysql',

@@ -23,6 +23,16 @@ export const getAuthorsPage = async (
   sortOrder: 'ASC' | 'DESC' = 'ASC',
   query: string = ''
 ) => {
+  if (page < 1) {
+    const [_, total] = await authorRepository.findAndCount({
+      where: {
+        fullname: Like(`%${query}%`),
+      },
+    });
+    return { authors: [], total };
+  }
+  if (pageSize < 1) pageSize = 10;
+
   const [authors, total] = await authorRepository.findAndCount({
     where: {
       fullname: Like(`%${query}%`),
@@ -33,6 +43,7 @@ export const getAuthorsPage = async (
       [sortField]: sortOrder,
     },
   });
+
   return { authors, total };
 };
 
@@ -61,6 +72,10 @@ export const createAuthor = async (
   t: TFunction<'translation', undefined>
 ): Promise<Author> => {
   try {
+    if (!data.fullname) {
+      throw new Error(t('error.requiredFieldsMissing'));
+    }
+
     const existingAuthor = await authorRepository.findOne({
       where: { fullname: data.fullname },
     });
@@ -72,6 +87,12 @@ export const createAuthor = async (
     await authorRepository.save(author);
     return author;
   } catch (error) {
+    if (error.message === t('error.requiredFieldsMissing')) {
+      throw error;
+    }
+    if (error.message === t('error.authorAlreadyExists')) {
+      throw error;
+    }
     throw new Error(t('error.failedToCreateAuthor'));
   }
 };
@@ -85,6 +106,9 @@ export const updateAuthor = async (
     const author = await authorRepository.findOne({ where: { id: authorId } });
     if (!author) {
       throw new Error(t('error.authorNotFound'));
+    }
+    if (!data.fullname || data.fullname.trim() === '') {
+      throw new Error(t('error.requiredFieldsMissing'));
     }
     Object.assign(author, data);
     await author.save();

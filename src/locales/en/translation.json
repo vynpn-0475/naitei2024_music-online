@@ -124,6 +124,7 @@
     "failedToRemoveSongPlaylist": "Failed to remove song from Playlist.",
     "failedToUpdatePlaylist": "Failed to update playlist.",
     "failedToDeletePlaylist": "Failed to delete playlist.",
+    "failedToAddPlaylist": "Failed to add playlist.",
     "playlistAlreadyExists": "A playlist with this title already exists",
     "errorCreatingPlaylist": "Error creating Playlist: {{errorMessage}}",
     "errorUpdatingPlaylist": "Error update Playlist: {{errorMessage}}",
@@ -210,9 +211,6 @@
     "authorUpdated": "Author successfully updated.",
     "authorDeleted": "Author successfully deleted.",
     "authorAlreadyExists": "An author with this name already exists",
-    "failedToCreateAuthor": "Failed to create author.",
-    "failedToUpdateAuthor": "Failed to update author.",
-    "failedToDeleteAuthor": "Failed to delete author.",
     "numOfSongs": "Num of songs: ",
     "noMatchingAuthors": "No matching authors found"
   },

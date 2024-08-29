@@ -124,6 +124,7 @@
     "failedToRemoveSongPlaylist": "Không thể xóa bài hát ra khỏi playlist.",
     "failedToUpdatePlaylist": "Không thể cập nhật bài hát.",
     "failedToDeletePlaylist": "Không thể xóa bài hát.",
+    "failedToAddPlaylist": "Không thể thêm bài hát.",
     "playlistAlreadyExists": "Bài hát với tiêu đề này đã tồn tại",
     "errorCreatingPlaylist": "Lỗi khi tạo danh sách bài hát: {{errorMessage}}",
     "errorUpdatingPlaylist": "Lỗi khi cập nhật danh sách bài hát: {{errorMessage}}",
@@ -210,9 +211,6 @@
     "authorUpdated": "Tác Giả Được Cập Nhật Thành Công.",
     "authorDeleted": "Tác Giả Được Xóa Thành Công.",
     "authorAlreadyExists": "Tác Giả Với Tên Này Đã Tồn Tại",
-    "failedToCreateAuthor": "Không Thể Tạo Tác Giả.",
-    "failedToUpdateAuthor": "Không Thể Cập Nhật Tác Giả.",
-    "failedToDeleteAuthor": "Không Thể Xóa Tác Giả.",
     "numOfSongs": "Số lượng bài hát: ",
     "noMatchingAuthors": "Không tìm thấy nghệ sĩ phù hợp"
   },

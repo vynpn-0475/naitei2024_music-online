@@ -82,11 +82,18 @@ export const getAllPlaylistByUser = async (
 
 export const getPlaylistById = async (playlistId: number, req: Request) => {
   try {
-    return await playlistRepository.findOne({
+    const playlist = await playlistRepository.findOne({
       where: { id: playlistId },
       relations: ['songs', 'songs.author', 'users'],
     });
+    if (!playlist) {
+      throw new Error(req.t('error.playlistNotFound'));
+    }
+    return playlist;
   } catch (error) {
+    if (error.message === req.t('error.playlistNotFound')) {
+      throw error;
+    }
     throw new Error(req.t('error.failedToFetchPlaylists'));
   }
 };
@@ -101,7 +108,8 @@ export const createPlaylist = async (
     data.type =
       role === UserRoles.User ? PlaylistTypes.User : PlaylistTypes.System;
 
-    const playlist = new Playlist(data);
+    const playlist = new Playlist();
+    Object.assign(playlist, data);
 
     await playlist.save();
 
@@ -128,25 +136,35 @@ export const addSongToPlaylist = async (
   playlistId: number,
   songId: number
 ) => {
-  const playlist = await playlistRepository.findOne({
-    where: { id: playlistId },
-    relations: ['songs'],
-  });
-  if (!playlist) {
-    throw new Error(req.t('error.playlistNotFound'));
-  }
+  try {
+    const playlist = await playlistRepository.findOne({
+      where: { id: playlistId },
+      relations: ['songs'],
+    });
+    if (!playlist) {
+      throw new Error(req.t('error.playlistNotFound'));
+    }
 
-  const song = await getSongById(request, songId);
-  if (!song) {
-    throw new Error(req.t('error.songNotFound'));
-  }
+    const song = await getSongById(request, songId);
+    if (!song) {
+      throw new Error(req.t('error.songNotFound'));
+    }
 
-  if (!playlist.songs) {
-    playlist.songs = [];
-  }
+    if (!playlist.songs) {
+      playlist.songs = [];
+    }
 
-  playlist.songs.push(song);
-  await playlist.save();
+    playlist.songs.push(song);
+    await playlist.save();
+  } catch (error) {
+    if (error.message === req.t('error.playlistNotFound')) {
+      throw error;
+    }
+    if (error.message === req.t('error.songNotFound')) {
+      throw error;
+    }
+    throw new Error(req.t('error.failedToAddPlaylist'));
+  }
 };
 
 export const removeSongFromPlaylist = async (
@@ -191,6 +209,9 @@ export const updatePlaylist = async (
     await playlist.save();
     return playlist;
   } catch (error) {
+    if (error.message === req.t('error.playlistNotFound')) {
+      throw error;
+    }
     throw new Error(req.t('error.failedToUpdatePlaylist'));
   }
 };
@@ -205,6 +226,9 @@ export const deletePlaylist = async (req: Request, playlistId: number) => {
     }
     await playlist.remove();
   } catch (error) {
+    if (error.message === req.t('error.playlistNotFound')) {
+      throw error;
+    }
     throw new Error(req.t('error.failedToDeletePlaylist'));
   }
 };

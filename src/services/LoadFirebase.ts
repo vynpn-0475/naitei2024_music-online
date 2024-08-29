@@ -2,7 +2,7 @@ import { bucket } from '../config/firebase.config';
 
 // Define the file data type
 interface FileData {
-  buffer: Buffer;
+  buffer: Buffer | null;
   originalname: string;
   mimetype: string;
 }
